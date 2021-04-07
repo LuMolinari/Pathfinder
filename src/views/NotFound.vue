@@ -1,17 +1,15 @@
 <template>
   <div>
-     <h1>Discover</h1> 
+      404: Page Not Found
   </div>
 </template>
 
 <script>
 export default {
- name:'Discover'
 
 }
 </script>
 
-
-<style>
+<style scoped>
 
 </style>

@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import About from '../views/About.vue'
 import Discover from '../views/Discover.vue'
+import ParkDetails from '../views/ParkDetails.vue'
+import NotFound from '../views/NotFound.vue'
 
 Vue.use(VueRouter)
 
@@ -22,6 +24,18 @@ const routes = [
     name: 'Discover',
     component: Discover
   },
+  {
+    path:'/park/:code',
+    name: 'ParkDetails',
+    component: ParkDetails,
+    props:true
+  },
+  // 404 path
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  }
 ]
 
 const router = new VueRouter({
