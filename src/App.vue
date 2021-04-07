@@ -1,28 +1,31 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Banner />
+    <Home/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Banner from './components/Banner.vue'
+import Home from './components/Home.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Banner,
+    Home
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Pacifico&display=swap');
+
+/* This will be any default styling shared throughought the whole application */
+/*All google fonts imported here are available throughout our application */
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: 'Merriweather', serif;
 }
+
 </style>
