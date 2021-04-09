@@ -1,25 +1,41 @@
 <template>
-  <div v-if="parkInfo != null">
+  <div v-if="parkInfo != null" class="wrapper">
     <img :src="parkInfo.images[0].url" alt="" width="100%" />
     <h1>{{ parkInfo.fullName }}</h1>
 
     <!-- Gathering Contact Info -->
     <div class="contactInfo">
-      <h2>
+      <h2 v-if="parkInfo.addresses[0] != null">
         {{ parkInfo.addresses[0].city }}, {{ parkInfo.addresses[0].stateCode }}
       </h2>
       <hr />
       <h3>Contact Info</h3>
       <p>Phone</p>
-      <p>{{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}</p>
+      <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
+        {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
+      </p>
+      <p v-else>No PHone Number Found</p>
       <p>Email</p>
-      {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
-      <button>Official Site</button>
+      <p v-if="parkInfo.contacts.emailAddresses[0] != null">
+        {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
+      </p>
+      <p v-else>No Email Found</p>
+      <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
+        >Official Site</a
+      >
     </div>
 
     <p class="description">
       {{ parkInfo.description }}
     </p>
+
+    <div v-if="alerts != null" class="alerts">
+      <h2>Park Alerts</h2>
+      <div v-for="alert in alerts" :key="alert.id">
+        <h3>{{ alert.title }}</h3>
+        <p>{{ alert.description }}</p>
+      </div>
+    </div>
 
     <!-- Using a for loop and v:bind to fill in images from the gallery -->
     <h2>Gallery</h2>
@@ -29,8 +45,7 @@
           <h3>{{ image.title }}</h3>
           <img :src="image.url" :alt="image.altText" height="200px" />
           <p>{{ image.caption }}</p>
-         </div>
-
+        </div>
       </div>
     </div>
 
@@ -40,26 +55,33 @@
         {{ activity.name }}
       </div>
     </div>
-    
+
     <!-- Displaying Campsite Name -->
     <h2>Campsites</h2>
     <div v-for="camp in campInfo" :key="camp.id">
-       <button>{{ camp.name }}</button> 
+      <button>{{ camp.name }}</button>
+      <CampgroundTile :campground="camp" />
     </div>
   </div>
 
-  <!-- Display google maps -->
 </template>
 
 <script>
+import CampgroundTile from '../components/campgroundTile.vue'
+
 export default {
+  name: 'ParkInfo',
   data() {
     return {
       parkInfo: null,
       campInfo: null,
+      alerts: null,
     };
   },
-  created() {
+  components: {
+    CampgroundTile,
+  },
+  mounted() {
     //fetch general park info from  nps api
     fetch(
       "https://developer.nps.gov/api/v1/parks?parkCode=" +
@@ -68,8 +90,31 @@ export default {
     )
       .then((res) => res.json())
       //save json into parkInfo
-      .then((data) => (this.parkInfo = data.data[0]))
+      .then((data) => {
+        this.parkInfo = data.data[0];
+        console.log("NPS API: ", data);
+      })
       .catch((error) => console.log("Error calling NPS.gov", error));
+
+    //fetching any alerts for the park
+    console.log(
+      "Fetchiong from",
+      "https://developer.nps.gov/api/v1/alerts?parkCode=" +
+        this.$route.code +
+        "&api_key=EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC"
+    );
+    fetch(
+      "https://developer.nps.gov/api/v1/alerts?parkCode=" +
+        this.$route.params.code +
+        "&api_key=EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Alerts API: ", data);
+        if (data.total != "0") {
+          this.alerts = data.data;
+        }
+      });
 
     //fetch campsite info from nps api
     fetch(
@@ -80,10 +125,10 @@ export default {
       .then((res) => res.json())
       //save json into parkInfo
       .then((campData) => {
-        console.log(campData);
+        console.log("Camping API", campData);
         this.campInfo = campData.data.slice(0, 5);
       })
-      .catch((error) => console.log("Error calling NPS.gov", error));
+      .catch((error) => console.log("Error calling Rec.gov", error));
   },
 };
 </script>
