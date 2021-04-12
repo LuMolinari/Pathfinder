@@ -1,5 +1,7 @@
 <template>
+
   <div v-if="parkInfo != null" class="wrapper">
+       
     <img :src="parkInfo.images[0].url" alt="" width="100%" />
     <h1>{{ parkInfo.fullName }}</h1>
 
@@ -62,6 +64,26 @@
       <button>{{ camp.name }}</button>
       <CampgroundTile :campground="camp" />
     </div>
+
+
+    <!-- Google maps integration -->
+     <GmapMap
+      :center="center"
+      :zoom="9"
+      map-type-id="hybrid"
+      style="width: 500px; height: 300px"
+    >
+      <GmapMarker
+        :key="index"
+        v-for="(m, index) in markers"
+        :position="m.position"
+        :clickable="true"
+        :draggable="true"
+        @click="center=m.position"
+      />
+    </GmapMap>
+
+    
   </div>
 
 </template>
@@ -76,6 +98,10 @@ export default {
       parkInfo: null,
       campInfo: null,
       alerts: null,
+      // If you decide to add any map markers
+      markers: [], 
+      center: { lat: 4.5, lng: 99 },
+
     };
   },
   components: {
@@ -93,6 +119,13 @@ export default {
       .then((data) => {
         this.parkInfo = data.data[0];
         console.log("NPS API: ", data);
+        //saving data used for centering map
+        this.center.lat = parseFloat(data.data[0].latitude)
+        this.center.lng = parseFloat(data.data[0].longitude)
+
+        this.$refs.mapRef.$mapPromise.then((map) => {
+            map.panTo({lat: data.data[0].latitude, lng: data.data[0].longitude})
+         })
       })
       .catch((error) => console.log("Error calling NPS.gov", error));
 
