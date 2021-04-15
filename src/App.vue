@@ -15,12 +15,41 @@
         <h2><router-link to="/discover">Discover</router-link></h2>
       </div>
     </div>
+    <div v-if="backgroundVisible">
+    <img class="backgroundPhoto" src="./assets/Canyonlands.jpg" alt="Canyonlands National Park" height="143px">
+    </div>
     <router-view />
   </div>
 </template>
 
+<script>
+export default {
+  data(){
+    return{
+      backgroundVisible: true
+    }
+  },
+  watch:{
+    '$route'(){
+      if(this.$route.name === 'ParkDetails'){
+        this.backgroundVisible = false;
+      } else {
+        this.backgroundVisible = true;
+      }
+    }
+  }
+}
+</script>
+
+
+
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Pacifico&display=swap');
+
+html{
+  margin: 0 !important;
+}
+
 
 #app {
   font-family: "Merriweather", serif;
@@ -35,13 +64,16 @@
   flex-direction: row;
   align-content: center;
   justify-content: space-between;
-  background: rgb(0, 0, 0, 0.7);
+  background: rgb(0, 0, 0, 0.5);
   color: #ffffff;
+  width: 100%;
+  position:absolute;
 }
 
 #nav a {
   font-weight: bold;
   color: white;
+  margin: 10px;
 }
 
 #nav a.router-link-exact-active {
@@ -74,6 +106,11 @@ h2:hover {
   cursor: pointer;
 }
 
+.backgroundPhoto{
+  width: 100%;
+  object-fit: cover;
+  background-repeat:no-repeat ;
+}
 
 /*Global Tooltip CSS */
 
