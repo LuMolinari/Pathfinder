@@ -11,12 +11,12 @@
         {{ parkInfo.addresses[0].city }}, {{ parkInfo.addresses[0].stateCode }}
       </h2>
       <hr />
-      <h3>Contact Info</h3>
+      <h3> <u>Contact Info</u> </h3>
       <p>Phone</p>
       <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
         {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
       </p>
-      <p v-else>No PHone Number Found</p>
+      <p v-else>No Phone Number Found</p>
       <p>Email</p>
       <p v-if="parkInfo.contacts.emailAddresses[0] != null">
         {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
