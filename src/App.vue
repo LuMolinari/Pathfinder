@@ -16,7 +16,7 @@
       </div>
     </div>
     <!-- <div v-if="backgroundVisible"> -->
-    <img class="backgroundPhoto" src="./assets/Canyonlands.jpg" alt="Canyonlands National Park" height="143px">
+    <img class="backgroundPhoto" src="./assets/Canyonlands.jpg" alt="Canyonlands National Park" height="140px">
     <!-- </div> -->
     <router-view />
   </div>

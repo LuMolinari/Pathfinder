@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import * as GmapVue from 'gmap-vue'
-import VTooltip from 'v-tooltip'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
@@ -13,9 +12,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
-
-
-Vue.use(VTooltip)
 
 // MAke Google Maps Module available throughout module
 Vue.use(GmapVue, {
