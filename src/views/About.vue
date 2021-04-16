@@ -1,123 +1,139 @@
 <template>
-  <!-- main -->
-  <div class="about">
-    <!-- radio button wrapper -->
-    <div class="radio-buttons">
-      <!-- radio button -->
-      <input
-        v-model="picked"
-        value="meet"
-        type="radio"
-        id="meetRadio"
-        checked
-      />
-      <label id="labelForMeetTheTeam" for="meetRadio">Meet The Team</label>
+  <!-- view area -->
+  <div class="route-view">
+    <!-- main section-->
+    <div class="about">
+      <!-- radio button wrapper -->
+      <div class="radio-buttons">
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="meet"
+          type="radio"
+          id="meetRadio"
+          checked
+        />
+        <label id="labelForMeetTheTeam" for="meetRadio">Meet The Team</label>
 
-      <!-- radio button -->
-      <input v-model="picked" value="mission" type="radio" id="missionRadio" />
-      <label id="labelForMission" for="missionRadio">Mission</label>
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="mission"
+          type="radio"
+          id="missionRadio"
+        />
+        <label id="labelForMission" for="missionRadio">Mission</label>
 
-      <!-- radio button -->
-      <input v-model="picked" value="purpose" type="radio" id="purposeRadio" />
-      <label id="labelForPurpose" for="purposeRadio">Purpose</label>
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="purpose"
+          type="radio"
+          id="purposeRadio"
+        />
+        <label id="labelForPurpose" for="purposeRadio">Purpose</label>
 
-      <!-- radio button -->
-      <input
-        v-model="picked"
-        value="sustainability"
-        type="radio"
-        id="sustainabilityRadio"
-      />
-      <label id="labelForSustainability" for="sustainabilityRadio">
-        Sustainability
-      </label>
-    </div>
-    <!-- // radio button wrapper -->
-
-    <!-- slide content wrapper -->
-    <div class="slide-content-area">
-      <!-- each content div below depends on value of 'picked' -->
-      <div v-if="picked === 'meet'" class="slide-content meet-slide">
-        <!-- dark overlay for the background of the slide -->
-        <div class="overlay">
-          <h2>Meet the Team</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam
-            nam iusto sed nisi placeat culpa minus nihil tempore quibusdam!
-            Totam beatae maxime corrupti odio aspernatur consectetur fugit
-            mollitia adipisci? Vitae id non voluptatum nam aut? Repellat,
-            architecto illum. Corporis ea, voluptatum cum repellat quod,
-            officiis officia voluptates nihil maiores, magni ratione molestias
-            culpa magnam? Aperiam, sunt! Voluptatibus, error vel. Cum facere vel
-            eaque fuga, assumenda totam nisi tenetur eos sapiente, rem aperiam.
-            Nisi accusamus quis facere vitae. Tenetur aspernatur consequuntur
-            autem quod blanditiis fugiat, amet quae pariatur provident velit?
-          </p>
-        </div>
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="sustainability"
+          type="radio"
+          id="sustainabilityRadio"
+        />
+        <label id="labelForSustainability" for="sustainabilityRadio">
+          Sustainability
+        </label>
       </div>
+      <!-- // radio button wrapper -->
 
-      <!-- content div -->
-      <div v-if="picked === 'mission'" class="slide-content mission-slide">
-        <div class="overlay">
-          <h2>Our Mission</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam
-            nam iusto sed nisi placeat culpa minus nihil tempore quibusdam!
-            Totam beatae maxime corrupti odio aspernatur consectetur fugit
-            mollitia adipisci? Vitae id non voluptatum nam aut? Repellat,
-            architecto illum. Corporis ea, voluptatum cum repellat quod,
-            officiis officia voluptates nihil maiores, magni ratione molestias
-            culpa magnam? Aperiam, sunt! Voluptatibus, error vel. Cum facere vel
-            eaque fuga, assumenda totam nisi tenetur eos sapiente, rem aperiam.
-            Nisi accusamus quis facere vitae. Tenetur aspernatur consequuntur
-            autem quod blanditiis fugiat, amet quae pariatur provident velit?
-          </p>
+      <!-- slide content wrapper -->
+      <div class="slide-content-area">
+        <!-- each content div below depends on value of 'picked' -->
+        <div v-if="picked === 'meet'" class="slide-content meet-slide">
+          <!-- dark overlay for the background of the slide -->
+          <div class="overlay">
+            <h2>Meet the Team</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- content div -->
-      <div v-if="picked === 'purpose'" class="slide-content purpose-slide">
-        <div class="overlay">
-          <h2>Purpose</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam
-            nam iusto sed nisi placeat culpa minus nihil tempore quibusdam!
-            Totam beatae maxime corrupti odio aspernatur consectetur fugit
-            mollitia adipisci? Vitae id non voluptatum nam aut? Repellat,
-            architecto illum. Corporis ea, voluptatum cum repellat quod,
-            officiis officia voluptates nihil maiores, magni ratione molestias
-            culpa magnam? Aperiam, sunt! Voluptatibus, error vel. Cum facere vel
-            eaque fuga, assumenda totam nisi tenetur eos sapiente, rem aperiam.
-            Nisi accusamus quis facere vitae. Tenetur aspernatur consequuntur
-            autem quod blanditiis fugiat, amet quae pariatur provident velit?
-          </p>
+        <!-- content div -->
+        <div v-if="picked === 'mission'" class="slide-content mission-slide">
+          <div class="overlay">
+            <h2>Our Mission</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- content div -->
-      <div
-        v-if="picked === 'sustainability'"
-        class="slide-content sustainability-slide"
-      >
-        <div class="overlay">
-          <h2>Sustainability</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam
-            nam iusto sed nisi placeat culpa minus nihil tempore quibusdam!
-            Totam beatae maxime corrupti odio aspernatur consectetur fugit
-            mollitia adipisci? Vitae id non voluptatum nam aut? Repellat,
-            architecto illum. Corporis ea, voluptatum cum repellat quod,
-            officiis officia voluptates nihil maiores, magni ratione molestias
-            culpa magnam? Aperiam, sunt! Voluptatibus, error vel. Cum facere vel
-            eaque fuga, assumenda totam nisi tenetur eos sapiente, rem aperiam.
-            Nisi accusamus quis facere vitae. Tenetur aspernatur consequuntur
-            autem quod blanditiis fugiat, amet quae pariatur provident velit?
-          </p>
+        <!-- content div -->
+        <div v-if="picked === 'purpose'" class="slide-content purpose-slide">
+          <div class="overlay">
+            <h2>Purpose</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p>
+          </div>
         </div>
-      </div>
 
-      <!-- Changed this slide to sustainability for links to park sustainability links/info -->
-      <!-- <h2>National Park Service History</h2>
+        <!-- content div -->
+        <div
+          v-if="picked === 'sustainability'"
+          class="slide-content sustainability-slide"
+        >
+          <div class="overlay">
+            <h2>Sustainability</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p>
+          </div>
+        </div>
+
+        <!-- Changed this slide to sustainability for links to park sustainability links/info -->
+        <!-- <h2>National Park Service History</h2>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam nam
           iusto sed nisi placeat culpa minus nihil tempore quibusdam! Totam beatae
@@ -130,6 +146,7 @@
           Tenetur aspernatur consequuntur autem quod blanditiis fugiat, amet quae
           pariatur provident velit?
         </p> -->
+      </div>
     </div>
   </div>
 </template>
@@ -157,17 +174,27 @@ export default {
   box-sizing: border-box;
 }
 
+/* main view container */
+.route-view {
+  width: 100%;
+  height: 100vh;
+  /* add a dim white to background */
+  background-color: #f0f0f0;
+  /* fixed to remove the scroll bar */
+  position: fixed;
+}
+
 /* main styles */
 .about {
   font-family: "Titillium Web", Arial, sans-serif;
   width: 70%;
   height: 70vh;
   color: white;
-  margin: 15px auto;
-  /* radius */
-  /* border-radius: 0 0 15px 15px; */
-  /* shadow */
-  /* box-shadow: 10px 10px rgba(0, 0, 0, 0.15); */
+  margin: 2% auto;
+  /* width at which view changes from desktop to tablet or mobile */
+  min-width: 600px;
+  /* prevents stretching content too far */
+  max-width: 1000px;
 }
 
 /* button styling */
@@ -247,7 +274,7 @@ p {
   height: 100%;
   width: 100%;
   background-repeat: no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
   background-position: center;
 }
 
