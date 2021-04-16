@@ -20,7 +20,14 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Pacifico&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Pacifico&display=swap");
+
+/* global styles to prevent default browser styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 #app {
   font-family: "Merriweather", serif;
@@ -58,11 +65,10 @@
   align-content: center;
 }
 
-.websiteName{
+.websiteName {
   font-family: "Pacifico", cursive;
   font-size: 2.5em;
   align-self: center;
-
 }
 
 h2 {
