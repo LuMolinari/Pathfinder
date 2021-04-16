@@ -15,9 +15,9 @@
         <h2><router-link to="/discover">Discover</router-link></h2>
       </div>
     </div>
-    <div v-if="backgroundVisible">
+    <!-- <div v-if="backgroundVisible"> -->
     <img class="backgroundPhoto" src="./assets/Canyonlands.jpg" alt="Canyonlands National Park" height="143px">
-    </div>
+    <!-- </div> -->
     <router-view />
   </div>
 </template>
@@ -29,15 +29,15 @@ export default {
       backgroundVisible: true
     }
   },
-  watch:{
-    '$route'(){
-      if(this.$route.name === 'ParkDetails'){
-        this.backgroundVisible = false;
-      } else {
-        this.backgroundVisible = true;
-      }
-    }
-  }
+  // watch:{
+  //   '$route'(){
+  //     if(this.$route.name === 'ParkDetails'){
+  //       this.backgroundVisible = false;
+  //     } else {
+  //       this.backgroundVisible = true;
+  //     }
+  //   }
+  // }
 }
 </script>
 
@@ -77,7 +77,7 @@ html{
 }
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  color: #8ccfb9;
 }
 
 .left {
@@ -218,5 +218,12 @@ h2:hover {
   visibility: visible;
   opacity: 1;
   transition: opacity .15s;
+}
+
+/* general styles */
+
+.horizontal{
+  display: flex;
+  flex-direction: row;
 }
 </style>

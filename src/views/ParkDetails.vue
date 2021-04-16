@@ -1,36 +1,40 @@
 <template>
 
   <div v-if="parkInfo != null" class="wrapper">
-       
-    <img :src="parkInfo.images[0].url" alt="" width="100%" />
+      
+      <!-- Large Park Image and Name -->
+    <img :src="parkInfo.images[0].url" alt="" width="100%" class="parkImg" />
     <h1>{{ parkInfo.fullName }}</h1>
 
-    <!-- Gathering Contact Info -->
-    <div class="contactInfo">
-      <h2 v-if="parkInfo.addresses[0] != null">
-        {{ parkInfo.addresses[0].city }}, {{ parkInfo.addresses[0].stateCode }}
-      </h2>
-      <hr />
-      <h3> <u>Contact Info</u> </h3>
-      <p>Phone</p>
-      <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
-        {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
-      </p>
-      <p v-else>No Phone Number Found</p>
-      <p>Email</p>
-      <p v-if="parkInfo.contacts.emailAddresses[0] != null">
-        {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
-      </p>
-      <p v-else>No Email Found</p>
-      <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
-        >Official Site</a
-      >
+    <div class="horizontal">    
+        <!-- Gathering Contact Info -->
+        <div class="contactInfo">
+              <h2 v-if="parkInfo.addresses[0] != null">
+                {{ parkInfo.addresses[0].city }}, {{ parkInfo.addresses[0].stateCode }}
+              </h2>
+              <hr />
+              <h3> <u>Contact Info</u> </h3>
+              <p>Phone</p>
+              <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
+                {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
+              </p>
+              <p v-else>No Phone Number Found</p>
+              <p>Email</p>
+              <p v-if="parkInfo.contacts.emailAddresses[0] != null">
+                {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
+              </p>
+              <p v-else>No Email Found</p>
+              <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
+                >Official Site</a
+              >
+            </div>
+          <!-- Park Description -->
+            <p class="description">
+              {{ parkInfo.description }}
+            </p>
     </div>
-
-    <p class="description">
-      {{ parkInfo.description }}
-    </p>
-
+    
+    <!-- Any Current Park Alerts -->
     <div v-if="alerts != null" class="alerts">
       <h2>Park Alerts</h2>
       <div v-for="alert in alerts" :key="alert.id">
@@ -51,6 +55,7 @@
       </div>
     </div>
 
+    <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="Activities">
       <div v-for="activity in parkInfo.activities" :key="activity.id">
@@ -58,7 +63,7 @@
       </div>
     </div>
 
-    <!-- Displaying Campsite Name -->
+    <!-- Displaying Campsites Name -->
     <h2>Campsites</h2>
     <div v-for="camp in campInfo" :key="camp.id">
       <button>{{ camp.name }}</button>
@@ -66,13 +71,14 @@
     </div>
 
 
-    <!-- Google maps integration -->
+    <!-- Google maps comnponent -->
      <GmapMap
       :center="center"
       :zoom="9"
       map-type-id="hybrid"
       style="width: 500px; height: 300px"
     >
+    <!-- Placeholder component if we want to add any markers -->
       <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
@@ -122,6 +128,14 @@ export default {
         //saving data used for centering map
         this.center.lat = parseFloat(data.data[0].latitude)
         this.center.lng = parseFloat(data.data[0].longitude)
+        
+
+        //I can use latitude and longitude to call rec.gov API here
+        // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
+
+
+
+
 
         this.$refs.mapRef.$mapPromise.then((map) => {
             map.panTo({lat: data.data[0].latitude, lng: data.data[0].longitude})
@@ -167,4 +181,10 @@ export default {
 </script>
 
 <style scoped>
+
+.parkImg{
+    /* filter: blur(3px); */
+  }
+
+
 </style>
