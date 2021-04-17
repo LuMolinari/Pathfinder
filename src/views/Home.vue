@@ -1,11 +1,19 @@
 <template>
   <div>
     <h2>Where will you find your next adventure?</h2>
-    <div class="grid">
-      <div  v-for="park in starterParks" :key="park.parkCode">
-        <ParkTile :park="park"/>
-      </div>
-    </div>
+    <b-container fluid>
+      <b-row>
+        <b-col
+          lg="4"
+          md="6"
+          sm="12"
+          v-for="park in starterParks"
+          :key="park.parkCode"
+        >
+          <ParkTile :park="park"
+        /></b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
@@ -70,5 +78,5 @@ h2 {
   display: grid;
   grid-template-columns: auto auto auto;
   gap: 20px 20px;
-  }
+}
 </style>

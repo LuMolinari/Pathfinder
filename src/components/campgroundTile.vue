@@ -1,5 +1,5 @@
 <template>
-  <div>{{ campground.description }}</div>
+  <div v-html="campground.FacilityDescription"> </div>
 </template>
 
 <script>
