@@ -16,7 +16,12 @@
       </div>
     </div>
     <!-- <div v-if="backgroundVisible"> -->
-    <img class="backgroundPhoto" src="./assets/Canyonlands.jpg" alt="Canyonlands National Park" height="140px">
+    <img
+      class="backgroundPhoto"
+      src="./assets/Canyonlands.jpg"
+      alt="Canyonlands National Park"
+      height="140px"
+    />
     <!-- </div> -->
     <router-view />
   </div>
@@ -24,10 +29,10 @@
 
 <script>
 export default {
-  data(){
-    return{
-      backgroundVisible: true
-    }
+  data() {
+    return {
+      backgroundVisible: true,
+    };
   },
   // watch:{
   //   '$route'(){
@@ -38,7 +43,7 @@ export default {
   //     }
   //   }
   // }
-}
+};
 </script>
 
 
@@ -53,7 +58,7 @@ export default {
   box-sizing: border-box;
 }
 
-html{
+html {
   margin: 0 !important;
 }
 
@@ -73,7 +78,7 @@ html{
   background: rgb(0, 0, 0, 0.5);
   color: #ffffff;
   width: 100%;
-  position:absolute;
+  position: absolute;
 }
 
 #nav a {
@@ -111,10 +116,10 @@ h2:hover {
   cursor: pointer;
 }
 
-.backgroundPhoto{
+.backgroundPhoto {
   width: 100%;
   object-fit: cover;
-  background-repeat:no-repeat ;
+  background-repeat: no-repeat;
 }
 
 /*Global Tooltip CSS */
@@ -206,28 +211,28 @@ h2:hover {
   color: black;
   padding: 24px;
   border-radius: 5px;
-  box-shadow: 0 5px 30px rgba(black, .1);
+  box-shadow: 0 5px 30px rgba(black, 0.1);
 }
 
 .tooltip.popover .popover-arrow {
   border-color: #f9f9f9;
 }
 
-.tooltip[aria-hidden='true'] {
+.tooltip[aria-hidden="true"] {
   visibility: hidden;
   opacity: 0;
-  transition: opacity .15s, visibility .15s;
+  transition: opacity 0.15s, visibility 0.15s;
 }
 
-.tooltip[aria-hidden='false'] {
+.tooltip[aria-hidden="false"] {
   visibility: visible;
   opacity: 1;
-  transition: opacity .15s;
+  transition: opacity 0.15s;
 }
 
 /* general styles */
 
-.horizontal{
+.horizontal {
   display: flex;
   flex-direction: row;
 }
