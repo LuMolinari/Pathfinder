@@ -2,9 +2,9 @@
   <div v-if="parkInfo != null" class="wrapper">
     <!-- Large Park Image and Name -->
     <img :src="parkInfo.images[0].url" alt="" width="100%" class="parkImg" />
-    <h1>{{ parkInfo.fullName }}</h1>
+    <h1 class="shifted-text">{{ parkInfo.fullName }}</h1>
 
-    <div class="horizontal">
+    <div>
       <!-- Gathering Contact Info -->
       <div class="contactInfo">
         <h2 v-if="parkInfo.addresses[0] != null">
@@ -28,7 +28,7 @@
         >
       </div>
       <!-- Park Description -->
-      <p class="description">
+      <p class="shifted-text2">
         {{ parkInfo.description }}
       </p>
     </div>
@@ -46,25 +46,22 @@
     <h2>Gallery</h2>
     <b-carousel
       id="carousel-fade"
-      :interval="6000"
+      :interval="5000"
       controls
       fade
       indicators
       background="#ababab"
-      img-height="480px"
       style="text-shadow: 1px 1px 2px #333"
     >
-      <div v-for="image in parkInfo.images" :key="image.url">
-        <div v-if="image.url != parkInfo.images[0].url">
-          <b-carousel-slide
-            :caption="image.title"
-            :text="image.caption"
-            :img-src="image.url"
-          ></b-carousel-slide>
-        </div>
-      </div>
+      <b-carousel-slide
+        v-for="image in parkInfo.images"
+        :key="image.url"
+        :caption="image.title"
+        :text="image.caption"
+        :img-src="image.url"
+      >
+      </b-carousel-slide>
     </b-carousel>
-
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="Activities">
@@ -74,11 +71,24 @@
     </div>
 
     <!-- Displaying Campsites Name -->
-    <h2>Campsites</h2>
-    <div v-for="camp in campInfo" :key="camp.id">
-      <button>{{ camp.FacilityName }}</button>
-      <CampgroundTile :campground="camp" />
-    </div>
+    <b-form-group label="Campsites" v-slot="{ ariaDescribedby }">
+      <b-form-radio-group
+        id="btn-radios-2"
+        v-model="selected"
+        :options="options"
+        :aria-describedby="ariaDescribedby"
+        button-variant="outline-info"
+        size="md"
+        name="radio-btn-outline"
+        buttons
+        
+      ></b-form-radio-group>
+    </b-form-group>
+    <!-- The campground Tile will make the necessary API calls -->
+    
+    
+    <CampgroundTile v-for="camp in options" :key="camp.value" :FacilityID="camp.value" v-show="camp.value == selected" />
+
     <!-- Google maps comnponent -->
     <GmapMap
       :center="center"
@@ -112,6 +122,8 @@ export default {
       // If you decide to add any map markers
       markers: [],
       center: { lat: 4.5, lng: 99 },
+      selected: "",
+      options: [],
     };
   },
   components: {
@@ -155,6 +167,19 @@ export default {
             console.log("RIDB CAMPS:", result.RECDATA);
 
             this.campInfo = result.RECDATA.slice(0, 5);
+            let range = 5;
+            if (result.RECDATA.length < 5) {
+              range = result.RECDATA.length
+            }
+            for (let i = 0; i < range; i++) {
+              if (i == 0) {
+                this.selected= result.RECDATA[i].FacilityID;
+              }
+              this.options.push({
+                text: result.RECDATA[i].FacilityName,
+                value: result.RECDATA[i].FacilityID,
+              });
+            }
           });
       })
       .catch((error) => console.log("Error calling NPS.gov", error));
@@ -198,13 +223,53 @@ export default {
 
 <style scoped>
 .parkImg {
+  filter: blur(3px);
   object-fit: cover;
   background-repeat: no-repeat;
   width: 100%;
   height: 700px;
+  filter: brightness(45%);
+
 }
 
-#carousel-fade{
-  
+#carousel-fade {
+  width: 75%;
+  background: aqua;
+  height: 700px;
+  margin: 0px auto;
+  object-fit: contain;
+}
+
+.carousel-item {
+  height: 700px;
+  object-fit: contain !important;
+}
+.carousel-item img {
+  /*  */
+}
+
+a{
+  text-decoration: none;
+  color: white;
+}
+ 
+a:visited{
+  color: white;
+}
+
+.shifted-text {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+}
+.shifted-text2 {
+    color: white;
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, 100%);
 }
 </style>

@@ -57,7 +57,6 @@ html{
   margin: 0 !important;
 }
 
-
 #app {
   font-family: "Merriweather", serif;
   -webkit-font-smoothing: antialiased;
