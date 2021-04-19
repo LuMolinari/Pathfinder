@@ -6,7 +6,6 @@
       v-bind:style="{ backgroundImage: 'url(' + parkInfo.images[0].url + ')' }"
     >
       <div class="hero-text">
-        
         <h1>{{ parkInfo.fullName }}</h1>
         <!-- Park Description -->
         <p>
@@ -41,13 +40,19 @@
     </div>
 
     <!-- Any Current Park Alerts -->
-    
-    <b-alert v-if="alerts != null" class="alerts-wrapper" variant="warning" show dismissible >
-      <h2 style="text-align: center;">Park Alerts</h2>
+
+    <b-alert
+      v-if="alerts != null"
+      class="alerts-wrapper"
+      variant="warning"
+      show
+      dismissible
+    >
+      <h2 style="text-align: center">Park Alerts</h2>
       <div v-for="alert in alerts" :key="alert.id">
         <h3>{{ alert.title }}</h3>
         <p>{{ alert.description }}</p>
-        <hr/>
+        <hr />
       </div>
     </b-alert>
 
@@ -68,6 +73,7 @@
         :caption="image.title"
         :text="image.caption"
         :img-src="image.url"
+        :style="'object-fit:contain;'"
       >
       </b-carousel-slide>
     </b-carousel>
@@ -75,7 +81,14 @@
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="activities-wrapper">
-      <b-badge v-for="activity in parkInfo.activities" :key="activity.id" pill variant="info" class="activity" href="#">
+      <b-badge
+        v-for="activity in parkInfo.activities"
+        :key="activity.id"
+        pill
+        variant="info"
+        class="activity"
+        href="#"
+      >
         {{ activity.name }}
       </b-badge>
     </div>
@@ -137,6 +150,7 @@ export default {
       center: { lat: 4.5, lng: 99 },
       selected: "",
       options: [],
+      items: [],
     };
   },
   components: {
@@ -157,6 +171,12 @@ export default {
         //saving data used for centering map
         this.center.lat = parseFloat(data.data[0].latitude);
         this.center.lng = parseFloat(data.data[0].longitude);
+
+        for (let i = 0; i < this.parkInfo.images.length; i++) {
+          this.items.push({ src: this.parkInfo.images[i].url, caption :this.parkInfo.images[i].title
+        })
+        }
+
 
         //I can use latitude and longitude to call rec.gov API here
         // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
@@ -235,37 +255,42 @@ export default {
 </script>
 
 <style scoped>
+.gallery{
+  height: 700px;
+}
 .hero-img {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  height: 700px;
+  min-height: 500px;
+  max-height: 700px;
 }
 
 .hero-text {
   backdrop-filter: blur(4px);
-  height: 700px;
+  min-height: 500px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  text-shadow: 1px 1px 5px #000000,0 0 3em #000000;
+  text-shadow: 1px 1px 5px #000000, 0 0 3em #000000;
 }
 
-.hero-text p{
+.hero-text p {
   margin-top: 30px;
-  width: 70%; 
+  width: 70%;
 }
 
-.alerts-wrapper{
+.alerts-wrapper {
   width: 75%;
   margin: 0px auto;
   text-align: left;
 }
 
-.activity{
+.activity {
   font-size: 1em;
   padding: 10px;
   margin: 5px;
@@ -281,11 +306,13 @@ export default {
 
 .carousel-item {
   height: 700px;
-  object-fit: contain !important;
+    object-fit: contain;
+
 }
 
-/* .carousel-item img {
-}  */
+.carousel-item img {
+  height: 100vh !important ;
+}
 
 a {
   text-decoration: none;

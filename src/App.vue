@@ -121,4 +121,14 @@ h2:hover {
   object-fit: cover;
   background-repeat: no-repeat;
 }
+
+/* This overides bootstrap css, to keep images within the carousel  */
+.img-fluid{
+    max-width: 100%;
+    height: -webkit-fill-available !important;
+    object-fit: contain !important;
+}
+
+
+
 </style>
