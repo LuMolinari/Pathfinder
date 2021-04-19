@@ -1,8 +1,19 @@
 <template>
   <div v-if="parkInfo != null" class="wrapper">
     <!-- Large Park Image and Name -->
-    <img :src="parkInfo.images[0].url" alt="" width="100%" class="parkImg" />
-    <h1 class="shifted-text">{{ parkInfo.fullName }}</h1>
+    <div
+      class="hero-img"
+      v-bind:style="{ backgroundImage: 'url(' + parkInfo.images[0].url + ')' }"
+    >
+      <div class="hero-text">
+        
+        <h1>{{ parkInfo.fullName }}</h1>
+        <!-- Park Description -->
+        <p>
+          {{ parkInfo.description }}
+        </p>
+      </div>
+    </div>
 
     <div>
       <!-- Gathering Contact Info -->
@@ -27,20 +38,18 @@
           >Official Site</a
         >
       </div>
-      <!-- Park Description -->
-      <p class="shifted-text2">
-        {{ parkInfo.description }}
-      </p>
     </div>
 
     <!-- Any Current Park Alerts -->
-    <div v-if="alerts != null" class="alerts">
-      <h2>Park Alerts</h2>
+    
+    <b-alert v-if="alerts != null" class="alerts-wrapper" variant="warning" show dismissible >
+      <h2 style="text-align: center;">Park Alerts</h2>
       <div v-for="alert in alerts" :key="alert.id">
         <h3>{{ alert.title }}</h3>
         <p>{{ alert.description }}</p>
+        <hr/>
       </div>
-    </div>
+    </b-alert>
 
     <!-- Using a for loop and v:bind to fill in images from the gallery -->
     <h2>Gallery</h2>
@@ -62,9 +71,10 @@
       >
       </b-carousel-slide>
     </b-carousel>
+
     <!-- List of possible activities -->
     <h2>Activities</h2>
-    <div class="Activities">
+    <div class="activities-wrapper">
       <div v-for="activity in parkInfo.activities" :key="activity.id">
         {{ activity.name }}
       </div>
@@ -81,13 +91,16 @@
         size="md"
         name="radio-btn-outline"
         buttons
-        
       ></b-form-radio-group>
     </b-form-group>
     <!-- The campground Tile will make the necessary API calls -->
-    
-    
-    <CampgroundTile v-for="camp in options" :key="camp.value" :FacilityID="camp.value" v-show="camp.value == selected" />
+
+    <CampgroundTile
+      v-for="camp in options"
+      :key="camp.value"
+      :FacilityID="camp.value"
+      v-show="camp.value == selected"
+    />
 
     <!-- Google maps comnponent -->
     <GmapMap
@@ -169,11 +182,11 @@ export default {
             this.campInfo = result.RECDATA.slice(0, 5);
             let range = 5;
             if (result.RECDATA.length < 5) {
-              range = result.RECDATA.length
+              range = result.RECDATA.length;
             }
             for (let i = 0; i < range; i++) {
               if (i == 0) {
-                this.selected= result.RECDATA[i].FacilityID;
+                this.selected = result.RECDATA[i].FacilityID;
               }
               this.options.push({
                 text: result.RECDATA[i].FacilityName,
@@ -222,14 +235,34 @@ export default {
 </script>
 
 <style scoped>
-.parkImg {
-  filter: blur(3px);
-  object-fit: cover;
+.hero-img {
+  background-position: center;
   background-repeat: no-repeat;
-  width: 100%;
+  background-size: cover;
+  position: relative;
   height: 700px;
-  filter: brightness(45%);
+}
 
+.hero-text {
+  backdrop-filter: blur(4px);
+  height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 5px #000000,0 0 3em #000000;
+}
+
+.hero-text p{
+  margin-top: 30px;
+  width: 70%; 
+}
+
+.alerts-wrapper{
+  width: 75%;
+  margin: 0px auto;
+  text-align: left;
 }
 
 #carousel-fade {
@@ -244,32 +277,18 @@ export default {
   height: 700px;
   object-fit: contain !important;
 }
-.carousel-item img {
-  /*  */
-}
 
-a{
+/* .carousel-item img {
+}  */
+
+a {
   text-decoration: none;
   color: white;
 }
- 
-a:visited{
+
+a:visited {
   color: white;
 }
 
-.shifted-text {
-  color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5em;
-}
-.shifted-text2 {
-    color: white;
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, 100%);
-}
+
 </style>
