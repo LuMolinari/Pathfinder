@@ -75,9 +75,9 @@
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="activities-wrapper">
-      <div v-for="activity in parkInfo.activities" :key="activity.id">
+      <b-badge v-for="activity in parkInfo.activities" :key="activity.id" pill variant="info" class="activity" href="#">
         {{ activity.name }}
-      </div>
+      </b-badge>
     </div>
 
     <!-- Displaying Campsites Name -->
@@ -263,6 +263,12 @@ export default {
   width: 75%;
   margin: 0px auto;
   text-align: left;
+}
+
+.activity{
+  font-size: 1em;
+  padding: 10px;
+  margin: 5px;
 }
 
 #carousel-fade {
