@@ -31,7 +31,7 @@
             <b-col>
               <b-button-toolbar class="justify-content-center">
                 <!-- changed to dropdown select instead of button dropdown -->
-                <b-form-select class="mx-2 w-50" v-model="dropDownValue">
+                <b-form-select class="ml-3 mr-2 w-50" v-model="dropDownValue">
                   <!-- first option MUST be disabled with empty value to render -->
                   <option disabled value="">Search By</option>
                   <!-- for each option, bind the options value to this element and render its text -->
@@ -57,13 +57,18 @@
         </b-col>
       </b-row>
     </b-container>
+
+    <SearchResultCard></SearchResultCard>
   </div>
 </template>
 
 
 
 <script>
+import SearchResultCard from "../components/SearchResultCard.vue";
+
 export default {
+  components: { SearchResultCard },
   name: "Discover",
   data: function () {
     return {
@@ -104,7 +109,7 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  min-width: 325px;
+  min-width: 320px;
   /* add a dim white to background */
   background-color: #ececec;
   /* fixed to remove the scroll bar */
@@ -115,7 +120,7 @@ export default {
 }
 
 /* Adjusting fonts for responsiveness */
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 376px) {
   .h2 {
     font-size: 1.6em;
   }
