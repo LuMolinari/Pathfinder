@@ -71,7 +71,11 @@
       >
       </b-carousel-slide>
     </b-carousel>
-
+    <div class="tile" >
+      <button style="color:black">
+        <h2><router-link to="/openings">Openings</router-link></h2>
+      </button>
+    </div>
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="activities-wrapper">
@@ -119,6 +123,7 @@
         @click="center = m.position"
       />
     </GmapMap>
+    
   </div>
 </template>
 
@@ -235,6 +240,12 @@ export default {
 </script>
 
 <style scoped>
+.tile {
+  position: relative;
+  text-align: center;
+  color: black;
+  margin-bottom: 10px;
+}
 .hero-img {
   background-position: center;
   background-repeat: no-repeat;
