@@ -9,10 +9,10 @@
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
         <b-navbar-nav>
-        <b-nav-item href="#"><router-link to="/">Home</router-link></b-nav-item>
-        <b-nav-item href="#"><router-link to="/about">About</router-link></b-nav-item>
-        <b-nav-item href="#"><router-link to="/discover">Discover</router-link></b-nav-item>
-      </b-navbar-nav>
+            <b-nav-item href="#"><router-link to="/"><h2>Home</h2></router-link></b-nav-item>
+            <b-nav-item href="#"><router-link to="/about"><h2>About</h2></router-link></b-nav-item>
+            <b-nav-item href="#"><router-link to="/discover"><h2>Discover</h2></router-link></b-nav-item>
+        </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
