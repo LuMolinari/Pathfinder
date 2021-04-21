@@ -47,9 +47,7 @@ export default {
         this.facilityInfo =  result ;
         let string = ('<div class="b">' + result.FacilityDescription + '</div>');
         let end = string.indexOf("<h2>Recreation</h2>");
-        console.log("string end", end);
         string = string.slice(0, end);
-        console.log(string);
         this.facilityDescription = string
 
         for (let i = 0; i < result.MEDIA.length; i++) {

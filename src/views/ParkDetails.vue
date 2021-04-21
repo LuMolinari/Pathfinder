@@ -107,7 +107,7 @@
       ></b-form-radio-group>
     </b-form-group>
     <!-- The campground Tile will make the necessary API calls -->
-
+    {{selected}}
     <CampgroundTile
       v-for="camp in options"
       :key="camp.value"
@@ -137,6 +137,7 @@
 
 <script>
 import CampgroundTile from "../components/campgroundTile.vue";
+var parseString = require("xml2js").parseString;
 
 export default {
   name: "ParkInfo",
@@ -148,7 +149,7 @@ export default {
       // If you decide to add any map markers
       markers: [],
       center: { lat: 4.5, lng: 99 },
-      selected: "",
+      selected: "test",
       options: [],
       items: [],
     };
@@ -157,6 +158,7 @@ export default {
     CampgroundTile,
   },
   mounted() {
+    let self = this;
     //fetch general park info from  nps api
     fetch(
       "https://developer.nps.gov/api/v1/parks?parkCode=" +
@@ -173,57 +175,57 @@ export default {
         this.center.lng = parseFloat(data.data[0].longitude);
 
         for (let i = 0; i < this.parkInfo.images.length; i++) {
-          this.items.push({ src: this.parkInfo.images[i].url, caption :this.parkInfo.images[i].title
-        })
+          this.items.push({
+            src: this.parkInfo.images[i].url,
+            caption: this.parkInfo.images[i].title,
+          });
         }
 
-
-        //I can use latitude and longitude to call rec.gov API here
-        // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
-        console.log(
-          "RIDB called with: ",
-          "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
-            this.center.lat +
-            "&longitude=" +
-            this.center.lng +
-            "&radius=10&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
-        );
+        //I can use latitude and longitude to call active.gov
         fetch(
-          "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
+          "http://api.amp.active.com/camping/campgrounds/?landmarkLat=" +
             this.center.lat +
-            "&longitude=" +
+            "&landmarkLong=" +
             this.center.lng +
-            "&radius=50&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+            "&landmarkName=true&api_key=wkktkqmdqgxgsuxm23nxsv8m"
         )
-          .then((res) => res.json())
+          .then((res) => res.text())
+          .then((str) =>
+            new window.DOMParser().parseFromString(str, "text/xml")
+          )
           .then((result) => {
-            console.log("RIDB CAMPS:", result.RECDATA);
-
-            this.campInfo = result.RECDATA.slice(0, 5);
-            let range = 5;
-            if (result.RECDATA.length < 5) {
-              range = result.RECDATA.length;
-            }
-            for (let i = 0; i < range; i++) {
-              if (i == 0) {
-                this.selected = result.RECDATA[i].FacilityID;
+            console.log("Active", result);
+            let xml = new XMLSerializer().serializeToString(result);
+            parseString(xml, function (err, result) {
+              console.dir(result.resultset.result[0].$);
+              let range = 5;
+              if (result.resultset.result.length < 5) {
+                range = result.resultset.result.length;
               }
-              this.options.push({
-                text: result.RECDATA[i].FacilityName,
-                value: result.RECDATA[i].FacilityID,
-              });
-            }
+              console.log('selected :>> ', self.selected);
+              for (let i = 0; i < range; i++) {
+                if (i == 0) {
+                  self.selected = result.resultset.result[i].$.facilityID;
+                  console.log('selected :>> ', self.selected);
+                }
+                self.options.push({
+                  text: result.resultset.result[i].$.facilityName,
+                  value: result.resultset.result[i].$.facilityID,
+                });
+              }
+            });
           });
+        // .then((result) => {
+        //   this.campInfo = result.RECDATA.slice(0, 5);
+        //   let range = 5;
+        //   if (result.RECDATA.length < 5) {
+        //     range = result.RECDATA.length;
+        //   }
+        //
+        // });
       })
       .catch((error) => console.log("Error calling NPS.gov", error));
 
-    //fetching any alerts for the park
-    console.log(
-      "Fetchiong from",
-      "https://developer.nps.gov/api/v1/alerts?parkCode=" +
-        this.$route.code +
-        "&api_key=EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC"
-    );
     fetch(
       "https://developer.nps.gov/api/v1/alerts?parkCode=" +
         this.$route.params.code +
@@ -255,7 +257,7 @@ export default {
 </script>
 
 <style scoped>
-.gallery{
+.gallery {
   height: 700px;
 }
 .hero-img {
@@ -306,8 +308,7 @@ export default {
 
 .carousel-item {
   height: 700px;
-    object-fit: contain;
-
+  object-fit: contain;
 }
 
 .carousel-item img {
@@ -322,6 +323,4 @@ a {
 a:visited {
   color: white;
 }
-
-
 </style>
