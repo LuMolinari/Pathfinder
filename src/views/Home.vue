@@ -1,20 +1,18 @@
 <template>
   <div>
-    <app-navbar></app-navbar>
-    <b-container fluid style="position:relative">
-      
-      <b-row align-h="center"><h2>Where will you find your next adventure?</h2> </b-row>
-      <b-row>
-        <b-col
-          lg="4"
-          md="6"
-          sm="12"
-          v-for="park in starterParks"
-          :key="park.parkCode"
-        >
-          <ParkTile :park="park"
-        /></b-col>
-      </b-row>
+      <app-navbar></app-navbar>
+      <b-container fluid>
+        <b-row align-h="center"><h2>Where will you find your next adventure?</h2> </b-row>
+        <b-row>
+          <b-col
+            lg="4"
+            md="6"
+            sm="12"
+            v-for="park in starterParks"
+            :key="park.parkCode">
+            <ParkTile :park="park"/>
+          </b-col>
+        </b-row>
     </b-container>
   </div>
 </template>
