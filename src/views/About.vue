@@ -3,7 +3,70 @@
   <div class="route-view">
     <!-- main section-->
     <div class="about">
-      <!-- radio button wrapper -->
+    
+      <!-- // radio button wrapper -->
+      <b-tabs  tabs justified class="slide-content-area">
+          <b-tab title="Meet The Team" active class="slide-content meet-slide overlay"> <h2>Meet the Team</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p></b-tab>
+          <b-tab title="Mission" active class="slide-content mission-slide overlay">   
+            <h2>Our Mission</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p></b-tab>
+          <b-tab title="Purpose" class="slide-content purpose-slide overlay"><h2>Purpose</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p></b-tab>
+          <b-tab title="Sustainability"   class="slide-content sustainability-slide overlay"> <h2>Sustainability</h2>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+              ullam nam iusto sed nisi placeat culpa minus nihil tempore
+              quibusdam! Totam beatae maxime corrupti odio aspernatur
+              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+              repellat quod, officiis officia voluptates nihil maiores, magni
+              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
+              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
+              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
+              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
+              pariatur provident velit?
+            </p></b-tab>
+      </b-tabs>
+
+
+        <!-- radio button wrapper -->
       <div class="radio-buttons">
         <!-- radio button -->
         <input
@@ -44,7 +107,8 @@
           Sustainability
         </label>
       </div>
-      <!-- // radio button wrapper -->
+
+
 
       <!-- slide content wrapper -->
       <div class="slide-content-area">
@@ -174,7 +238,7 @@ export default {
   box-sizing: border-box;
 }
 
-/* main view container */
+main view container
 .route-view {
   width: 100%;
   height: 100vh;
@@ -187,14 +251,14 @@ export default {
 /* main styles */
 .about {
   font-family: "Titillium Web", Arial, sans-serif;
-  width: 70%;
-  height: 70vh;
+  width: 100%;
+  height: 100%;
   color: white;
   margin: 2% auto;
   /* width at which view changes from desktop to tablet or mobile */
-  min-width: 600px;
+  /* min-width: 600px; */
   /* prevents stretching content too far */
-  max-width: 1000px;
+  /* max-width: 1000px; */
 }
 
 /* button styling */
@@ -255,10 +319,10 @@ input {
 /* content wrapper */
 .slide-content-area {
   width: 100%;
-  height: 90%;
+  height: 100%;
   color: white;
 }
-
+ 
 /* headings */
 h2 {
   padding: 30px 0;
@@ -299,6 +363,8 @@ p {
 .overlay {
   width: 100%;
   height: 100%;
+  min-height: 600px;
+
   background-color: rgba(0, 0, 0, 0.55);
   padding: 0 100px;
 }

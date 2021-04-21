@@ -111,7 +111,8 @@
     <CampgroundTile
       v-for="camp in options"
       :key="camp.value"
-      :FacilityID="camp.value"
+      :facilityID="camp.value"
+      :contractType="camp.type"
       v-show="camp.value == selected"
     />
 
@@ -181,7 +182,7 @@ export default {
           });
         }
 
-        //I can use latitude and longitude to call active.gov
+        //I can use latitude and longitude to call Active API to find local campsites
         fetch(
           "http://api.amp.active.com/camping/campgrounds/?landmarkLat=" +
             this.center.lat +
@@ -197,7 +198,7 @@ export default {
             console.log("Active", result);
             let xml = new XMLSerializer().serializeToString(result);
             parseString(xml, function (err, result) {
-              console.dir(result.resultset.result[0].$);
+              console.dir(result.resultset.result);
               let range = 5;
               if (result.resultset.result.length < 5) {
                 range = result.resultset.result.length;
@@ -211,6 +212,7 @@ export default {
                 self.options.push({
                   text: result.resultset.result[i].$.facilityName,
                   value: result.resultset.result[i].$.facilityID,
+                  type: result.resultset.result[i].$.contractType,
                 });
               }
             });
