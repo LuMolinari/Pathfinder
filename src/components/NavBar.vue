@@ -1,7 +1,13 @@
 <template>
 <div id="template">
-  <b-navbar id="nav" toggleable="lg" type="dark" variant="dark" >
-    <b-navbar-brand src='#./assets/mountains.png'>Pathfinder</b-navbar-brand>
+  <b-navbar id="nav" toggleable="lg" type="dark" variant="dark" fixed="top" >
+    <b-navbar-brand > 
+        <img
+          src="../assets/mountains.png"
+          alt="Pathfinder Logo"
+          height="120px"
+          style="display:inline-block"
+        /><h1 style="display:inline-block" class="websiteName ">Pathfinder</h1></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -19,7 +25,6 @@
 </div>
 
 </template>
-
 
 
 <script>
