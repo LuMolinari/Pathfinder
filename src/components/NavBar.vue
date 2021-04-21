@@ -27,17 +27,27 @@
 </script>
 
 <style scoped>
-#nav {
-    
-    background-image: url('../assets/mountains.png')!important;
+
+#template{
+    margin-bottom: 175px;
 }
 #nav a.router-link-exact-active {
   color: #8ccfb9;
 }
 
-/* #template{
-    margin-bottom: 50px;
-} */
+
+#nav a {
+  font-weight: bold;
+  color: white;
+  margin: 5px;
+  
+}
+
+.websiteName {
+  font-family: "Pacifico", cursive;
+  font-size: 2.0em;
+  align-self: center;
+}
 
 
 
