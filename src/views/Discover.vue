@@ -1,5 +1,7 @@
 <template>
-  <div class="route-view">
+  <div>
+    <app-navbar></app-navbar>
+    <div class="route-view">
     <!-- main section -->
     <b-container fluid class="bg-dark px-3 py-2 w-100 rounded">
       <!-- heading and subheading -->
@@ -60,15 +62,22 @@
 
     <SearchResultCard></SearchResultCard>
   </div>
+
+  </div>
+  
 </template>
 
 
 
 <script>
 import SearchResultCard from "../components/SearchResultCard.vue";
+import NavBar from '../components/NavBar.vue';
 
 export default {
-  components: { SearchResultCard },
+  components: { 
+    SearchResultCard,
+    'app-navbar': NavBar
+   },
   name: "Discover",
   data: function () {
     return {
