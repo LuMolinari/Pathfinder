@@ -4,11 +4,13 @@
     <b-row class="" cols="2" no-gutters>
       <!-- image -->
       <b-col class="" cols="5" md="5">
+        <!-- src needs to be park image url -->
+        <!-- change min height from 131px to 178px -->
         <b-card-img
-          src="https://picsum.photos/400/400/?image=20"
+          v-bind:src="park.imageUrl"
           alt="Image"
           class="rounded-0 image"
-          style="min-height: 131px"
+          style="min-height: 178px"
           fluid
           center
         ></b-card-img>
@@ -16,7 +18,7 @@
 
       <!-- card content -->
       <b-col class="text-left py-2 px-2" cols="7" md="7">
-        <b-card-title class="h5 mb-3 ml-1">Park name</b-card-title>
+        <b-card-title class="h5 mb-3 ml-1">{{ park.name }}</b-card-title>
 
         <!-- map and location row -->
         <b-row cols="2" class="ml-0 mr-n5 mb-1 align-content-center px-1">
@@ -30,7 +32,7 @@
           <!-- info column -->
           <b-col class="text-left park-info pl-1" cols="8" sm="10"
             ><b-card-text class="my-0 medium"
-              >Los Angeles, California</b-card-text
+              >{{ park.city }}, {{ park.state }}</b-card-text
             ></b-col
           >
         </b-row>
@@ -46,9 +48,11 @@
           ></b-col>
           <!-- info column -->
           <b-col class="text-left park-info pl-1" cols="8" sm="10"
-            ><b-card-text class="my-0 medium text-truncate"
-              >Hiking, camping, cycling, swimming, running</b-card-text
-            ></b-col
+            ><b-card-text class="my-0 medium text-truncate">
+              <span v-for="(activity, index) in park.activities" :key="index"
+                >{{ activity["name"] }},
+              </span>
+            </b-card-text></b-col
           >
         </b-row>
 
@@ -67,7 +71,7 @@
             cols="8"
             sm="10"
             ><b-card-text class="my-0 medium text-left"
-              >75&deg;</b-card-text
+              >{{ park.weatherTemp }}&deg;</b-card-text
             ></b-col
           >
         </b-row>
