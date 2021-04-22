@@ -6,8 +6,8 @@
           src="../assets/mountains.png"
           alt="Pathfinder Logo"
           height="120px"
-          style="display:inline-block"
-        /><h1 style="display:inline-block" class="websiteName ">Pathfinder</h1></b-navbar-brand>
+          class="d-inline-block align-middle"
+        /><h1 class="websiteName d-inline-block">Pathfinder</h1></b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
