@@ -91,55 +91,76 @@ export default {
         { value: "parkName", text: "Park Name" },
         { value: "state", text: "State" },
       ],
-      parkResults: [
-        // {
-        //   code: "seki",
-        //   name: "Sequioa",
-        //   city: "Three Kings",
-        //   state: "CA",
-        //   activities: [
-        //     "hiking",
-        //     "skiing",
-        //     "snowboarding",
-        //     "camping",
-        //     "tours",
-        //     "dining",
-        //   ],
-        //   weatherTemp: 80,
-        // },
-      ],
+      parkResults: [],
     };
   },
   watch: {},
   mounted() {},
   methods: {
+    /* park object constructor */
+    Park(parkCode, name, city, state, activities, weatherTemp, imageUrl) {
+      this.parkCode = parkCode;
+      this.name = name;
+      this.city = city;
+      this.state = state;
+      this.activities = activities;
+      this.weatherTemp = weatherTemp;
+      this.imageUrl = imageUrl;
+    },
     getNationalParksInState: async function (state) {
       // fetch response from nps api: park data with the specified state code
       var response = await fetch(
         `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${this.npsAPIKey}`
       );
-      // if the reponse status is not 200
+      /* if the reponse status is not 200 */
       if (!response.ok) {
-        // response promise will only be rejected if network error occured
+        /* response promise will only be rejected if network error occured */
         throw new Error("HTTP request network error occurred");
       }
-      // convert the response into json
+      /* convert the response into json */
       var jsonData = await response.json();
       return jsonData;
     },
     getNationalParkByName: async function (name) {
-      // fetch response from nps api: all parks data (play with url queries for more efficient way to reach park name and fullName properties)
+      /* fetch response from nps api: all parks data (play with url queries 
+      for more efficient way to reach park name and fullName properties) */
       var response = await fetch(
         `https://developer.nps.gov/api/v1/parks?q=${name}&api_key=${this.npsAPIKey}`
       );
-      // if the reponse status is not 200
+      /* if the reponse status is not 200 */
       if (!response.ok) {
-        // response promise will only be rejected if network error occured
+        /* response promise will only be rejected if network error occured */
         throw new Error("HTTP request network error occurred");
       }
-      // convert the response into json
+      /* convert the response into json */
       var jsonData = await response.json();
       return jsonData;
+    },
+    storeNationalParkResults: function (data) {
+      // path to park objects
+      let parks = data["data"];
+      // data: park
+      for (var i = 0; i < parks.length; i++) {
+        /* check if park is designated as national park(s)
+        values are case sensitive */
+        if (
+          parks[i]["designation"] == "National Park" ||
+          parks[i]["designation"] == "National Parks"
+        ) {
+          /* create new park object */
+          var nationalParkInState = new this.Park(
+            parks[i]["parkCode"],
+            parks[i]["fullName"],
+            parks[i]["addresses"][0]["city"],
+            parks[i]["addresses"][0]["stateCode"],
+            parks[i]["activities"],
+            90,
+            parks[i]["images"][0]["url"]
+          );
+          /* add the park to the array of result parks */
+          this.parkResults.push(nationalParkInState);
+        }
+      }
     },
     abbrState: function (input, to) {
       // function to convert state name to state code
@@ -202,62 +223,45 @@ export default {
           return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
         for (i = 0; i < states.length; i++) {
-          if (states[i][0] == input) {
+          // check to validate
+          if (states[i][0] == input || states[i][1] == input.toUpperCase()) {
+            // return the same state code
             return states[i][1];
           }
         }
-      } else if (to == "name") {
+      }
+      // this converts from state code to state but not needed for this project
+      /* else if (to == "name") {
         input = input.toUpperCase();
         for (i = 0; i < states.length; i++) {
           if (states[i][1] == input) {
             return states[i][0];
           }
         }
-      }
+      } */
     },
     search: function () {
-      // set flag
+      /* set flag */
       this.searchButtonClickedOnce = true;
 
-      // clear the current park results
+      /* clear the current park results */
       this.parkResults = [];
 
-      // constructor for park objects
-      function Park(
-        parkCode,
-        name,
-        city,
-        state,
-        activities,
-        weatherTemp,
-        imageUrl
-      ) {
-        this.parkCode = parkCode;
-        this.name = name;
-        this.city = city;
-        this.state = state;
-        this.activities = activities;
-        this.weatherTemp = weatherTemp;
-        this.imageUrl = imageUrl;
-      }
-
-      // // function to search based on state
-      // async function getNationalParksInState(state) {
-
-      // }
-
-      // search based on the dropdown value
+      /* search based on the dropdown value */
       if (this.dropDownValue == "parkName") {
         console.log("Searching by park name");
+
+        /* split the user input into word array */
         var inputName = this.searchText.split(" ");
 
+        /* convert words into lowercase */
         var lowerCaseWords = [];
         inputName.forEach((element) => {
           lowerCaseWords.push(element.toLowerCase());
         });
 
-        // if the last two words are National and Park || Parks, remove them
-        // the query url returns better results without them
+        /* if the last two words are National and Park || Parks, remove them
+        the query url returns better results without them */
         if (lowerCaseWords[lowerCaseWords.length - 1] === "park") {
           lowerCaseWords.pop();
           if (lowerCaseWords[lowerCaseWords.length - 1] === "national") {
@@ -265,93 +269,40 @@ export default {
           }
         }
 
+        /* convert the array into a string */
         var lowerCasedInputString = lowerCaseWords.join(" ");
-        console.log("Capitalized String: ", lowerCasedInputString);
+        console.log("Lower case input string: ", lowerCasedInputString);
 
+        /* fetch and store the results */
         this.getNationalParkByName(lowerCasedInputString)
-          .then((data) => {
-            // path to park objects
-            let parks = data["data"];
-            // data: park
-            for (var i = 0; i < parks.length; i++) {
-              // check if park is designated as national park
-              // values are case sensitive
-              if (
-                parks[i]["designation"] == "National Park" ||
-                parks[i]["designation"] == "National Parks"
-              ) {
-                // create new park object
-                var nationalParkInState = new Park(
-                  parks[i]["parkCode"],
-                  parks[i]["fullName"],
-                  parks[i]["addresses"][0]["city"],
-                  parks[i]["addresses"][0]["stateCode"],
-                  parks[i]["activities"],
-                  90,
-                  parks[i]["images"][0]["url"]
-                );
-                // add the park to the array of result parks
-                this.parkResults.push(nationalParkInState);
-              }
-            }
-          })
+          .then((data) => this.storeNationalParkResults(data))
           .catch((error) => {
             console.log("Error occured: ", error);
           });
       } else if (this.dropDownValue == "state") {
         console.log("Searching by state");
-        // convert 'state' into state code if not already in state code format
+        /* convert 'state' into state code if not already in state code format */
         const stateCode = this.abbrState(this.searchText, "abbr");
-        // exit the function if a valid state code wasnt found
+        /* exit the function if a valid state code wasnt found */
         if (stateCode === undefined) {
-          // alert state not found message
+          // TODO: alert state not found message
           return;
         }
         console.log("State code: ", stateCode);
-        // pass state code into search
+        /* pass state code into search, 
+          fetch and store data */
         this.getNationalParksInState(stateCode)
-          .then((data) => {
-            // path to park objects
-            let parks = data["data"];
-            // data: park
-            for (var i = 0; i < parks.length; i++) {
-              // check if park is designated as national park
-              // values are case sensitive
-              if (
-                parks[i]["designation"] == "National Park" ||
-                parks[i]["designation"] == "National Parks"
-              ) {
-                // create new park object
-                var nationalParkInState = new Park(
-                  parks[i]["parkCode"],
-                  parks[i]["fullName"],
-                  parks[i]["addresses"][0]["city"],
-                  parks[i]["addresses"][0]["stateCode"],
-                  parks[i]["activities"],
-                  90,
-                  parks[i]["images"][0]["url"]
-                );
-                // add the park to the array of result parks
-                this.parkResults.push(nationalParkInState);
-              }
-            }
-            // displays all of the parks and their properties in nice json format
-            // console.log("park results: ", this.parkResults);
-          })
+          .then((data) => this.storeNationalParkResults(data))
           .catch((error) => {
             console.log("Error occured: ", error);
           });
       } else {
-        // do nothing, no selection
+        /* do nothing, no selection */
         console.log("not searching");
       }
     },
   },
 };
-
-// SearchBar and Submit
-// /* for each result in the response, render result card with info interpolated */
-// <SearchResultCardComponent paramsHere ></SearchResultCardComponent>
 </script>
 
 
