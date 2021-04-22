@@ -1,4 +1,7 @@
 <template>
+  <div>
+    <app-navbar></app-navbar>
+  
   <div class="route-view" id="discover">
     <!-- main section -->
     <b-container fluid class="bg-dark px-3 py-2 w-100 rounded">
@@ -71,16 +74,25 @@
       <SearchResultCard :park="park" />
     </div>
   </div>
+
+  </div>
+  
 </template>
 
 
 
 <script>
 import SearchResultCard from "../components/SearchResultCard.vue";
+import NavBar from '../components/NavBar.vue';
 
 export default {
-  name: "Discover",
-  components: { SearchResultCard },
+ name: "Discover",
+  components: { 
+    SearchResultCard,
+    'app-navbar': NavBar
+   },
+ 
+ 
   data: function () {
     return {
       npsAPIKey: "EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC",
