@@ -44,7 +44,8 @@
                   </option>
                 </b-form-select>
 
-                <!-- if the dropdown value is "" tooltip message: please select a search method -->
+                <!-- if the dropdown value is "" and user hovers -> tooltip message: please select a search method -->
+                <!-- if dropdown value is "" and user clicks -> alert message: please select a search method before searching-->
                 <b-button
                   class="ml-2 mr-3"
                   size="md"
@@ -82,6 +83,7 @@ export default {
   components: { SearchResultCard },
   data: function () {
     return {
+      npsAPIKey: "EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC",
       searchButtonClickedOnce: false,
       searchText: "",
       dropDownValue: "",
@@ -112,6 +114,34 @@ export default {
   watch: {},
   mounted() {},
   methods: {
+    getNationalParksInState: async function (state) {
+      // fetch response from nps api: park data with the specified state code
+      var response = await fetch(
+        `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${this.npsAPIKey}`
+      );
+      // if the reponse status is not 200
+      if (!response.ok) {
+        // response promise will only be rejected if network error occured
+        throw new Error("HTTP request network error occurred");
+      }
+      // convert the response into json
+      var jsonData = await response.json();
+      return jsonData;
+    },
+    getNationalParkByName: async function (name) {
+      // fetch response from nps api: all parks data (play with url queries for more efficient way to reach park name and fullName properties)
+      var response = await fetch(
+        `https://developer.nps.gov/api/v1/parks?q=${name}&api_key=${this.npsAPIKey}`
+      );
+      // if the reponse status is not 200
+      if (!response.ok) {
+        // response promise will only be rejected if network error occured
+        throw new Error("HTTP request network error occurred");
+      }
+      // convert the response into json
+      var jsonData = await response.json();
+      return jsonData;
+    },
     abbrState: function (input, to) {
       // function to convert state name to state code
       var states = [
@@ -189,9 +219,6 @@ export default {
     search: function () {
       // set flag
       this.searchButtonClickedOnce = true;
-      // init api variables
-      // national parks api
-      const npsAPIKey = "EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC";
 
       // clear the current park results
       this.parkResults = [];
@@ -215,25 +242,63 @@ export default {
         this.imageUrl = imageUrl;
       }
 
-      // function to search based on state
-      async function getNationalParksInState(state) {
-        // fetch response from nps api
-        var response = await fetch(
-          `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${npsAPIKey}`
-        );
-        // if the reponse status is not 200
-        if (!response.ok) {
-          // response promise will only be rejected if network error occured
-          throw new Error("HTTP request network error occurred");
-        }
-        // convert the response into json
-        var jsonData = await response.json();
-        return jsonData;
-      }
+      // // function to search based on state
+      // async function getNationalParksInState(state) {
+
+      // }
 
       // search based on the dropdown value
       if (this.dropDownValue == "parkName") {
         console.log("Searching by park name");
+        var inputName = this.searchText.split(" ");
+
+        var lowerCaseWords = [];
+        inputName.forEach((element) => {
+          lowerCaseWords.push(element.toLowerCase());
+        });
+
+        // if the last two words are National and Park || Parks, remove them
+        // the query url returns better results without them
+        if (lowerCaseWords[lowerCaseWords.length - 1] === "park") {
+          lowerCaseWords.pop();
+          if (lowerCaseWords[lowerCaseWords.length - 1] === "national") {
+            lowerCaseWords.pop();
+          }
+        }
+
+        var lowerCasedInputString = lowerCaseWords.join(" ");
+        console.log("Capitalized String: ", lowerCasedInputString);
+
+        this.getNationalParkByName(lowerCasedInputString)
+          .then((data) => {
+            // path to park objects
+            let parks = data["data"];
+            // data: park
+            for (var i = 0; i < parks.length; i++) {
+              // check if park is designated as national park
+              // values are case sensitive
+              if (
+                parks[i]["designation"] == "National Park" ||
+                parks[i]["designation"] == "National Parks"
+              ) {
+                // create new park object
+                var nationalParkInState = new Park(
+                  parks[i]["parkCode"],
+                  parks[i]["fullName"],
+                  parks[i]["addresses"][0]["city"],
+                  parks[i]["addresses"][0]["stateCode"],
+                  parks[i]["activities"],
+                  90,
+                  parks[i]["images"][0]["url"]
+                );
+                // add the park to the array of result parks
+                this.parkResults.push(nationalParkInState);
+              }
+            }
+          })
+          .catch((error) => {
+            console.log("Error occured: ", error);
+          });
       } else if (this.dropDownValue == "state") {
         console.log("Searching by state");
         // convert 'state' into state code if not already in state code format
@@ -245,14 +310,18 @@ export default {
         }
         console.log("State code: ", stateCode);
         // pass state code into search
-        getNationalParksInState(stateCode)
+        this.getNationalParksInState(stateCode)
           .then((data) => {
             // path to park objects
             let parks = data["data"];
             // data: park
             for (var i = 0; i < parks.length; i++) {
               // check if park is designated as national park
-              if (parks[i]["designation"] == "National Park") {
+              // values are case sensitive
+              if (
+                parks[i]["designation"] == "National Park" ||
+                parks[i]["designation"] == "National Parks"
+              ) {
                 // create new park object
                 var nationalParkInState = new Park(
                   parks[i]["parkCode"],
