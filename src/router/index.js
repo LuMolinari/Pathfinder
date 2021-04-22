@@ -5,6 +5,7 @@ import About from '../views/About.vue'
 import Discover from '../views/Discover.vue'
 import ParkDetails from '../views/ParkDetails.vue'
 import NotFound from '../views/NotFound.vue'
+import Openings from '../views/Openings.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,12 @@ const routes = [
     path:'/park/:code',
     name: 'ParkDetails',
     component: ParkDetails,
+    props:true
+  },
+  {
+    path:'/openings/:ID',
+    name: 'OpeningsDisplay',
+    component: Openings,
     props:true
   },
   // 404 path

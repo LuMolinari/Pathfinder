@@ -73,7 +73,8 @@
     </b-carousel>
     <div class="tile" >
       <button style="color:black">
-        <h2><router-link to="/openings">Openings</router-link></h2>
+        <h2><router-link :to="{name:'openings', params: ID:10} >Openings</router-link></h2>
+
       </button>
     </div>
     <!-- List of possible activities -->
