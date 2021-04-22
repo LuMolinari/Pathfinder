@@ -17,7 +17,8 @@
     "v-calendar": "^2.3.0",
     "v-datepicker": "^0.0.1",
     "vue": "^2.6.12",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

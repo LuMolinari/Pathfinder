@@ -6,7 +6,6 @@
       v-bind:style="{ backgroundImage: 'url(' + parkInfo.images[0].url + ')' }"
     >
       <div class="hero-text">
-        
         <h1>{{ parkInfo.fullName }}</h1>
         <!-- Park Description -->
         <p>
@@ -41,13 +40,19 @@
     </div>
 
     <!-- Any Current Park Alerts -->
-    
-    <b-alert v-if="alerts != null" class="alerts-wrapper" variant="warning" show dismissible >
-      <h2 style="text-align: center;">Park Alerts</h2>
+
+    <b-alert
+      v-if="alerts != null"
+      class="alerts-wrapper"
+      variant="warning"
+      show
+      dismissible
+    >
+      <h2 style="text-align: center">Park Alerts</h2>
       <div v-for="alert in alerts" :key="alert.id">
         <h3>{{ alert.title }}</h3>
         <p>{{ alert.description }}</p>
-        <hr/>
+        <hr />
       </div>
     </b-alert>
 
@@ -68,6 +73,7 @@
         :caption="image.title"
         :text="image.caption"
         :img-src="image.url"
+        :style="'object-fit:contain;'"
       >
       </b-carousel-slide>
     </b-carousel>
@@ -80,7 +86,14 @@
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="activities-wrapper">
-      <b-badge v-for="activity in parkInfo.activities" :key="activity.id" pill variant="info" class="activity" href="#">
+      <b-badge
+        v-for="activity in parkInfo.activities"
+        :key="activity.id"
+        pill
+        variant="info"
+        class="activity"
+        href="#"
+      >
         {{ activity.name }}
       </b-badge>
     </div>
@@ -141,8 +154,9 @@ export default {
       // If you decide to add any map markers
       markers: [],
       center: { lat: 4.5, lng: 99 },
-      selected: "",
+      selected: "test",
       options: [],
+      items: [],
     };
   },
   components: {
@@ -164,6 +178,13 @@ export default {
         this.center.lat = parseFloat(data.data[0].latitude);
         this.center.lng = parseFloat(data.data[0].longitude);
 
+        for (let i = 0; i < this.parkInfo.images.length; i++) {
+          this.items.push({
+            src: this.parkInfo.images[i].url,
+            caption: this.parkInfo.images[i].title,
+          });
+        }
+
         //I can use latitude and longitude to call rec.gov API here
         // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
         console.log(
@@ -174,17 +195,17 @@ export default {
             this.center.lng +
             "&radius=10&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
         );
+
+        //I can use latitude and longitude to call active.gov
         fetch(
           "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
             this.center.lat +
             "&longitude=" +
             this.center.lng +
             "&radius=50&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
-        )
-          .then((res) => res.json())
-          .then((result) => {
+        )          .then((res) => res.json())
+ .then((result) => {
             console.log("RIDB CAMPS:", result.RECDATA);
-
             this.campInfo = result.RECDATA.slice(0, 5);
             let range = 5;
             if (result.RECDATA.length < 5) {
@@ -193,23 +214,17 @@ export default {
             for (let i = 0; i < range; i++) {
               if (i == 0) {
                 this.selected = result.RECDATA[i].FacilityID;
-              }
+                 }
               this.options.push({
                 text: result.RECDATA[i].FacilityName,
                 value: result.RECDATA[i].FacilityID,
               });
             }
-          });
+                      });
+
       })
       .catch((error) => console.log("Error calling NPS.gov", error));
 
-    //fetching any alerts for the park
-    console.log(
-      "Fetchiong from",
-      "https://developer.nps.gov/api/v1/alerts?parkCode=" +
-        this.$route.code +
-        "&api_key=EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC"
-    );
     fetch(
       "https://developer.nps.gov/api/v1/alerts?parkCode=" +
         this.$route.params.code +
@@ -241,43 +256,50 @@ export default {
 </script>
 
 <style scoped>
+<<<<<<< HEAD
 .tile {
   position: relative;
   text-align: center;
   color: black;
   margin-bottom: 10px;
+=======
+.gallery {
+  height: 700px;
+>>>>>>> d660b3f402206c9ee0f33d0d639c0752fcdab3b2
 }
 .hero-img {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  height: 700px;
+  min-height: 500px;
+  max-height: 700px;
 }
 
 .hero-text {
   backdrop-filter: blur(4px);
-  height: 700px;
+  min-height: 500px;
+  max-height: 700px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
-  text-shadow: 1px 1px 5px #000000,0 0 3em #000000;
+  text-shadow: 1px 1px 5px #000000, 0 0 3em #000000;
 }
 
-.hero-text p{
+.hero-text p {
   margin-top: 30px;
-  width: 70%; 
+  width: 70%;
 }
 
-.alerts-wrapper{
+.alerts-wrapper {
   width: 75%;
   margin: 0px auto;
   text-align: left;
 }
 
-.activity{
+.activity {
   font-size: 1em;
   padding: 10px;
   margin: 5px;
@@ -293,11 +315,12 @@ export default {
 
 .carousel-item {
   height: 700px;
-  object-fit: contain !important;
+  object-fit: contain;
 }
 
-/* .carousel-item img {
-}  */
+.carousel-item img {
+  height: 100vh !important ;
+}
 
 a {
   text-decoration: none;
@@ -307,6 +330,4 @@ a {
 a:visited {
   color: white;
 }
-
-
 </style>
