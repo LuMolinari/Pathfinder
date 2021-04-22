@@ -61,7 +61,7 @@
     </b-container>
 
     <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: black">
-      Search by name, state, or activity
+      Search by name or state
     </h1>
     <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
       No parks found, try again
@@ -90,7 +90,6 @@ export default {
       options: [
         { value: "parkName", text: "Park Name" },
         { value: "state", text: "State" },
-        { value: "activity", text: "Activity" },
       ],
       parkResults: [
         // {
@@ -342,8 +341,6 @@ export default {
           .catch((error) => {
             console.log("Error occured: ", error);
           });
-      } else if (this.dropDownValue == "activity") {
-        console.log("Searching by activity");
       } else {
         // do nothing, no selection
         console.log("not searching");
