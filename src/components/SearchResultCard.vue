@@ -1,5 +1,4 @@
 <template>
-  <!-- TODO: send user to park details page on click -->
   <router-link :to="{ name: 'ParkDetails', params: { code: park.parkCode } }">
     <b-card no-body class="bg-dark mt-4 overflow-hidden main-card-view">
       <!-- main row -->
@@ -73,7 +72,7 @@
               cols="8"
               sm="10"
               ><b-card-text class="my-0 medium text-left"
-                >{{ park.weatherTemp }}&deg;</b-card-text
+                >{{ park.temp }}&deg;</b-card-text
               ></b-col
             >
           </b-row>
@@ -113,6 +112,10 @@ a {
 }
 
 a:visited {
+  color: white;
+}
+
+a:hover {
   color: white;
 }
 
