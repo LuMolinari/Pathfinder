@@ -47,6 +47,7 @@
                   </option>
                 </b-form-select>
 
+                <!-- TODO: -->
                 <!-- if the dropdown value is "" and user hovers -> tooltip message: please select a search method -->
                 <!-- if dropdown value is "" and user clicks -> alert message: please select a search method before searching-->
                 <b-button
@@ -96,6 +97,7 @@ export default {
   data: function () {
     return {
       npsAPIKey: "EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC",
+      openweatherAPIKey: "e7db91ac0cb2743fa68bd0ea5700c42d",
       searchButtonClickedOnce: false,
       searchText: "",
       dropDownValue: "",
@@ -110,14 +112,27 @@ export default {
   mounted() {},
   methods: {
     /* park object constructor */
-    Park(parkCode, name, city, state, activities, weatherTemp, imageUrl) {
+    Park(parkCode, name, city, state, activities, temp, imageUrl) {
       this.parkCode = parkCode;
       this.name = name;
       this.city = city;
       this.state = state;
       this.activities = activities;
-      this.weatherTemp = weatherTemp;
+      this.temp = temp;
       this.imageUrl = imageUrl;
+    },
+    getNationalParkCurrentTemperature: async function (city) {
+      // TODO: pull data from openweather
+      var response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${this.openweatherAPIKey}`
+      );
+      /* if the reponse status is not 200 */
+      if (!response.ok) {
+        /* response promise will only be rejected if network error occured */
+        throw new Error("HTTP request network error occurred");
+      }
+      var jsonData = await response.json();
+      return jsonData;
     },
     getNationalParksInState: async function (state) {
       // fetch response from nps api: park data with the specified state code
@@ -173,6 +188,25 @@ export default {
           this.parkResults.push(nationalParkInState);
         }
       }
+
+      /* fetch and update the temp in each city */
+      this.parkResults.forEach((park) => {
+        park.temp = this.getNationalParkCurrentTemperature(park.city)
+          .then((data) => {
+            /* console.log(
+              `Current temp at ${park.city} is ${data["main"][
+                "temp"
+              ].toPrecision(2)}`
+            ); */
+            park.temp = data["main"]["temp"].toPrecision(2);
+          })
+          .catch((error) => {
+            console.log(
+              "Error occured retreiving weather info: ",
+              error.message
+            );
+          });
+      });
     },
     abbrState: function (input, to) {
       // function to convert state name to state code
