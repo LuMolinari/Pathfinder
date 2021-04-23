@@ -79,7 +79,7 @@
     </b-carousel>
     <div class="tile" >
       <button style="color:black">
-        <h2><router-link :to="{name:'openings', params: ID:10} >Openings</router-link></h2>
+        <h2><router-link :to="{name:'OpeningsDisplay', params: { ID:272094}} ">Openings</router-link></h2>
 
       </button>
     </div>
@@ -256,16 +256,8 @@ export default {
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-.tile {
-  position: relative;
-  text-align: center;
-  color: black;
-  margin-bottom: 10px;
-=======
 .gallery {
   height: 700px;
->>>>>>> d660b3f402206c9ee0f33d0d639c0752fcdab3b2
 }
 .hero-img {
   background-position: center;
