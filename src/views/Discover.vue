@@ -50,13 +50,41 @@
                 <!-- TODO: -->
                 <!-- if the dropdown value is "" and user hovers -> tooltip message: please select a search method -->
                 <!-- if dropdown value is "" and user clicks -> alert message: please select a search method before searching-->
+
+                <!-- <b-button
+                    v-b-popover.hover.top="'content'"
+                    title="popover"
+                    class="ml-2 mr-3"
+                    size="md"
+                    variant="primary"
+                    @click="search()"
+                    >Search</b-button
+                  > -->
+
                 <b-button
+                  id="popover-target-1"
                   class="ml-2 mr-3"
                   size="md"
                   variant="primary"
                   @click="search()"
                   >Search</b-button
                 >
+                <b-popover
+                  v-if="dropDownValue === ''"
+                  target="popover-target-1"
+                  triggers="focus"
+                  placement="top"
+                >
+                  Please select a search type
+                </b-popover>
+                <b-popover
+                  v-if="searchText === ''"
+                  target="popover-target-1"
+                  triggers="focus"
+                  placement="top"
+                >
+                  Please enter a park name or state
+                </b-popover>
               </b-button-toolbar>
             </b-col>
           </b-row>
@@ -198,12 +226,21 @@ export default {
                 "temp"
               ].toPrecision(2)}`
             ); */
+            if (park.city === "Death Valley") {
+              console.log("hello");
+            }
             park.temp = data["main"]["temp"].toPrecision(2);
           })
           .catch((error) => {
+            if (error.message === "HTTP request network error occurred") {
+              console.log(`${park.city} weather not found`);
+              park.temp = "--";
+            }
             console.log(
-              "Error occured retreiving weather info: ",
-              error.message
+              "Error occured retreiving weather info for " +
+                park.city +
+                ": " +
+                error.message
             );
           });
       });
@@ -287,64 +324,66 @@ export default {
       } */
     },
     search: function () {
-      /* set flag */
-      this.searchButtonClickedOnce = true;
+      if (this.dropDownValue != "" && this.searchText != "") {
+        /* set flag */
+        this.searchButtonClickedOnce = true;
 
-      /* clear the current park results */
-      this.parkResults = [];
+        /* clear the current park results */
+        this.parkResults = [];
 
-      /* search based on the dropdown value */
-      if (this.dropDownValue == "parkName") {
-        console.log("Searching by park name");
+        /* search based on the dropdown value */
+        if (this.dropDownValue == "parkName") {
+          console.log("Searching by park name");
 
-        /* split the user input into word array */
-        var inputName = this.searchText.split(" ");
+          /* split the user input into word array */
+          var inputName = this.searchText.split(" ");
 
-        /* convert words into lowercase */
-        var lowerCaseWords = [];
-        inputName.forEach((element) => {
-          lowerCaseWords.push(element.toLowerCase());
-        });
+          /* convert words into lowercase */
+          var lowerCaseWords = [];
+          inputName.forEach((element) => {
+            lowerCaseWords.push(element.toLowerCase());
+          });
 
-        /* if the last two words are National and Park || Parks, remove them
-        the query url returns better results without them */
-        if (lowerCaseWords[lowerCaseWords.length - 1] === "park") {
-          lowerCaseWords.pop();
-          if (lowerCaseWords[lowerCaseWords.length - 1] === "national") {
+          /* if the last two words are National and Park || Parks, remove them
+          the query url returns better results without them */
+          if (lowerCaseWords[lowerCaseWords.length - 1] === "park") {
             lowerCaseWords.pop();
+            if (lowerCaseWords[lowerCaseWords.length - 1] === "national") {
+              lowerCaseWords.pop();
+            }
           }
-        }
 
-        /* convert the array into a string */
-        var lowerCasedInputString = lowerCaseWords.join(" ");
-        console.log("Lower case input string: ", lowerCasedInputString);
+          /* convert the array into a string */
+          var lowerCasedInputString = lowerCaseWords.join(" ");
+          console.log("Lower case input string: ", lowerCasedInputString);
 
-        /* fetch and store the results */
-        this.getNationalParkByName(lowerCasedInputString)
-          .then((data) => this.storeNationalParkResults(data))
-          .catch((error) => {
-            console.log("Error occured: ", error);
-          });
-      } else if (this.dropDownValue == "state") {
-        console.log("Searching by state");
-        /* convert 'state' into state code if not already in state code format */
-        const stateCode = this.abbrState(this.searchText, "abbr");
-        /* exit the function if a valid state code wasnt found */
-        if (stateCode === undefined) {
-          // TODO: alert state not found message
-          return;
+          /* fetch and store the results */
+          this.getNationalParkByName(lowerCasedInputString)
+            .then((data) => this.storeNationalParkResults(data))
+            .catch((error) => {
+              console.log("Error occured: ", error);
+            });
+        } else if (this.dropDownValue == "state") {
+          console.log("Searching by state");
+          /* convert 'state' into state code if not already in state code format */
+          const stateCode = this.abbrState(this.searchText, "abbr");
+          /* exit the function if a valid state code wasnt found */
+          if (stateCode === undefined) {
+            // TODO: alert state not found message
+            return;
+          }
+          console.log("State code: ", stateCode);
+          /* pass state code into search, 
+            fetch and store data */
+          this.getNationalParksInState(stateCode)
+            .then((data) => this.storeNationalParkResults(data))
+            .catch((error) => {
+              console.log("Error occured: ", error);
+            });
+        } else {
+          /* do nothing, no selection */
+          console.log("not searching");
         }
-        console.log("State code: ", stateCode);
-        /* pass state code into search, 
-          fetch and store data */
-        this.getNationalParksInState(stateCode)
-          .then((data) => this.storeNationalParkResults(data))
-          .catch((error) => {
-            console.log("Error occured: ", error);
-          });
-      } else {
-        /* do nothing, no selection */
-        console.log("not searching");
       }
     },
   },
