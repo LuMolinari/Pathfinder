@@ -1,6 +1,8 @@
 <template>
-  <!-- view area -->
-  <div class="route-view">
+<div>
+  <app-navbar></app-navbar>
+   <div class="route-view">
+     
     <!-- main section-->
     <div class="about">
       <!-- radio button wrapper -->
@@ -149,9 +151,14 @@
       </div>
     </div>
   </div>
+  
+</div>
+  <!-- view area -->
+ 
 </template>
 
 <script>
+import NavBar from '../components/NavBar.vue';
 export default {
   name: "about",
   data() {
@@ -159,6 +166,9 @@ export default {
       picked: "meet",
     };
   },
+  components: {
+    'app-navbar': NavBar
+  }
 };
 </script>
 

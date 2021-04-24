@@ -1,6 +1,8 @@
 <template>
-  <div id="app">
+  <div id="app">  
+<!--     
     <div id="nav">
+       
       <div class="left">
         <img
           src="./assets/mountains.png"
@@ -14,20 +16,21 @@
         <h2><router-link to="/about">About</router-link></h2>
         <h2><router-link to="/discover">Discover</router-link></h2>
       </div>
-    </div>
+    </div> -->
     <!-- <div v-if="backgroundVisible"> -->
-    <img
+    <!-- <img
       class="backgroundPhoto"
       src="./assets/Canyonlands.jpg"
       alt="Canyonlands National Park"
       height="140px"
-    />
-    <!-- </div> -->
+    /> -->
+    <!-- </div> --> 
     <router-view />
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {

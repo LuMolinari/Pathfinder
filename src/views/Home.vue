@@ -1,24 +1,25 @@
 <template>
   <div>
-    <h2>Where will you find your next adventure?</h2>
-    <b-container fluid>
-      <b-row>
-        <b-col
-          lg="4"
-          md="6"
-          sm="12"
-          v-for="park in starterParks"
-          :key="park.parkCode"
-        >
-          <ParkTile :park="park"
-        /></b-col>
-      </b-row>
+      <app-navbar></app-navbar>
+      <b-container fluid>
+        <b-row align-h="center"><h2>Where will you find your next adventure?</h2> </b-row>
+        <b-row>
+          <b-col
+            lg="4"
+            md="6"
+            sm="12"
+            v-for="park in starterParks"
+            :key="park.parkCode">
+            <ParkTile :park="park"/>
+          </b-col>
+        </b-row>
     </b-container>
   </div>
 </template>
 
 <script>
 import ParkTile from "../components/ParkTile";
+import NavBar from '../components/NavBar.vue';
 
 export default {
   name: "Home",
@@ -66,17 +67,12 @@ export default {
   },
   components: {
     ParkTile,
+    'app-navbar': NavBar
   },
 };
 </script>
 
 <style scoped>
-h2 {
-  text-align: center;
-}
-.grid {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  gap: 20px 20px;
-}
+
+
 </style>
