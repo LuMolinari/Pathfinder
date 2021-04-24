@@ -1,15 +1,14 @@
 
 <template>
     <div>
-        <h1>test</h1>
+        <h2>{{name}}</h2>
+        <h3>Availabilities</h3>
             <vc-date-picker
             :key="loadedKey"
             v-model='availableDates'
             :attributes='available'>
             </vc-date-picker>
-        <h2>
-        {{test}}
-        </h2>
+
            
     </div>
 
@@ -17,10 +16,11 @@
 </template>
 
 <script>
+    const curMonth = new Date.getMonth();
     export default {
         data() {
             return {
-                test: 15,
+                name: "",
                 loadedKey: 0,
                 availableDates: new Date(), // Jan 25th, 2021
                 available: [
@@ -32,6 +32,7 @@
                         dates:[
                            
                         ],
+                        description: "",
                     },
                 ],
                 
@@ -54,8 +55,9 @@
                 //save json dates into availableDates
                 .then((data) => {
                     const campIDs = [];
+                    console.log(data);
                     for(const sites in data.campsites){
-                        campIDs.push(sites)
+                        campIDs.push(sites);
                     }
                     for(var x = 0; x<campIDs.length; x++){
                         for(const dates in data.campsites[campIDs[x]].availabilities){
@@ -66,10 +68,7 @@
                         
                     }
 
-                    console.log("this.available.dates = ", this.available[0].dates[0]);
-                    console.log("this.loadedKey = ", this.loadedKey);
                     this.forceRerender();
-                    console.log("this.loadedKey = ", this.loadedKey);
                 })
 
                 //fetch dates available in the next month from inputed date
@@ -85,8 +84,12 @@
                     for(const sites in data.campsites){
                         campIDs.push(sites)
                     }
+
+                    this.name=data.campsites[campIDs[0]].loop;
+
                     for(var x = 0; x<campIDs.length; x++){
                         for(const dates in data.campsites[campIDs[x]].availabilities){
+                            console.log("info = ", data.campsites[campIDs[x]]);
                             var object = new Date(parseInt(dates.substring(0,4)), 
                             parseInt(dates.substring(5,7))-1, parseInt(dates.substring(8,10)));
                             this.available[0].dates.push(object);
@@ -94,10 +97,8 @@
                         
                     }
 
-                    console.log("this.available.dates = ", this.available[0].dates[0]);
-                    console.log("this.loadedKey = ", this.loadedKey);
+
                     this.forceRerender();
-                    console.log("this.loadedKey = ", this.loadedKey);
                 })
 
                 //fetch dates available 2 months from current date
@@ -109,6 +110,7 @@
                 .then((res) => res.json())
                 //save json dates into availableDates
                 .then((data) => {
+                    console.log("curMonth = ", curMonth);
                     const campIDs = [];
                     for(const sites in data.campsites){
                         campIDs.push(sites)
@@ -122,10 +124,7 @@
                         
                     }
 
-                    console.log("this.available.dates = ", this.available[0].dates[0]);
-                    console.log("this.loadedKey = ", this.loadedKey);
                     this.forceRerender();
-                    console.log("this.loadedKey = ", this.loadedKey);
                 })
 
             },
