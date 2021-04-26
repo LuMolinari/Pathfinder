@@ -48,7 +48,8 @@
             mounted() {
                 var monthDif, monthVal, yearVal;
                 for(var x = 1; x <= 12; x++){
-
+                    /*Handle for case of the month value being greater than 12
+                      update the month and year value to match*/
                     if(curMonth+x <= 12){
                         monthVal = curMonth+x;
                         yearVal = curYear;
@@ -58,6 +59,7 @@
                         yearVal = curYear + 1;
                     }
 
+                    //Alters the string for when months are 2 digits or a single digit
                     if(monthVal >= 10){
                         monthDif = '-';
                     }
@@ -91,6 +93,15 @@
                         this.forceRerender();
                     })
                 }
+                    fetch(
+                        "https://ridb.recreation.gov/api/v1/facilities/" + this.$route.params.ID + 
+                        "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5")
+                        .then((res) => res.json())
+                        .then((result) => {
+                            console.log("Individual campgrounds ", result);
+                                    
+                                this.name = result.FacilityName;
+                        })
                 
             },
             

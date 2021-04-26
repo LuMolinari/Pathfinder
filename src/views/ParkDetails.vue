@@ -77,12 +77,6 @@
       >
       </b-carousel-slide>
     </b-carousel>
-    <div class="tile" >
-      <button style="color:black">
-        <h2><router-link :to="{name:'OpeningsDisplay', params: { ID:272094}} ">Openings</router-link></h2>
-
-      </button>
-    </div>
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="activities-wrapper">
