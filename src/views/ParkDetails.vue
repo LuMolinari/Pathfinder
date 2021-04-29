@@ -77,7 +77,6 @@
       >
       </b-carousel-slide>
     </b-carousel>
-
     <!-- List of possible activities -->
     <h2>Activities</h2>
     <div class="activities-wrapper">
@@ -133,6 +132,7 @@
         @click="center = m.position"
       />
     </GmapMap>
+    
   </div>
 </template>
 
