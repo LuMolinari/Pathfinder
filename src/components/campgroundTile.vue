@@ -18,27 +18,33 @@
       </b-carousel-slide>
     </b-carousel>
     <div class="vHTML" v-html="facilityDescription"></div>
+
     <b-button><router-link :to="{name:'OpeningsDisplay', params: { ID:FacilityID}} ">Check Availability</router-link></b-button>
   </div>       
 </template>
 
 <script>
+
 export default {
   name: "CampgroundTile",
-  props: ["FacilityID"],
+  props: ["facilityID"],
   data() {
     return {
       facilityInfo: Object,
       facilityDescription: "",
-      images: []
+      images: [],
     };
   },
   mounted() {
     let self = this;
     //make API call to get facility data
-    console.log("Facility ID", self.FacilityID);
+    let id = self.facilityID
+    console.log("Facility ID",  id);
+    
+    console.log('API Called on :>> ', "https://ridb.recreation.gov/api/v1/facilities/" +  id + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5");
+
     fetch(
-      "https://ridb.recreation.gov/api/v1/facilities/" + self.FacilityID + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+      "https://ridb.recreation.gov/api/v1/facilities/" +  id + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
     )
       .then((res) => res.json())
       .then((result) => {
@@ -51,9 +57,8 @@ export default {
         this.facilityDescription = string
 
         for (let i = 0; i < result.MEDIA.length; i++) {
-            this.images.push({ url: result.MEDIA[i].URL, caption: result.MEDIA[i].Description});          
+            this.images.push({ url: result.MEDIA[i].URL, caption: result.MEDIA[i].Description});
         }
-
 
       });
   },
@@ -62,7 +67,7 @@ export default {
 
 <style scoped>
 /* It's complicated but it's the only way i can do css and use v-html together  */
-.campgroundTile{
+.campgroundTile {
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -74,7 +79,7 @@ export default {
   border-radius: 50px;
 }
 
-.carousel-fade{
+.carousel-fade {
   margin: 20px;
   width: 75%;
   height: 400px;
@@ -87,16 +92,14 @@ export default {
 }
 
 .carousel-item img {
-        height:100vh!important ;
+  height: 100vh !important ;
 }
 
-.vHTML >>> .b{
+.vHTML >>> .b {
   font-size: 1em;
 }
 
-.vHTML >>> .b p{
+.vHTML >>> .b p {
   text-align: left;
 }
-
-
 </style>
