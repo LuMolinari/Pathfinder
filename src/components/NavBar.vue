@@ -1,13 +1,14 @@
 <template>
-<div id="template">
-  <b-navbar id="nav" toggleable="lg" type="dark" variant="dark" fixed="top" >
-    <b-navbar-brand > 
+  <b-navbar id="nav" toggleable="lg" type="dark" variant="dark"  >
+    <b-navbar-brand class="websiteName"> 
         <img
           src="../assets/mountains.png"
           alt="Pathfinder Logo"
-          height="120px"
+          height="100px"
           class="d-inline-block align-middle"
-        /><h1 class="websiteName d-inline-block">Pathfinder</h1></b-navbar-brand>
+        />
+        Pathfinder
+        </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -22,8 +23,6 @@
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
-</div>
-
 </template>
 
 
@@ -33,24 +32,19 @@
 
 <style scoped>
 
-#template{
-    margin-bottom: 175px;
-}
 #nav a.router-link-exact-active {
   color: #8ccfb9;
 }
 
 
 #nav a {
-  font-weight: bold;
   color: white;
   margin: 5px;
-  
 }
 
 .websiteName {
   font-family: "Pacifico", cursive;
-  font-size: 2.0em;
+  color: white;
   align-self: center;
 }
 

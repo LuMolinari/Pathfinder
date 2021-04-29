@@ -1,32 +1,6 @@
 <template>
   <div id="app">  
       <NavBar/>
-
-<!--     
-    <div id="nav">
-       
-      <div class="left">
-        <img
-          src="./assets/mountains.png"
-          alt="Pathfinder Logo"
-          height="120px"
-        />
-        <h1 class="websiteName">Pathfinder</h1>
-      </div>
-      <div class="right">
-        <h2><router-link to="/">Home</router-link></h2>
-        <h2><router-link to="/about">About</router-link></h2>
-        <h2><router-link to="/discover">Discover</router-link></h2>
-      </div>
-    </div> -->
-    <!-- <div v-if="backgroundVisible"> -->
-    <!-- <img
-      class="backgroundPhoto"
-      src="./assets/Canyonlands.jpg"
-      alt="Canyonlands National Park"
-      height="140px"
-    /> -->
-    <!-- </div> --> 
     <router-view />
   </div>
 </template>
@@ -43,15 +17,7 @@ export default {
   components:{
     NavBar
   }
-  // watch:{
-  //   '$route'(){
-  //     if(this.$route.name === 'ParkDetails'){
-  //       this.backgroundVisible = false;
-  //     } else {
-  //       this.backgroundVisible = true;
-  //     }
-  //   }
-  // }
+ 
 };
 </script>
 
@@ -69,45 +35,18 @@ export default {
 
 html {
   margin: 0 !important;
+  background:  #0f0f0f;
+
 }
 
 #app {
   font-family: "Merriweather", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-}
+  text-align: center;  
+  background:  #0f0f0f;
+  color: aliceblue;
 
-#nav {
-  padding: 10px;
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: space-between;
-  background: rgb(0, 0, 0, 0.5);
-  color: #ffffff;
-  width: 100%;
-  position: absolute;
-}
-
-#nav a {
-  font-weight: bold;
-  color: white;
-  margin: 10px;
-}
-
-#nav a.router-link-exact-active {
-  color: #8ccfb9;
-}
-
-.left {
-  display: inherit;
-  align-content: center;
-}
-
-.right {
-  display: inherit;
-  align-content: center;
 }
 
 .websiteName {
@@ -137,7 +76,6 @@ h2:hover {
     height: -webkit-fill-available !important;
     object-fit: contain !important;
 }
-
 
 
 </style>
