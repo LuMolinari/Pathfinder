@@ -111,7 +111,8 @@
     <CampgroundTile
       v-for="camp in options"
       :key="camp.value"
-      :FacilityID="camp.value"
+      :facilityID="camp.value"
+      :contractType="camp.type"
       v-show="camp.value == selected"
     />
 
@@ -179,6 +180,7 @@ export default {
           });
         }
 
+
         //I can use latitude and longitude to call rec.gov API here
         // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
         console.log(
@@ -196,6 +198,7 @@ export default {
             this.center.lat +
             "&longitude=" +
             this.center.lng +
+
             "&radius=50&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
         )          .then((res) => res.json())
  .then((result) => {
