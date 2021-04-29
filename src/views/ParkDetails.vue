@@ -107,7 +107,7 @@
       ></b-form-radio-group>
     </b-form-group>
     <!-- The campground Tile will make the necessary API calls -->
-    {{selected}}
+
     <CampgroundTile
       v-for="camp in options"
       :key="camp.value"
@@ -138,7 +138,6 @@
 
 <script>
 import CampgroundTile from "../components/campgroundTile.vue";
-var parseString = require("xml2js").parseString;
 
 export default {
   name: "ParkInfo",
@@ -159,7 +158,6 @@ export default {
     CampgroundTile,
   },
   mounted() {
-    let self = this;
     //fetch general park info from  nps api
     fetch(
       "https://developer.nps.gov/api/v1/parks?parkCode=" +
@@ -182,49 +180,45 @@ export default {
           });
         }
 
-        //I can use latitude and longitude to call Active API to find local campsites
-        fetch(
-          "http://api.amp.active.com/camping/campgrounds/?landmarkLat=" +
+
+        //I can use latitude and longitude to call rec.gov API here
+        // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
+        console.log(
+          "RIDB called with: ",
+          "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
             this.center.lat +
-            "&landmarkLong=" +
+            "&longitude=" +
             this.center.lng +
-            "&landmarkName=true&api_key=wkktkqmdqgxgsuxm23nxsv8m"
-        )
-          .then((res) => res.text())
-          .then((str) =>
-            new window.DOMParser().parseFromString(str, "text/xml")
-          )
-          .then((result) => {
-            console.log("Active", result);
-            let xml = new XMLSerializer().serializeToString(result);
-            parseString(xml, function (err, result) {
-              console.dir(result.resultset.result);
-              let range = 5;
-              if (result.resultset.result.length < 5) {
-                range = result.resultset.result.length;
-              }
-              console.log('selected :>> ', self.selected);
-              for (let i = 0; i < range; i++) {
-                if (i == 0) {
-                  self.selected = result.resultset.result[i].$.facilityID;
-                  console.log('selected :>> ', self.selected);
-                }
-                self.options.push({
-                  text: result.resultset.result[i].$.facilityName,
-                  value: result.resultset.result[i].$.facilityID,
-                  type: result.resultset.result[i].$.contractType,
-                });
-              }
-            });
-          });
-        // .then((result) => {
-        //   this.campInfo = result.RECDATA.slice(0, 5);
-        //   let range = 5;
-        //   if (result.RECDATA.length < 5) {
-        //     range = result.RECDATA.length;
-        //   }
-        //
-        // });
+            "&radius=10&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+        );
+
+        //I can use latitude and longitude to call active.gov
+        fetch(
+          "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
+            this.center.lat +
+            "&longitude=" +
+            this.center.lng +
+
+            "&radius=50&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+        )          .then((res) => res.json())
+ .then((result) => {
+            console.log("RIDB CAMPS:", result.RECDATA);
+            this.campInfo = result.RECDATA.slice(0, 5);
+            let range = 5;
+            if (result.RECDATA.length < 5) {
+              range = result.RECDATA.length;
+            }
+            for (let i = 0; i < range; i++) {
+              if (i == 0) {
+                this.selected = result.RECDATA[i].FacilityID;
+                 }
+              this.options.push({
+                text: result.RECDATA[i].FacilityName,
+                value: result.RECDATA[i].FacilityID,
+              });
+            }
+                      });
+
       })
       .catch((error) => console.log("Error calling NPS.gov", error));
 
