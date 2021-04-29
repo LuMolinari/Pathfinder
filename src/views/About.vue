@@ -248,7 +248,7 @@ export default {
   /* add a dim white to background */
   /* background-color: #f0f0f0; */
   /* fixed to remove the scroll bar */
-  position: fixed;
+  position: relative;
   padding: 15px;
 
 }
@@ -259,7 +259,7 @@ export default {
   width: 100%;
   height: 100%;
   color: white;
-  margin: 2% auto;
+  margin: 0% auto;
   /* width at which view changes from desktop to tablet or mobile */
   /* min-width: 600px; */
   /* prevents stretching content too far */
@@ -369,7 +369,6 @@ p {
   width: 100%;
   height: 100%;
   min-height: 600px;
-
   background-color: rgba(0, 0, 0, 0.55);
   padding: 0 100px;
 }

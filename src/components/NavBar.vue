@@ -45,6 +45,7 @@
 .websiteName {
   font-family: "Pacifico", cursive;
   color: white;
+  font-size: 3.0em;
   align-self: center;
 }
 
