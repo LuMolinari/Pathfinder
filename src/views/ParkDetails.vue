@@ -192,13 +192,12 @@ export default {
             "&radius=10&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
         );
 
-        //I can use latitude and longitude to call active.gov
+        //I can use latitude and longitude to call rec.gov
         fetch(
           "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
             this.center.lat +
             "&longitude=" +
             this.center.lng +
-
             "&radius=50&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
         )          .then((res) => res.json())
  .then((result) => {

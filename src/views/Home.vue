@@ -1,6 +1,5 @@
 <template>
   <div>
-      <app-navbar></app-navbar>
       <b-container fluid>
         <b-row align-h="center"><h2>Where will you find your next adventure?</h2> </b-row>
         <b-row>
@@ -19,7 +18,6 @@
 
 <script>
 import ParkTile from "../components/ParkTile";
-import NavBar from '../components/NavBar.vue';
 
 export default {
   name: "Home",
@@ -67,7 +65,6 @@ export default {
   },
   components: {
     ParkTile,
-    'app-navbar': NavBar
   },
 };
 </script>

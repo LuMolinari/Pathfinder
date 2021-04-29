@@ -23,11 +23,10 @@
 </template>
 
 <script>
-var parseString = require("xml2js").parseString;
 
 export default {
   name: "CampgroundTile",
-  props: ["facilityID", "contractType"],
+  props: ["facilityID"],
   data() {
     return {
       facilityInfo: Object,
@@ -38,41 +37,29 @@ export default {
   mounted() {
     let self = this;
     //make API call to get facility data
-    console.log("Facility ID", self.facilityID);
-    console.log("CampType", self.contractType);
-    console.log('API Called on :>> ', "http://api.amp.active.com/camping/campground/details?contractCode="+ self.contractType+"&parkId="+self.facilityID+"&api_key=wkktkqmdqgxgsuxm23nxsv8m");
+    let id = self.facilityID
+    console.log("Facility ID",  id);
+    
+    console.log('API Called on :>> ', "https://ridb.recreation.gov/api/v1/facilities/" +  id + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5");
+
     fetch(
-      "http://api.amp.active.com/camping/campground/details?contractCode="+ self.contractType+"&parkId="+self.facilityID+"&api_key=wkktkqmdqgxgsuxm23nxsv8m"
+      "https://ridb.recreation.gov/api/v1/facilities/" +  id + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
     )
-      .then((res) => res.text())
-      .then((str) => new window.DOMParser().parseFromString(str, "text/xml"))
+      .then((res) => res.json())
       .then((result) => {
-        console.log("Returned by Active API call: ", result);
-        let xml = new XMLSerializer().serializeToString(result);
-        parseString(xml, function (err, result) {
-          console.dir(result);
-      
-        });
+        console.log("Individual campgrounds ", result);
+
+        this.facilityInfo =  result ;
+        let string = ('<div class="b">' + result.FacilityDescription + '</div>');
+        let end = string.indexOf("<h2>Recreation</h2>");
+        string = string.slice(0, end);
+        this.facilityDescription = string
+
+        for (let i = 0; i < result.MEDIA.length; i++) {
+            this.images.push({ url: result.MEDIA[i].URL, caption: result.MEDIA[i].Description});
+        }
+
       });
-
-    // fetch(
-    //   "https://ridb.recreation.gov/api/v1/facilities/" + self.FacilityID + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
-    // )
-    //   .then((res) => res.json())
-    //   .then((result) => {
-    //     console.log("Individual campgrounds ", result);
-
-    //     this.facilityInfo =  result ;
-    //     let string = ('<div class="b">' + result.FacilityDescription + '</div>');
-    //     let end = string.indexOf("<h2>Recreation</h2>");
-    //     string = string.slice(0, end);
-    //     this.facilityDescription = string
-
-    //     for (let i = 0; i < result.MEDIA.length; i++) {
-    //         this.images.push({ url: result.MEDIA[i].URL, caption: result.MEDIA[i].Description});
-    //     }
-
-    //   });
   },
 };
 </script>

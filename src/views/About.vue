@@ -1,6 +1,5 @@
 <template>
 <div>
-  <app-navbar></app-navbar>
    <div class="route-view">
      
     <!-- main section-->
@@ -222,7 +221,6 @@
 </template>
 
 <script>
-import NavBar from '../components/NavBar.vue';
 export default {
   name: "about",
   data() {
@@ -230,9 +228,7 @@ export default {
       picked: "meet",
     };
   },
-  components: {
-    'app-navbar': NavBar
-  }
+
 };
 </script>
 

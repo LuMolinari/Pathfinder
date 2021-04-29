@@ -1,6 +1,5 @@
 <template>
   <div>
-    <app-navbar></app-navbar>
   
   <div class="route-view" id="discover">
     <!-- main section -->
@@ -112,13 +111,11 @@
 
 <script>
 import SearchResultCard from "../components/SearchResultCard.vue";
-import NavBar from '../components/NavBar.vue';
 
 export default {
  name: "Discover",
   components: { 
     SearchResultCard,
-    'app-navbar': NavBar
    },
  
  
