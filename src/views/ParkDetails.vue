@@ -45,7 +45,7 @@
 
     <b-container class="overview">
       <b-row cols="1" cols-sm="1" cols-md="2">
-        <b-col><h2>&#8227;Overview</h2></b-col>
+        <b-col><h2><b-icon icon="caret-right-fill" aria-hidden="true"></b-icon>Overview</h2></b-col>
         <b-col
           ><p>{{ parkInfo.description }}</p></b-col
         >
