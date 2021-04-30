@@ -1,6 +1,8 @@
 <template>
   <div class="campgroundTile">
+    
     <b-carousel
+      v-if="photosExist()"
       id="carousel-fade"
       :interval="5000"
       controls
@@ -34,6 +36,11 @@ export default {
       facilityDescription: "",
       images: [],
     };
+  },
+  methods:{
+    photosExist(){
+      return this.images.length != 0;
+    }
   },
   mounted() {
     let self = this;
