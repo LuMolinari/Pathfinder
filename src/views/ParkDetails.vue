@@ -9,72 +9,48 @@
         <h1>{{ parkInfo.fullName }}</h1>
       </div>
     </div>
+    <!-- Bar with information about park -->
 
-      <b-list-group horizontal="md" class="info-bar">
-        <b-list-group-item
+    <b-container class="info-bar">
+      <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="4">
+        <b-col
           ><h2>Location</h2>
           <p v-if="parkInfo.addresses[0] != null">
             {{ parkInfo.addresses[0].city }},
             {{ parkInfo.addresses[0].stateCode }}
-          </p></b-list-group-item
+          </p></b-col
         >
-        <b-list-group-item
-          ><h2>Phone</h2>
-          <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
+       
+        <b-col
+          > <h2>Phone</h2><p v-if="parkInfo.contacts.phoneNumbers[0] != null">
             {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
           </p>
-          <p v-else>No Phone Number Found</p></b-list-group-item
+          <p v-else>No Phone Number Found</p></b-col
         >
-        <b-list-group-item class=""
-          ><h2>Email</h2>
-          <p v-if="parkInfo.contacts.emailAddresses[0] != null">
-            {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
-          </p>
-          <p v-else>No Email Found</p></b-list-group-item
-        ><b-list-group-item>
-          <h2>Learn More</h2>
-          <b-button class="official-site-button">
-            <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
-              >Official Site</a
-            >
-          </b-button>
-        </b-list-group-item>
-      </b-list-group>
-    
-
-    <!-- Gathering Contact Info -->
-    <!-- <div class="info-bar">
-      <div class="info-column">
-        <h2>Location</h2>
-        <p v-if="parkInfo.addresses[0] != null">
-          {{ parkInfo.addresses[0].city }},
-          {{ parkInfo.addresses[0].stateCode }}
-        </p>
-      </div>
-
-      <div class="info-column">
-        <h2>Phone</h2>
-        <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
-          {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
-        </p>
-        <p v-else>No Phone Number Found</p>
-      </div>
-      <div class="info-column">
-        <h2>Email</h2>
+        <b-col><h2>Email</h2>
         <p v-if="parkInfo.contacts.emailAddresses[0] != null">
           {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
         </p>
-        <p v-else>No Email Found</p>
-      </div>
-      <div class="info-column">
-        <h2>Learn More</h2>
-        <button class="official-site-button">
+        <p v-else>No Email Found</p> </b-col>
+        <b-col>  <h2>Learn More</h2>
+        <b-button class="official-site-button">
           <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
             >Official Site</a
           >
-        </button>
-      </div>
-    </div> -->
+        </b-button></b-col>
+      </b-row>
+    </b-container>
+
+    
+
+    <b-container class="overview">
+      <b-row cols="1" cols-sm="1" cols-md="2">
+        <b-col><h2>&#8227;Overview</h2></b-col>
+        <b-col
+          ><p>{{ parkInfo.description }}</p></b-col
+        >
+      </b-row>
+    </b-container>
 
     <!-- Any Current Park Alerts -->
 
@@ -83,6 +59,7 @@
       class="alerts-wrapper"
       variant="warning"
       show
+      fade
       dismissible
     >
       <h2 style="text-align: center">Park Alerts</h2>
@@ -136,7 +113,7 @@
         v-model="selected"
         :options="options"
         :aria-describedby="ariaDescribedby"
-        button-variant="outline-info"
+        button-variant="info"
         size="md"
         name="radio-btn-outline"
         buttons
@@ -155,7 +132,7 @@
     <!-- Google maps comnponent -->
     <GmapMap
       :center="center"
-      :zoom="9"
+      :zoom="12"
       map-type-id="hybrid"
       style="width: 100%; height: 500px"
     >
@@ -287,7 +264,7 @@ export default {
 </script>
 
 <style scoped>
-.wrapper{
+.wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -317,22 +294,44 @@ export default {
 }
 
 .hero-text h1 {
-  font-size: 2em;
+  font-size: 5vw;
   width: 70%;
 }
 
 /* info bar */
 .info-bar {
   color: black;
+  margin: 25px auto;
   margin-top: -40px;
+  background: rgba(255, 255, 255);
+  border-radius: 15px;
+  
+}
+
+.overview {
+  text-align: left;
+    margin: 25px auto;
+
 }
 
 /* wrapper around the alerts to center it */
 
 .alerts-wrapper {
   width: 75%;
-  margin: 0px auto;
+  margin: 25px auto;
   text-align: left;
+}
+
+.alerts-wrapper h2 {
+  font-size: 2em;
+}
+
+.alerts-wrapper h3 {
+  font-size: 1.2em;
+}
+
+.alerts-wrapper p {
+  font-size: 0.8em;
 }
 
 .activity {
