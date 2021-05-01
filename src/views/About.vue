@@ -276,6 +276,7 @@ label {
   color: white;
   background-color: #556575;
   font-weight: 400;
+  font-size: 1rem;
   /* padding-top: 3px; */
   /* changes to the label will be linear (at single speed) and take .2 seconds */
   transition: linear 0.2s;
