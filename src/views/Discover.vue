@@ -1,56 +1,55 @@
 <template>
   <div>
-  
-  <div class="route-view" id="discover">
-    <!-- main section -->
-    <b-container fluid class="bg-dark px-3 py-2 w-100 rounded">
-      <!-- heading and subheading -->
-      <b-row class="mb-3 text-left">
-        <b-col>
-          <p class="h2">Discover</p>
-          <p class="lead text-muted mb-n1 mt-n1">
-            Your next outdoor adventure awaits
-          </p>
-        </b-col>
-      </b-row>
+    <div class="route-view" id="discover">
+      <!-- main section -->
+      <b-container fluid class="bg-dark px-3 py-2 w-100 rounded">
+        <!-- heading and subheading -->
+        <b-row class="mb-3 text-left">
+          <b-col>
+            <p class="h2">Discover</p>
+            <p class="lead text-muted mb-n1 mt-n1">
+              Your next outdoor adventure awaits
+            </p>
+          </b-col>
+        </b-row>
 
-      <!-- search bar and 2 grouped buttons -->
-      <!-- search bar -->
-      <b-row class="mb-2">
-        <b-col sm="12" md="8">
-          <b-form-input
-            size="md"
-            class="w-100 mb-2"
-            placeholder="Find a park"
-            v-model="searchText"
-          ></b-form-input>
-        </b-col>
+        <!-- search bar and 2 grouped buttons -->
+        <!-- search bar -->
+        <b-row class="mb-2">
+          <b-col sm="12" md="8">
+            <b-form-input
+              size="md"
+              class="w-100 mb-2"
+              placeholder="Find a park"
+              v-model="searchText"
+            ></b-form-input>
+          </b-col>
 
-        <!-- dropdown and search button -->
-        <b-col sm="12" md="4">
-          <!-- bug from above: in order to move grouped buttons together, had to add negative margins-->
-          <b-row class="mx-n5">
-            <b-col>
-              <b-button-toolbar class="justify-content-center">
-                <!-- changed to dropdown select instead of button dropdown -->
-                <b-form-select class="ml-3 mr-2 w-50" v-model="dropDownValue">
-                  <!-- first option MUST be disabled with empty value to render -->
-                  <option disabled value="">Search By</option>
-                  <!-- for each option, bind the options value to this element and render its text -->
-                  <option
-                    v-for="option in options"
-                    :key="option.id"
-                    :value="option.value"
-                  >
-                    {{ option.text }}
-                  </option>
-                </b-form-select>
+          <!-- dropdown and search button -->
+          <b-col sm="12" md="4">
+            <!-- bug from above: in order to move grouped buttons together, had to add negative margins-->
+            <b-row class="mx-n5">
+              <b-col>
+                <b-button-toolbar class="justify-content-center">
+                  <!-- changed to dropdown select instead of button dropdown -->
+                  <b-form-select class="ml-3 mr-2 w-50" v-model="dropDownValue">
+                    <!-- first option MUST be disabled with empty value to render -->
+                    <option disabled value="">Search By</option>
+                    <!-- for each option, bind the options value to this element and render its text -->
+                    <option
+                      v-for="option in options"
+                      :key="option.id"
+                      :value="option.value"
+                    >
+                      {{ option.text }}
+                    </option>
+                  </b-form-select>
 
-                <!-- TODO: -->
-                <!-- if the dropdown value is "" and user hovers -> tooltip message: please select a search method -->
-                <!-- if dropdown value is "" and user clicks -> alert message: please select a search method before searching-->
+                  <!-- TODO: -->
+                  <!-- if the dropdown value is "" and user hovers -> tooltip message: please select a search method -->
+                  <!-- if dropdown value is "" and user clicks -> alert message: please select a search method before searching-->
 
-                <!-- <b-button
+                  <!-- <b-button
                     v-b-popover.hover.top="'content'"
                     title="popover"
                     class="ml-2 mr-3"
@@ -60,51 +59,52 @@
                     >Search</b-button
                   > -->
 
-                <b-button
-                  id="popover-target-1"
-                  class="ml-2 mr-3"
-                  size="md"
-                  variant="primary"
-                  @click="search()"
-                  >Search</b-button
-                >
-                <b-popover
-                  v-if="dropDownValue === ''"
-                  target="popover-target-1"
-                  triggers="focus"
-                  placement="top"
-                >
-                  Please select a search type
-                </b-popover>
-                <b-popover
-                  v-if="searchText === ''"
-                  target="popover-target-1"
-                  triggers="focus"
-                  placement="top"
-                >
-                  Please enter a park name or state
-                </b-popover>
-              </b-button-toolbar>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </b-container>
+                  <b-button
+                    id="popover-target-1"
+                    class="ml-2 mr-3"
+                    size="md"
+                    variant="primary"
+                    @click="search()"
+                    >Search</b-button
+                  >
+                  <b-popover
+                    v-if="dropDownValue === ''"
+                    target="popover-target-1"
+                    triggers="focus"
+                    placement="top"
+                  >
+                    Please select a search type
+                  </b-popover>
+                  <b-popover
+                    v-if="searchText === ''"
+                    target="popover-target-1"
+                    triggers="focus"
+                    placement="top"
+                  >
+                    Please enter a park name or state
+                  </b-popover>
+                </b-button-toolbar>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-container>
 
-    <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: black">
-      Search by name or state
-    </h1>
-    <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
-      No parks found, try again
-    </h1>
-    <h1 v-else class="mt-3" style="color: black">Results</h1>
-    <div v-for="park in parkResults" :key="park.parkCode">
-      <SearchResultCard :park="park" />
+      <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: black">
+        Search by name or state
+      </h1>
+      <h1 v-else-if="isSearching" class="mt-3" style="color: black">
+        Searching...
+      </h1>
+      <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
+        No parks found, try again
+      </h1>
+      <h1 v-else class="mt-3" style="color: black">Results</h1>
+      <div v-for="park in parkResults" :key="park.parkCode">
+        <SearchResultCard :park="park" />
+      </div>
     </div>
   </div>
-
-  </div>
-  
 </template>
 
 
@@ -113,12 +113,11 @@
 import SearchResultCard from "../components/SearchResultCard.vue";
 
 export default {
- name: "Discover",
-  components: { 
+  name: "Discover",
+  components: {
     SearchResultCard,
-   },
- 
- 
+  },
+
   data: function () {
     return {
       npsAPIKey: "EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC",
@@ -131,6 +130,7 @@ export default {
         { value: "state", text: "State" },
       ],
       parkResults: [],
+      isSearching: true,
     };
   },
   watch: {},
@@ -321,6 +321,7 @@ export default {
       } */
     },
     search: function () {
+      this.isSearching = true;
       if (this.dropDownValue != "" && this.searchText != "") {
         /* set flag */
         this.searchButtonClickedOnce = true;
@@ -367,6 +368,7 @@ export default {
           /* exit the function if a valid state code wasnt found */
           if (stateCode === undefined) {
             // TODO: alert state not found message
+            this.isSearching = false;
             return;
           }
           console.log("State code: ", stateCode);
@@ -382,6 +384,7 @@ export default {
           console.log("not searching");
         }
       }
+      this.isSearching = false;
     },
   },
 };
