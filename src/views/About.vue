@@ -1,10 +1,9 @@
 <template>
-<div>
-   <div class="route-view">
-     
-    <!-- main section-->
-    <div class="about">
-      <!-- <b-tabs  tabs justified class="slide-content-area">
+  <div>
+    <div class="route-view">
+      <!-- main section-->
+      <div class="about">
+        <!-- <b-tabs  tabs justified class="slide-content-area">
           <b-tab title="Meet The Team" active class="slide-content meet-slide overlay"> <h2>Meet the Team</h2>
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
@@ -64,139 +63,136 @@
             </p></b-tab>
       </b-tabs> -->
 
-
         <!-- radio button wrapper -->
-      <div class="radio-buttons">
-        <!-- radio button -->
-        <input
-          v-model="picked"
-          value="meet"
-          type="radio"
-          id="meetRadio"
-          checked
-        />
-        <label id="labelForMeetTheTeam" for="meetRadio">Meet The Team</label>
+        <div class="radio-buttons">
+          <!-- radio button -->
+          <input
+            v-model="picked"
+            value="meet"
+            type="radio"
+            id="meetRadio"
+            checked
+          />
+          <label id="labelForMeetTheTeam" for="meetRadio">Meet The Team</label>
 
-        <!-- radio button -->
-        <input
-          v-model="picked"
-          value="mission"
-          type="radio"
-          id="missionRadio"
-        />
-        <label id="labelForMission" for="missionRadio">Mission</label>
+          <!-- radio button -->
+          <input
+            v-model="picked"
+            value="mission"
+            type="radio"
+            id="missionRadio"
+          />
+          <label id="labelForMission" for="missionRadio">Mission</label>
 
-        <!-- radio button -->
-        <input
-          v-model="picked"
-          value="purpose"
-          type="radio"
-          id="purposeRadio"
-        />
-        <label id="labelForPurpose" for="purposeRadio">Purpose</label>
+          <!-- radio button -->
+          <input
+            v-model="picked"
+            value="purpose"
+            type="radio"
+            id="purposeRadio"
+          />
+          <label id="labelForPurpose" for="purposeRadio">Purpose</label>
 
-        <!-- radio button -->
-        <input
-          v-model="picked"
-          value="sustainability"
-          type="radio"
-          id="sustainabilityRadio"
-        />
-        <label id="labelForSustainability" for="sustainabilityRadio">
-          Sustainability
-        </label>
-      </div>
-
-
-
-      <!-- slide content wrapper -->
-      <div class="slide-content-area">
-        <!-- each content div below depends on value of 'picked' -->
-        <div v-if="picked === 'meet'" class="slide-content meet-slide">
-          <!-- dark overlay for the background of the slide -->
-          <div class="overlay">
-            <h2>Meet the Team</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p>
-          </div>
+          <!-- radio button -->
+          <input
+            v-model="picked"
+            value="sustainability"
+            type="radio"
+            id="sustainabilityRadio"
+          />
+          <label id="labelForSustainability" for="sustainabilityRadio">
+            Sustainability
+          </label>
         </div>
 
-        <!-- content div -->
-        <div v-if="picked === 'mission'" class="slide-content mission-slide">
-          <div class="overlay">
-            <h2>Our Mission</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p>
+        <!-- slide content wrapper -->
+        <div class="slide-content-area">
+          <!-- each content div below depends on value of 'picked' -->
+          <div v-if="picked === 'meet'" class="slide-content meet-slide">
+            <!-- dark overlay for the background of the slide -->
+            <div class="overlay">
+              <h2>Meet the Team</h2>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+                ullam nam iusto sed nisi placeat culpa minus nihil tempore
+                quibusdam! Totam beatae maxime corrupti odio aspernatur
+                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+                repellat quod, officiis officia voluptates nihil maiores, magni
+                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
+                error vel. Cum facere vel eaque fuga, assumenda totam nisi
+                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
+                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
+                fugiat, amet quae pariatur provident velit?
+              </p>
+            </div>
           </div>
-        </div>
 
-        <!-- content div -->
-        <div v-if="picked === 'purpose'" class="slide-content purpose-slide">
-          <div class="overlay">
-            <h2>Purpose</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p>
+          <!-- content div -->
+          <div v-if="picked === 'mission'" class="slide-content mission-slide">
+            <div class="overlay">
+              <h2>Our Mission</h2>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+                ullam nam iusto sed nisi placeat culpa minus nihil tempore
+                quibusdam! Totam beatae maxime corrupti odio aspernatur
+                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+                repellat quod, officiis officia voluptates nihil maiores, magni
+                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
+                error vel. Cum facere vel eaque fuga, assumenda totam nisi
+                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
+                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
+                fugiat, amet quae pariatur provident velit?
+              </p>
+            </div>
           </div>
-        </div>
 
-        <!-- content div -->
-        <div
-          v-if="picked === 'sustainability'"
-          class="slide-content sustainability-slide"
-        >
-          <div class="overlay">
-            <h2>Sustainability</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p>
+          <!-- content div -->
+          <div v-if="picked === 'purpose'" class="slide-content purpose-slide">
+            <div class="overlay">
+              <h2>Purpose</h2>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+                ullam nam iusto sed nisi placeat culpa minus nihil tempore
+                quibusdam! Totam beatae maxime corrupti odio aspernatur
+                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+                repellat quod, officiis officia voluptates nihil maiores, magni
+                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
+                error vel. Cum facere vel eaque fuga, assumenda totam nisi
+                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
+                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
+                fugiat, amet quae pariatur provident velit?
+              </p>
+            </div>
           </div>
-        </div>
 
-        <!-- Changed this slide to sustainability for links to park sustainability links/info -->
-        <!-- <h2>National Park Service History</h2>
+          <!-- content div -->
+          <div
+            v-if="picked === 'sustainability'"
+            class="slide-content sustainability-slide"
+          >
+            <div class="overlay">
+              <h2>Sustainability</h2>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
+                ullam nam iusto sed nisi placeat culpa minus nihil tempore
+                quibusdam! Totam beatae maxime corrupti odio aspernatur
+                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
+                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
+                repellat quod, officiis officia voluptates nihil maiores, magni
+                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
+                error vel. Cum facere vel eaque fuga, assumenda totam nisi
+                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
+                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
+                fugiat, amet quae pariatur provident velit?
+              </p>
+            </div>
+          </div>
+
+          <!-- Changed this slide to sustainability for links to park sustainability links/info -->
+          <!-- <h2>National Park Service History</h2>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam nam
           iusto sed nisi placeat culpa minus nihil tempore quibusdam! Totam beatae
@@ -209,13 +205,11 @@
           Tenetur aspernatur consequuntur autem quod blanditiis fugiat, amet quae
           pariatur provident velit?
         </p> -->
+        </div>
       </div>
     </div>
   </div>
-  
-</div>
   <!-- view area -->
- 
 </template>
 
 <script>
@@ -226,7 +220,6 @@ export default {
       picked: "meet",
     };
   },
-
 };
 </script>
 
@@ -250,7 +243,6 @@ export default {
   /* fixed to remove the scroll bar */
   position: relative;
   padding: 15px;
-
 }
 
 /* main styles */
@@ -268,7 +260,7 @@ export default {
 
 /* button styling */
 .radio-buttons {
-  height: 50px;
+  height: 7%;
   width: 100%;
   /* 4 column grid */
   display: grid;
@@ -278,26 +270,26 @@ export default {
 /* inactive label */
 label {
   width: 100%;
-  height: 100%;
+  height: 50px;
   /* make labels seem clickable */
   cursor: pointer;
   color: white;
   background-color: #556575;
   font-weight: 400;
-  padding-top: 3px;
+  /* padding-top: 3px; */
   /* changes to the label will be linear (at single speed) and take .2 seconds */
   transition: linear 0.2s;
   /* hide the bottom border which appears during hover and clicked */
   border-bottom: 8px solid transparent;
-  padding-top: 10px;
-  padding-bottom: 4px;
+  padding: 10px 7px 4px 7px;
+  white-space: nowrap;
 }
 
 /* label hover */
 label:hover {
   /* bg color change */
   background-color: #88a0ba;
-  font-size: 17px;
+  font-size: 1.1rem;
   /* bottom border appears */
   border-bottom: 8px solid #8ccfb9;
   /* specifies offset from element frame: offset-x offset-y color*/
@@ -313,7 +305,7 @@ label:hover {
   background-color: #284b63;
   border-bottom: 8px solid #8ccfb9;
   font-weight: 600;
-  font-size: 17px;
+  font-size: 1.1rem;
 }
 
 /* hide the radio buttons */
@@ -327,15 +319,17 @@ input {
   height: 100%;
   color: white;
 }
- 
+
 /* headings */
 h2 {
-  padding: 30px 0;
+  padding: 5% 0;
+  font-size: 2.2em;
 }
 
 /* copy */
 p {
   text-align: left;
+  font-size: 1.2em;
 }
 
 /* content */
@@ -345,6 +339,7 @@ p {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  font-size: 16px;
 }
 
 /* background images for each individual slide */
@@ -370,7 +365,7 @@ p {
   height: 100%;
   min-height: 600px;
   background-color: rgba(0, 0, 0, 0.55);
-  padding: 0 100px;
+  padding: 0 7%;
 }
 
 /* needed to add this because the default cursor is a pointer but i couldnt figure out why */
