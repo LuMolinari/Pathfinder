@@ -22,7 +22,7 @@
     export default {
         data() {
             return {
-                name: "",
+                name: "Loading...",
                 loadedKey: 0,
                 availableDates: new Date(), // Jan 25th, 2021
                 available: [
@@ -47,7 +47,20 @@
             },
             mounted() {
                 var monthDif, monthVal, yearVal;
-                for(var x = 1; x <= 12; x++){
+                if(this.name=="Loading..."){
+                    console.log("this.name = ", this.name)
+                    fetch(
+                        "https://ridb.recreation.gov/api/v1/facilities/" + this.$route.params.ID + 
+                        "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5")
+                        .then((res) => res.json())
+                        .then((result) => {
+                            console.log("Individual campgrounds ", result);
+                                    
+                                this.name = result.FacilityName;
+                        })
+                }
+
+                for(var x = 1; x <= 6; x++){
                     /*Handle for case of the month value being greater than 12
                       update the month and year value to match*/
                     if(curMonth+x <= 12){
@@ -66,7 +79,10 @@
                     else{
                         monthDif = "-0"
                     }
-
+                    console.log("https://www.recreation.gov/api/camps/availability/campground/" +
+                        this.$route.params.ID +
+                        "/month?start_date=" + yearVal + monthDif +
+                        (monthVal) + "-01T00%3A00%3A00.000Z")
                     //fetch dates available in the current month and the following 12 months
                     fetch(
                         "https://www.recreation.gov/api/camps/availability/campground/" +
@@ -93,17 +109,9 @@
                         this.forceRerender();
                     })
                 }
-                    fetch(
-                        "https://ridb.recreation.gov/api/v1/facilities/" + this.$route.params.ID + 
-                        "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5")
-                        .then((res) => res.json())
-                        .then((result) => {
-                            console.log("Individual campgrounds ", result);
-                                    
-                                this.name = result.FacilityName;
-                        })
                 
             },
+            
             
         };
             
