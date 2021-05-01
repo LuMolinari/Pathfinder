@@ -4,9 +4,7 @@
      
     <!-- main section-->
     <div class="about">
-    
-      <!-- // radio button wrapper -->
-      <b-tabs  tabs justified class="slide-content-area">
+      <!-- <b-tabs  tabs justified class="slide-content-area">
           <b-tab title="Meet The Team" active class="slide-content meet-slide overlay"> <h2>Meet the Team</h2>
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
@@ -64,7 +62,7 @@
               aspernatur consequuntur autem quod blanditiis fugiat, amet quae
               pariatur provident velit?
             </p></b-tab>
-      </b-tabs>
+      </b-tabs> -->
 
 
         <!-- radio button wrapper -->
@@ -244,14 +242,15 @@ export default {
   box-sizing: border-box;
 }
 
-main view container
 .route-view {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   /* add a dim white to background */
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
   /* fixed to remove the scroll bar */
-  position: fixed;
+  position: relative;
+  padding: 15px;
+
 }
 
 /* main styles */
@@ -260,7 +259,7 @@ main view container
   width: 100%;
   height: 100%;
   color: white;
-  margin: 2% auto;
+  margin: 0% auto;
   /* width at which view changes from desktop to tablet or mobile */
   /* min-width: 600px; */
   /* prevents stretching content too far */
@@ -370,7 +369,6 @@ p {
   width: 100%;
   height: 100%;
   min-height: 600px;
-
   background-color: rgba(0, 0, 0, 0.55);
   padding: 0 100px;
 }
