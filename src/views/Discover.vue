@@ -46,20 +46,6 @@
                     </option>
                   </b-form-select>
 
-                  <!-- TODO: -->
-                  <!-- if the dropdown value is "" and user hovers -> tooltip message: please select a search method -->
-                  <!-- if dropdown value is "" and user clicks -> alert message: please select a search method before searching-->
-
-                  <!-- <b-button
-                    v-b-popover.hover.top="'content'"
-                    title="popover"
-                    class="ml-2 mr-3"
-                    size="md"
-                    variant="primary"
-                    @click="search()"
-                    >Search</b-button
-                  > -->
-
                   <b-button
                     id="popover-target-1"
                     class="ml-2 mr-3"
@@ -96,13 +82,10 @@
       </h1>
       <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
         {{ displayMessage }}
+        <div v-if="displayMessage === 'Searching...'" class="mt-5">
+          <b-spinner id="search-spinner" label="Loading..."></b-spinner>
+        </div>
       </h1>
-      <!-- <h1 v-else-if="isSearching" class="mt-3" style="color: black">
-        Searching...
-      </h1>
-      <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
-        No parks found, try again
-      </h1> -->
       <h1 v-else class="mt-3" style="color: black">
         {{ parkResults.length }} Results
       </h1>
@@ -424,6 +407,11 @@ export default {
   padding: 2% 7%;
   font-family: "Titillium Web", Arial, sans-serif;
   color: white;
+}
+
+#search-spinner {
+  height: 3rem;
+  width: 3rem;
 }
 
 /* Adjusting fonts for responsiveness */
