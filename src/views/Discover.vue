@@ -1,5 +1,6 @@
 <template>
   <div>
+    <DiscoverHero />
     <div class="route-view" id="discover">
       <!-- main section -->
       <b-container fluid class="bg-dark px-3 py-2 w-100 rounded">
@@ -116,11 +117,13 @@
 
 <script>
 import SearchResultCard from "../components/SearchResultCard.vue";
+import DiscoverHero from "../components/DiscoverHero.vue";
 
 export default {
   name: "Discover",
   components: {
     SearchResultCard,
+    DiscoverHero,
   },
 
   data: function () {
@@ -418,7 +421,7 @@ export default {
   background-color: #ececec;
   /* fixed to remove the scroll bar */
   /* position: fixed; */
-  padding: 7% 7%;
+  padding: 2% 7%;
   font-family: "Titillium Web", Arial, sans-serif;
   color: white;
 }
