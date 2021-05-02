@@ -116,8 +116,8 @@
 
 
 <script>
-import SearchResultCard from "../components/SearchResultCard.vue";
-import DiscoverHero from "../components/DiscoverHero.vue";
+import SearchResultCard from "../components/SearchResultCard";
+import DiscoverHero from "../components/DiscoverHero";
 
 export default {
   name: "Discover",
