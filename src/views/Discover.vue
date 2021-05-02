@@ -93,13 +93,18 @@
       <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: black">
         Search by name or state
       </h1>
-      <h1 v-else-if="isSearching" class="mt-3" style="color: black">
+      <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
+        {{ displayMessage }}
+      </h1>
+      <!-- <h1 v-else-if="isSearching" class="mt-3" style="color: black">
         Searching...
       </h1>
       <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
         No parks found, try again
+      </h1> -->
+      <h1 v-else class="mt-3" style="color: black">
+        {{ parkResults.length }} Results
       </h1>
-      <h1 v-else class="mt-3" style="color: black">Results</h1>
       <div v-for="park in parkResults" :key="park.parkCode">
         <SearchResultCard :park="park" />
       </div>
@@ -130,7 +135,7 @@ export default {
         { value: "state", text: "State" },
       ],
       parkResults: [],
-      isSearching: true,
+      displayMessage: "",
     };
   },
   watch: {},
@@ -186,6 +191,7 @@ export default {
       }
       /* convert the response into json */
       var jsonData = await response.json();
+
       return jsonData;
     },
     storeNationalParkResults: function (data) {
@@ -214,33 +220,38 @@ export default {
         }
       }
 
-      /* fetch and update the temp in each city */
-      this.parkResults.forEach((park) => {
-        park.temp = this.getNationalParkCurrentTemperature(park.city)
-          .then((data) => {
-            /* console.log(
-              `Current temp at ${park.city} is ${data["main"][
-                "temp"
-              ].toPrecision(2)}`
-            ); */
-            if (park.city === "Death Valley") {
-              console.log("hello");
-            }
-            park.temp = data["main"]["temp"].toPrecision(2);
-          })
-          .catch((error) => {
-            if (error.message === "HTTP request network error occurred") {
-              console.log(`${park.city} weather not found`);
-              park.temp = "--";
-            }
-            console.log(
-              "Error occured retreiving weather info for " +
-                park.city +
-                ": " +
-                error.message
-            );
-          });
-      });
+      // if parkResults is empty, return, else get temps
+      if (this.parkResults.length > 0) {
+        /* fetch and update the temp in each city */
+        this.parkResults.forEach((park) => {
+          park.temp = this.getNationalParkCurrentTemperature(park.city)
+            .then((data) => {
+              /* console.log(
+                `Current temp at ${park.city} is ${data["main"][
+                  "temp"
+                ].toPrecision(2)}`
+              ); */
+              if (park.city === "Death Valley") {
+                console.log("hello");
+              }
+              park.temp = data["main"]["temp"].toPrecision(2);
+            })
+            .catch((error) => {
+              if (error.message === "HTTP request network error occurred") {
+                console.log(`${park.city} weather not found`);
+                park.temp = "--";
+              }
+              console.log(
+                "Error occured retreiving weather info for " +
+                  park.city +
+                  ": " +
+                  error.message
+              );
+            });
+        });
+      } else {
+        this.displayMessage = "0 results found. Try another search.";
+      }
     },
     abbrState: function (input, to) {
       // function to convert state name to state code
@@ -321,11 +332,9 @@ export default {
       } */
     },
     search: function () {
-      this.isSearching = true;
       if (this.dropDownValue != "" && this.searchText != "") {
         /* set flag */
         this.searchButtonClickedOnce = true;
-
         /* clear the current park results */
         this.parkResults = [];
 
@@ -354,6 +363,7 @@ export default {
           /* convert the array into a string */
           var lowerCasedInputString = lowerCaseWords.join(" ");
           console.log("Lower case input string: ", lowerCasedInputString);
+          this.displayMessage = "Searching...";
 
           /* fetch and store the results */
           this.getNationalParkByName(lowerCasedInputString)
@@ -368,10 +378,11 @@ export default {
           /* exit the function if a valid state code wasnt found */
           if (stateCode === undefined) {
             // TODO: alert state not found message
-            this.isSearching = false;
+            this.displayMessage = "State is not found. Try another search.";
             return;
           }
           console.log("State code: ", stateCode);
+          this.displayMessage = "Searching...";
           /* pass state code into search, 
             fetch and store data */
           this.getNationalParksInState(stateCode)
@@ -383,8 +394,11 @@ export default {
           /* do nothing, no selection */
           console.log("not searching");
         }
+
+        // if (this.parkResults.length === 0) {
+        //
+        // }
       }
-      this.isSearching = false;
     },
   },
 };
