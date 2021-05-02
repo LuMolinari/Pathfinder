@@ -23,8 +23,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   color: #fff;
-  padding-top: 10%;
-  padding-left: 7%;
+  padding: 12% 7%;
   position: relative;
 }
 
