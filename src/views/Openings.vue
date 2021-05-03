@@ -8,7 +8,38 @@
             v-model='availableDates'
             :attributes='available'>
             </vc-date-picker>
+            <h2 v-if="!isAvailable()">
+                The campground is currently unavailable for reservations. 
+                Please try again later.
+            </h2>
+                <h2 v-if="isAvailable()">{{phone}}</h2>
+                <h2 v-if="isAvailable()">{{email}}</h2>
+            <ul v-if="isAvailable()">
+                <li v-for="item in items" :key="item.message">
+                 {{ item.message }}
+                 </li>
+            </ul>
 
+
+
+            <b-carousel
+                v-if="photosExist()"
+                :interval="5000"
+                controls
+                fade
+                indicators
+                background="#ababab"
+                style="text-shadow: 1px 1px 2px #333"
+            >
+                <b-carousel-slide
+                    v-for="image in images"
+                    :key="image.url"
+                    :text="image.caption"
+                    :img-src="image.url"
+                    :caption="image.title"
+                >
+            </b-carousel-slide>
+    </b-carousel>
            
     </div>
 
@@ -25,6 +56,11 @@
                 name: "Loading...",
                 loadedKey: 0,
                 availableDates: new Date(), // Jan 25th, 2021
+                phone: "",
+                email: "",
+                Reservable: true,
+                items: [],
+                images: [],
                 available: [
                     {
                         id: 1,
@@ -43,20 +79,42 @@
             methods:{
                 forceRerender() {
                     this.loadedKey += 1;
-                }
+                },
+
+                photosExist(){
+                     return this.images.length != 0;
+                 },
+                 isAvailable(){
+                     return this.Reservable;
+                 }
+
             },
             mounted() {
-                var monthDif, monthVal, yearVal;
+                var monthDif, monthVal, yearVal, y;
                 if(this.name=="Loading..."){
-                    console.log("this.name = ", this.name)
                     fetch(
                         "https://ridb.recreation.gov/api/v1/facilities/" + this.$route.params.ID + 
                         "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5")
                         .then((res) => res.json())
                         .then((result) => {
                             console.log("Individual campgrounds ", result);
-                                    
                                 this.name = result.FacilityName;
+                                this.phone = "Contact Number: "+ result.FacilityPhone;
+                                this.email = "Facility Email: "+ result.FacilityEmail;
+                            if(result.Reservable == true){
+                                for( y = 0; y<result.ACTIVITY.length; y++){
+                                    console.log(result.ACTIVITY[y].ActivityName);
+                                    this.items.push({message: result.ACTIVITY[y].ActivityName});
+                                }
+                                for( y = 0; y<result.MEDIA.length; y++){
+                                    this.images.push({ url: result.MEDIA[y].URL, caption: result.MEDIA[y].Description, title: result.MEDIA[y].Title});
+                                }
+                            }
+                            else{
+                                this
+                            }
+                            this.Reservable = result.Reservable;
+                                this.forceRerender();
                         })
                 }
 
