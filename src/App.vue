@@ -77,5 +77,8 @@ h2:hover {
     object-fit: contain !important;
 }
 
+.row{
+  justify-content: space-evenly;
+}
 
 </style>

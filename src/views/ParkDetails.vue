@@ -20,34 +20,63 @@
             {{ parkInfo.addresses[0].stateCode }}
           </p></b-col
         >
-       
-        <b-col
-          > <h2>Phone</h2><p v-if="parkInfo.contacts.phoneNumbers[0] != null">
+
+        <b-col>
+          <h2>Phone</h2>
+          <p v-if="parkInfo.contacts.phoneNumbers[0] != null">
             {{ parkInfo.contacts.phoneNumbers[0].phoneNumber }}
           </p>
           <p v-else>No Phone Number Found</p></b-col
         >
-        <b-col><h2>Email</h2>
-        <p v-if="parkInfo.contacts.emailAddresses[0] != null">
-          {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
-        </p>
-        <p v-else>No Email Found</p> </b-col>
-        <b-col>  <h2>Learn More</h2>
-        <b-button class="official-site-button">
-          <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
-            >Official Site</a
-          >
-        </b-button></b-col>
+        <b-col
+          ><h2>Email</h2>
+          <p v-if="parkInfo.contacts.emailAddresses[0] != null">
+            {{ parkInfo.contacts.emailAddresses[0].emailAddress }}
+          </p>
+          <p v-else>No Email Found</p>
+        </b-col>
+        <b-col class="official-site-button">
+          <!-- <h2>Learn More</h2> -->
+          <b-button>
+            <a :href="parkInfo.url" target="_blank" rel="noopener noreferrer"
+              >Official Site</a
+            >
+          </b-button></b-col
+        >
       </b-row>
     </b-container>
 
-    
+    <b-container class="overview">
+      <b-row cols="1" cols-sm="1" cols-md="2">
+        <b-col
+          ><h2>
+            <b-icon icon="caret-right-fill" aria-hidden="true"></b-icon>Overview
+          </h2></b-col
+        >
+        <b-col
+          ><p>{{ parkInfo.description }}</p></b-col
+        >
+      </b-row>
+    </b-container>
 
     <b-container class="overview">
       <b-row cols="1" cols-sm="1" cols-md="2">
-        <b-col><h2><b-icon icon="caret-right-fill" aria-hidden="true"></b-icon>Overview</h2></b-col>
         <b-col
-          ><p>{{ parkInfo.description }}</p></b-col
+          ><h2>
+            <b-icon icon="caret-right-fill" aria-hidden="true"></b-icon
+            >Activities
+          </h2></b-col
+        >
+        <b-col>
+          <b-badge
+            v-for="activity in parkInfo.activities.slice(0, 10)"
+            :key="activity.id"
+            pill
+            variant="secondary"
+            class="activity"
+          >
+            {{ activity.name }}
+          </b-badge></b-col
         >
       </b-row>
     </b-container>
@@ -57,7 +86,7 @@
     <b-alert
       v-if="alerts != null"
       class="alerts-wrapper"
-      variant="warning"
+      variant="info"
       show
       fade
       dismissible
@@ -70,9 +99,47 @@
       </div>
     </b-alert>
 
-    <!-- Using a for loop and v:bind to fill in images from the gallery -->
-    <h2>Gallery</h2>
-    <b-carousel
+    <!-- Testing out photos -->
+    <!-- <div class="container-bg">
+      <b-container fluid>
+        <b-row
+          v-for="image in parkInfo.images.slice(1, 4)"
+          :key="image.url"
+          cols="1"
+          cols-sm="1"
+          cols-md="2"
+          class="photo-row"
+        >
+          <b-col>
+            <b-img rounded :src="image.url" alt="park image" class="park-image"></b-img
+          ></b-col>
+
+          <b-col class="centered">
+            <h3>{{ image.title }}</h3>
+            <p>{{ image.caption }}</p>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div> -->
+  
+      <div >
+      <b-container fluid>
+        <b-row >
+          <b-col class="container-bg"  v-for="image in parkInfo.images.slice(1, 4)"
+          :key="image.url" 
+            lg="3"
+            md="6"
+            sm="12">
+            <b-img rounded :src="image.url" alt="park image" class="park-image2"></b-img>
+            <h3>{{ image.title }}</h3>
+            <p>{{ image.caption }}</p>
+          </b-col>
+        </b-row>
+      </b-container>
+    </div>
+
+
+    <!-- <b-carousel
       id="carousel-fade"
       :interval="5000"
       controls
@@ -90,21 +157,21 @@
         :style="'object-fit:contain;'"
       >
       </b-carousel-slide>
-    </b-carousel>
+    </b-carousel> -->
     <!-- List of possible activities -->
-    <h2>Activities</h2>
+    <!-- <h2>Activities</h2>
     <div class="activities-wrapper">
       <b-badge
-        v-for="activity in parkInfo.activities"
+        v-for="activity in parkInfo.activities.slice(0, 10)"
         :key="activity.id"
         pill
-        variant="info"
+        variant="secondary"
         class="activity"
         href="#"
       >
         {{ activity.name }}
       </b-badge>
-    </div>
+    </div> -->
 
     <!-- Displaying Campsites Name -->
     <b-form-group label="Campsites" v-slot="{ ariaDescribedby }">
@@ -113,7 +180,7 @@
         v-model="selected"
         :options="options"
         :aria-describedby="ariaDescribedby"
-        button-variant="info"
+        button-variant="secondary"
         size="md"
         name="radio-btn-outline"
         buttons
@@ -305,13 +372,12 @@ export default {
   margin-top: -40px;
   background: rgba(255, 255, 255);
   border-radius: 15px;
-  
+  padding: 15px;
 }
 
 .overview {
   text-align: left;
-    margin: 25px auto;
-
+  margin: 25px auto;
 }
 
 /* wrapper around the alerts to center it */
@@ -340,6 +406,42 @@ export default {
   margin: 5px;
 }
 
+.container-bg {
+  width: 100%;
+  margin: 15px 10px;
+  background: whitesmoke;
+  padding: 15px;
+  color: black;
+  border-radius: 15px;
+}
+
+
+
+.park-image2{
+  height: 150px;
+  width: 100%;
+}
+/* .photo-row:nth-child(odd) {
+} */
+
+.photo-row {
+  padding: 30px;
+}
+.park-image{
+  height: 300px;
+}
+
+.park-image2{
+  height: auto;
+  width: 100%;
+}
+.centered{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #carousel-fade {
   width: 75%;
   background: aqua;
@@ -364,5 +466,12 @@ a {
 
 a:visited {
   color: white;
+}
+
+.official-site-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
