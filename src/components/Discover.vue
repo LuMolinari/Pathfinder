@@ -7,7 +7,9 @@
       <!-- heading and subheading -->
       <b-row class="mb-3 text-left">
         <b-col>
-          <p class="h2">Discover</p>
+          <p class="h2"> Search by name or state</p>
+
+          <!-- <p class="h2">Discover</p> -->
           <p class="lead text-muted mb-n1 mt-n1">
             Your next outdoor adventure awaits
           </p>
@@ -91,10 +93,9 @@
       </b-row>
     </b-container>
 
-    <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: black">
-      Search by name or state
+    <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: white">
     </h1>
-    <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
+    <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: white">
       No parks found, try again
     </h1>
     <h1 v-else class="mt-3" style="color: black">Results</h1>
@@ -398,7 +399,9 @@ export default {
   min-height: 100vh;
   min-width: 320px;
   /* add a dim white to background */
-  background-color: #ececec;
+  background: url('../assets/Canyonlands.jpg') no-repeat center center fixed;
+    background-size: cover;
+
   /* fixed to remove the scroll bar */
   /* position: fixed; */
   padding: 7% 7%;
