@@ -69,7 +69,7 @@
         >
         <b-col>
           <b-badge
-            v-for="activity in parkInfo.activities.slice(0, 10)"
+            v-for="activity in parkInfo.activities.slice(0, 7)"
             :key="activity.id"
             pill
             variant="secondary"
@@ -121,23 +121,30 @@
         </b-row>
       </b-container>
     </div> -->
-  
-      <div >
+
+    <div>
       <b-container fluid>
-        <b-row >
-          <b-col class="container-bg"  v-for="image in parkInfo.images.slice(1, 4)"
-          :key="image.url" 
+        <b-row>
+          <b-col
+            class="container-bg"
+            v-for="image in parkInfo.images.slice(1, 4)"
+            :key="image.url"
             lg="3"
             md="6"
-            sm="12">
-            <b-img rounded :src="image.url" alt="park image" class="park-image2"></b-img>
+            sm="12"
+          >
+            <div ></div>
+            <b-img
+              thumbnail
+              :src="image.url"
+              alt="park image"
+            ></b-img>
             <h3>{{ image.title }}</h3>
             <p>{{ image.caption }}</p>
           </b-col>
         </b-row>
       </b-container>
     </div>
-
 
     <!-- <b-carousel
       id="carousel-fade"
@@ -174,13 +181,16 @@
     </div> -->
 
     <!-- Displaying Campsites Name -->
-    <b-form-group label="Campsites" v-slot="{ ariaDescribedby }">
+    <b-form-group
+      label="Check Available campsites"
+      v-slot="{ ariaDescribedby }"
+    >
       <b-form-radio-group
         id="btn-radios-2"
         v-model="selected"
-        :options="options"
+        :options="options.slice(0, 3)"
         :aria-describedby="ariaDescribedby"
-        button-variant="secondary"
+        button-variant="outline-light"
         size="md"
         name="radio-btn-outline"
         buttons
@@ -201,7 +211,7 @@
       :center="center"
       :zoom="12"
       map-type-id="hybrid"
-      style="width: 100%; height: 500px"
+      style="width: 100%; height: 600px"
     >
       <!-- Placeholder component if we want to add any markers -->
       <GmapMarker
@@ -272,29 +282,48 @@ export default {
         );
 
         //I can use latitude and longitude to call rec.gov
+        console.log(
+          "Fetching all the camp data from: ",
+          "https://ridb.recreation.gov/api/v1/facilities?&offset=0&latitude=" +
+            this.center.lat +
+            "&longitude=" +
+            this.center.lng +
+            "&radius=10&activity=9,CAMPING&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+        );
+
         fetch(
           "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
             this.center.lat +
             "&longitude=" +
             this.center.lng +
-            "&radius=50&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+            "&radius=25&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
         )
           .then((res) => res.json())
           .then((result) => {
             console.log("RIDB CAMPS:", result.RECDATA);
-            this.campInfo = result.RECDATA.slice(0, 5);
-            let range = 5;
-            if (result.RECDATA.length < 5) {
-              range = result.RECDATA.length;
-            }
-            for (let i = 0; i < range; i++) {
-              if (i == 0) {
-                this.selected = result.RECDATA[i].FacilityID;
+            let selected = false
+            for (let i = 0; i < result.RECDATA.length; i++) {
+              console.log(
+                "Checking Recdata",
+                i + ": " + result.RECDATA[i].FacilityName
+              );
+              if (
+                result.RECDATA[i].FacilityName.includes("Camp") ||
+                result.RECDATA[i].FacilityName.includes("camp") ||
+                result.RECDATA[i].FacilityName.includes("CAMP")
+              ) {
+                if (selected == false) {
+                  this.selected = result.RECDATA[i].FacilityID;
+                  selected = true
+                }
+                this.options.push({
+                  text: result.RECDATA[i].FacilityName,
+                  value: result.RECDATA[i].FacilityID,
+                });
               }
-              this.options.push({
-                text: result.RECDATA[i].FacilityName,
-                value: result.RECDATA[i].FacilityID,
-              });
+              if (this.options.length == 3) {
+                break;
+              }
             }
           });
       })
@@ -312,20 +341,6 @@ export default {
           this.alerts = data.data;
         }
       });
-
-    //fetch campsite info from nps api
-    fetch(
-      "https://developer.nps.gov/api/v1/campgrounds?parkCode=" +
-        this.$route.params.code +
-        "&api_key=EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC"
-    )
-      .then((res) => res.json())
-      //save json into parkInfo
-      .then((campData) => {
-        console.log("Camping API", campData);
-        this.campInfo = campData.data.slice(0, 5);
-      })
-      .catch((error) => console.log("Error calling Rec.gov", error));
   },
 };
 </script>
@@ -415,11 +430,10 @@ export default {
   border-radius: 15px;
 }
 
-
-
-.park-image2{
-  height: 150px;
+.container-bg img{
+  height: 400px;
   width: 100%;
+  object-fit: cover;
 }
 /* .photo-row:nth-child(odd) {
 } */
@@ -427,15 +441,15 @@ export default {
 .photo-row {
   padding: 30px;
 }
-.park-image{
+.park-image {
   height: 300px;
 }
 
-.park-image2{
+.park-image2 {
   height: auto;
   width: 100%;
 }
-.centered{
+.centered {
   display: flex;
   flex-direction: column;
   align-items: center;
