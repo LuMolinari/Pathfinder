@@ -1,7 +1,7 @@
 <template>
   <div class="campgroundTile">
     <b-container>
-      <b-row>
+      <b-row cols="1" cols-sm="1" cols-md="2">
         <b-col v-if="photosExist()">
           <!-- <b-row>
             <b-col v-for="image in images.slice(0,3)"

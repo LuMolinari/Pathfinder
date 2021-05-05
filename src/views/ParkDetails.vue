@@ -180,6 +180,7 @@
       </b-badge>
     </div> -->
 
+    <div v-if="campgroundsExist()">
     <!-- Displaying Campsites Name -->
     <b-form-group
       label="Check Available campsites"
@@ -205,7 +206,7 @@
       :contractType="camp.type"
       v-show="camp.value == selected"
     />
-
+  </div>
     <!-- Google maps comnponent -->
     <GmapMap
       :center="center"
@@ -246,6 +247,11 @@ export default {
   },
   components: {
     CampgroundTile,
+  },
+  methods:{
+    campgroundsExist(){
+      return this.options.length != 0;
+    }
   },
   mounted() {
     //fetch general park info from  nps api
