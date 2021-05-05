@@ -401,7 +401,9 @@ export default {
   min-height: 100vh;
   min-width: 320px;
   /* add a dim white to background */
-  background-color: #ececec;
+  background: url("../assets/Canyonlands.jpg") no-repeat center center fixed;
+  background-size: cover;
+
   /* fixed to remove the scroll bar */
   /* position: fixed; */
   padding: 2% 7%;
