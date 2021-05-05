@@ -1,9 +1,9 @@
 <template>
   <div>
-    <DiscoverHero />
+    <!-- <DiscoverHero /> -->
     <div class="route-view" id="discover">
       <!-- main section -->
-      <b-container fluid class="bg-dark px-3 py-2 w-100 rounded">
+      <b-container fluid class="bg-dark px-3 py-2 w-100 rounded mt-5">
         <!-- heading and subheading -->
         <b-row class="mb-3 text-left">
           <b-col>
@@ -77,18 +77,28 @@
         </b-row>
       </b-container>
 
-      <h1 v-if="!searchButtonClickedOnce" class="mt-3" style="color: black">
+      <h1
+        v-if="!searchButtonClickedOnce"
+        class="mt-3"
+        style="font-weight: bold"
+      >
         Search by name or state
       </h1>
-      <h1 v-else-if="parkResults.length < 1" class="mt-3" style="color: black">
+      <h1
+        v-else-if="parkResults.length < 1"
+        class="mt-3"
+        style="font-weight: bold"
+      >
         {{ displayMessage }}
-        <div v-if="displayMessage === 'Searching...'" class="mt-5">
+        <div
+          v-if="displayMessage === 'Searching...'"
+          class="mt-5"
+          style="font-weight: bold"
+        >
           <b-spinner id="search-spinner" label="Loading..."></b-spinner>
         </div>
       </h1>
-      <h1 v-else class="mt-3" style="color: black">
-        {{ parkResults.length }} Results
-      </h1>
+      <h1 v-else class="mt-3">{{ parkResults.length }} Results</h1>
       <div v-for="park in parkResults" :key="park.parkCode">
         <SearchResultCard :park="park" />
       </div>
@@ -100,13 +110,13 @@
 
 <script>
 import SearchResultCard from "../components/SearchResultCard";
-import DiscoverHero from "../components/DiscoverHero";
+// import DiscoverHero from "../components/DiscoverHero";
 
 export default {
   name: "Discover",
   components: {
     SearchResultCard,
-    DiscoverHero,
+    // DiscoverHero,
   },
 
   data: function () {
