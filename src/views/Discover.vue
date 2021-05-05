@@ -405,7 +405,7 @@ export default {
   /* fixed to remove the scroll bar */
   /* position: fixed; */
   padding: 2% 7%;
-  font-family: "Titillium Web", Arial, sans-serif;
+  /* font-family: "Titillium Web", Arial, sans-serif; */
   color: white;
 }
 

@@ -116,6 +116,7 @@ a:visited {
 }
 
 a:hover {
+  text-decoration: none;
   color: white;
 }
 

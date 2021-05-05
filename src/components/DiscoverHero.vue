@@ -16,7 +16,7 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400;600&display=swap");
 
 .jumbotron-bg-image {
-  font-family: "Titillium Web", Arial, sans-serif;
+  /* font-family: "Titillium Web", Arial, sans-serif; */
   height: 75vh;
   background-image: url("../assets/17.svg");
   background-size: cover;
