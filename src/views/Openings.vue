@@ -1,6 +1,6 @@
 
 <template>
-    <div>
+    <div class="mainWrapper">
         <h2>{{name}}</h2>
         <h3>Availabilities</h3>
             <vc-date-picker
@@ -19,9 +19,14 @@
                  {{ item.message }}
                  </li>
             </ul>
-
-
-
+        <div class="description" v-html="Description"></div>
+        <div class="directions">
+            <h1>
+                Directions:
+            </h1>
+            {{Directions}}
+        </div>
+        <div class="imageTile">
             <b-carousel
                 v-if="photosExist()"
                 :interval="5000"
@@ -29,18 +34,17 @@
                 fade
                 indicators
                 background="#ababab"
-                style="text-shadow: 1px 1px 2px #333"
-            >
-                <b-carousel-slide
+                style="text-shadow: 1px 1px 2px #333">
+                <b-carousel-slide class="carousel-inner"
                     v-for="image in images"
                     :key="image.url"
                     :text="image.caption"
                     :img-src="image.url"
                     :caption="image.title"
                 >
-            </b-carousel-slide>
-    </b-carousel>
-           
+                </b-carousel-slide>
+            </b-carousel>
+        </div>
     </div>
 
 
@@ -58,6 +62,8 @@
                 availableDates: new Date(), // Jan 25th, 2021
                 phone: "",
                 email: "",
+                Description: "",
+                Directions: "", 
                 Reservable: true,
                 items: [],
                 images: [],
@@ -101,6 +107,8 @@
                                 this.name = result.FacilityName;
                                 this.phone = "Contact Number: "+ result.FacilityPhone;
                                 this.email = "Facility Email: "+ result.FacilityEmail;
+                                this.Description = result.FacilityDescription;
+                                this.Directions = result.FacilityDirections;
                             if(result.Reservable == true){
                                 for( y = 0; y<result.ACTIVITY.length; y++){
                                     console.log(result.ACTIVITY[y].ActivityName);
@@ -174,3 +182,31 @@
         };
             
 </script>
+
+<style scoped>
+.imageTile {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  width: 80%;
+  margin: 30px auto;
+  background: whitesmoke;
+  border-radius: 50px;
+}
+.carousel-inner {
+  margin: 20px;
+  width: 400px;
+  max-width: 400px;
+  height: 400px;
+}
+
+
+.mainWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+</style>

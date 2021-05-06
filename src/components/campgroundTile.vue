@@ -58,11 +58,7 @@
     </b-carousel>
     <div class="vHTML" v-html="facilityDescription"></div> -->
 
-<<<<<<< HEAD
-    <b-button><router-link :to="{name:'OpeningsDisplay', params: { ID:facilityID}} ">Check Availability</router-link></b-button>
-=======
     <b-button><router-link class="link-to-availability" :to="{name:'OpeningsDisplay', params: { ID:facilityID}} ">Check Availability</router-link></b-button>
->>>>>>> 5cb9211edc17ad83d20ca1bb086d66b4ad8afc5b
   </div>       
 </template>
 
