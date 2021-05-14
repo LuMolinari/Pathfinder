@@ -151,17 +151,15 @@
             <div class="overlay">
               <h2>Purpose</h2>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-                ullam nam iusto sed nisi placeat culpa minus nihil tempore
-                quibusdam! Totam beatae maxime corrupti odio aspernatur
-                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-                repellat quod, officiis officia voluptates nihil maiores, magni
-                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
-                error vel. Cum facere vel eaque fuga, assumenda totam nisi
-                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
-                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
-                fugiat, amet quae pariatur provident velit?
+                The purpose of this website is to assist you in planning for a
+                trip to a national park. Pathfinder alllows you to search for
+                national parks and displays relevant information regarding the
+                park such as important alerts, activities available and current
+                weather. Want to know if camping is available for a certain
+                date? Check out the camp openings in the park details page for
+                the park you are interested in. For any information you can't
+                find here, feel free to check out the resources tab for other
+                useful links!
               </p>
             </div>
           </div>
@@ -179,24 +177,24 @@
               </p>
               <ul>
                 <li>
-                  <a href="#" target="_blank"
+                  <a href="https://www.nps.gov/" target="_blank"
                     >National Park Service - Official site from the US
                     government</a
                   >
                 </li>
                 <li>
-                  <a href="#" target="_blank"
+                  <a href="https://www.recreation.gov/" target="_blank"
                     >Recreation - Camping, rental, passes and more.</a
                   >
                 </li>
                 <li>
-                  <a href="#" target="_blank"
+                  <a href="https://www.nationalparks.org/" target="_blank"
                     >National Park Foundation - Donate to those that help
                     protect our parks.</a
                   >
                 </li>
                 <li>
-                  <a href="#" target="_blank"
+                  <a href="https://www.npca.org/" target="_blank"
                     >National Park Conservation Association - National park news
                     and resources.</a
                   >
