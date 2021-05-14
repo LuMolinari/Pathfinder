@@ -101,7 +101,7 @@
             id="sustainabilityRadio"
           />
           <label id="labelForSustainability" for="sustainabilityRadio">
-            Sustainability
+            Resources
           </label>
         </div>
 
@@ -174,20 +174,36 @@
             class="slide-content sustainability-slide"
           >
             <div class="overlay">
-              <h2>Sustainability</h2>
+              <h2>Resources</h2>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-                ullam nam iusto sed nisi placeat culpa minus nihil tempore
-                quibusdam! Totam beatae maxime corrupti odio aspernatur
-                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-                repellat quod, officiis officia voluptates nihil maiores, magni
-                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
-                error vel. Cum facere vel eaque fuga, assumenda totam nisi
-                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
-                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
-                fugiat, amet quae pariatur provident velit?
+                Below are a few links you may find helpful regarding your next
+                trip to any national park.
               </p>
+              <ul>
+                <li>
+                  <a href="#" target="_blank"
+                    >National Park Service - Official site from the US
+                    government</a
+                  >
+                </li>
+                <li>
+                  <a href="#" target="_blank"
+                    >Recreation - Camping, rental, passes and more.</a
+                  >
+                </li>
+                <li>
+                  <a href="#" target="_blank"
+                    >National Park Foundation - Donate to those that help
+                    protect our parks.</a
+                  >
+                </li>
+                <li>
+                  <a href="#" target="_blank"
+                    >National Park Conservation Association - National park news
+                    and resources.</a
+                  >
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -242,16 +258,14 @@ export default {
   /* background-color: #f0f0f0; */
   /* fixed to remove the scroll bar */
   position: relative;
-  padding: 15px;
 }
 
 /* main styles */
 .about {
-  font-family: "Titillium Web", Arial, sans-serif;
   width: 100%;
   height: 100%;
   color: white;
-  margin: 0% auto;
+  margin: 0px auto;
   /* width at which view changes from desktop to tablet or mobile */
   /* min-width: 600px; */
   /* prevents stretching content too far */
@@ -274,7 +288,7 @@ label {
   /* make labels seem clickable */
   cursor: pointer;
   color: white;
-  background-color: #556575;
+  background-color: #212429;
   font-weight: 400;
   font-size: 1rem;
   /* padding-top: 3px; */
@@ -288,8 +302,6 @@ label {
 
 /* label hover */
 label:hover {
-  /* bg color change */
-  background-color: #88a0ba;
   font-size: 1.1rem;
   /* bottom border appears */
   border-bottom: 8px solid #8ccfb9;
@@ -303,7 +315,6 @@ label:hover {
 #missionRadio:checked ~ #labelForMission,
 #purposeRadio:checked ~ #labelForPurpose,
 #sustainabilityRadio:checked ~ #labelForSustainability {
-  background-color: #284b63;
   border-bottom: 8px solid #8ccfb9;
   font-weight: 600;
   font-size: 1.1rem;
@@ -323,14 +334,14 @@ input {
 
 /* headings */
 h2 {
-  padding: 5% 0;
-  font-size: 2.2em;
+  font-size: 2em;
+  padding: 40px 0px;
 }
 
 /* copy */
 p {
   text-align: left;
-  font-size: 1.2em;
+  font-size: 1.5em;
 }
 
 /* content */
@@ -366,11 +377,54 @@ p {
   height: 100%;
   min-height: 600px;
   background-color: rgba(0, 0, 0, 0.55);
-  padding: 0 7%;
+  padding: 0px 7%;
 }
 
 /* needed to add this because the default cursor is a pointer but i couldnt figure out why */
 h2:hover {
   cursor: default;
 }
+
+.sustainability-slide p {
+  margin: 0px 0;
+  text-align: left;
+}
+
+.sustainability-slide ul {
+  margin: 0px 15%;
+  font-size: 1.2em;
+  text-align: left;
+  list-style: none;
+  list-style-position: outside;
+}
+
+.sustainability-slide ul li {
+  margin: 25px 0;
+  padding-left: 15px;
+}
+
+/* pseudo element for styling the list bullets */
+.sustainability-slide ul li::marker {
+  color: white;
+  content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMzIiIGhlaWdodD0iMzIiCnZpZXdCb3g9IjAgMCAxNzIgMTcyIgpzdHlsZT0iIGZpbGw6IzAwMDAwMDsiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0wLDE3MnYtMTcyaDE3MnYxNzJ6IiBmaWxsPSJub25lIj48L3BhdGg+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTg2LDIxLjVjLTE5LjgxNzk3LDAgLTM2LjIyNDE5LDEzLjY0MzY2IC00MS4xNjI4NCwzMS45NjY1NWMtMTMuNzY5MTgsNy4xNzE4OSAtMjMuMzM3MTYsMjEuMzUzOCAtMjMuMzM3MTYsMzcuOTA4NDVjMCwyMy42ODQ2IDE5LjMxNTQsNDMgNDMsNDNoMTYuMTI1djE2LjEyNWgxMC43NXYtMzUuMzk5NDJsMjUuMzAwMjksLTI1LjMwMDI5bC03LjYwMDU4LC03LjYwMDU4bC0xNy42OTk3MSwxNy42OTk3MXYtNDYuMTQ5NDJoLTEwLjc1djM1LjM5OTQybC0xNy42OTk3MSwtMTcuNjk5NzFsLTcuNjAwNTgsNy42MDA1OGwyNS4zMDAyOSwyNS4zMDAyOXYxOS4yNzQ0MmgtMTYuMTI1Yy0xNy44NzQ5LDAgLTMyLjI1LC0xNC4zNzUxIC0zMi4yNSwtMzIuMjVjMCwtMTMuMTQ5NDMgNy44Mzk5OSwtMjQuMzcyMTIgMTkuMDY0NDUsLTI5LjQxNTUzbDIuNTMwMDMsLTEuMTMzNzlsMC41NDU5LC0yLjcwODQ5YzIuOTYwMjgsLTE0Ljc0NjE3IDE1LjkyNjczLC0yNS44NjcxOSAzMS42MDk2MiwtMjUuODY3MTljMTUuNjgyODksMCAyOC42NDkzNCwxMS4xMjEwMiAzMS42MDk2MiwyNS44NjcxOWwwLjU0NTksMi43MDg0OWwyLjUzMDAzLDEuMTMzNzljMTEuMjI0NDYsNS4wNDM0MSAxOS4wNjQ0NSwxNi4yNjYwOSAxOS4wNjQ0NSwyOS40MTU1M2MwLDE3Ljg3NDkgLTE0LjM3NTEsMzIuMjUgLTMyLjI1LDMyLjI1aC01LjM3NXYxMC43NWg1LjM3NWMyMy42ODQ2LDAgNDMsLTE5LjMxNTQgNDMsLTQzYzAsLTE2LjU1NDY1IC05LjU2Nzk4LC0zMC43MzY1NiAtMjMuMzM3MTYsLTM3LjkwODQ1Yy00LjkzODY1LC0xOC4zMjI5IC0yMS4zNDQ4NywtMzEuOTY2NTUgLTQxLjE2Mjg0LC0zMS45NjY1NXoiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==");
+}
+
+a,
+a:visited {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #8ccfb9;
+}
+
+/* Adjusting radio button / tab labels */
+@media only screen and (max-width: 360px) {
+  .radio-buttons {
+    display: block;
+  }
+}
 </style>
+
