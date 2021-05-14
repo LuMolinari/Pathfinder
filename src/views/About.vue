@@ -47,7 +47,7 @@
               aspernatur consequuntur autem quod blanditiis fugiat, amet quae
               pariatur provident velit?
             </p></b-tab>
-          <b-tab title="Sustainability"   class="slide-content sustainability-slide overlay"> <h2>Sustainability</h2>
+          <b-tab title="resources"   class="slide-content resources-slide overlay"> <h2>resources</h2>
             <p>
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
               ullam nam iusto sed nisi placeat culpa minus nihil tempore
@@ -96,13 +96,11 @@
           <!-- radio button -->
           <input
             v-model="picked"
-            value="sustainability"
+            value="resources"
             type="radio"
-            id="sustainabilityRadio"
+            id="resourcesRadio"
           />
-          <label id="labelForSustainability" for="sustainabilityRadio">
-            Resources
-          </label>
+          <label id="labelForresources" for="resourcesRadio"> Resources </label>
         </div>
 
         <!-- slide content wrapper -->
@@ -170,8 +168,8 @@
 
           <!-- content div -->
           <div
-            v-if="picked === 'sustainability'"
-            class="slide-content sustainability-slide"
+            v-if="picked === 'resources'"
+            class="slide-content resources-slide"
           >
             <div class="overlay">
               <h2>Resources</h2>
@@ -207,7 +205,7 @@
             </div>
           </div>
 
-          <!-- Changed this slide to sustainability for links to park sustainability links/info -->
+          <!-- Changed this slide to resources for links to park resources links/info -->
           <!-- <h2>National Park Service History</h2>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam nam
@@ -314,7 +312,7 @@ label:hover {
 #meetRadio:checked ~ #labelForMeetTheTeam,
 #missionRadio:checked ~ #labelForMission,
 #purposeRadio:checked ~ #labelForPurpose,
-#sustainabilityRadio:checked ~ #labelForSustainability {
+#resourcesRadio:checked ~ #labelForresources {
   border-bottom: 8px solid #8ccfb9;
   font-weight: 600;
   font-size: 1.1rem;
@@ -367,8 +365,8 @@ p {
   background-image: url(../assets/purpose-image.jpg);
 }
 
-.sustainability-slide {
-  background-image: url(../assets/sustainability-image.jpg);
+.resources-slide {
+  background-image: url(../assets/resources-image.jpg);
 }
 
 /* transparent black image overlay */
@@ -385,12 +383,12 @@ h2:hover {
   cursor: default;
 }
 
-.sustainability-slide p {
+.resources-slide p {
   margin: 0px 0;
   text-align: left;
 }
 
-.sustainability-slide ul {
+.resources-slide ul {
   margin: 0px 15%;
   font-size: 1.2em;
   text-align: left;
@@ -398,13 +396,13 @@ h2:hover {
   list-style-position: outside;
 }
 
-.sustainability-slide ul li {
+.resources-slide ul li {
   margin: 25px 0;
   padding-left: 15px;
 }
 
 /* pseudo element for styling the list bullets */
-.sustainability-slide ul li::marker {
+.resources-slide ul li::marker {
   color: white;
   content: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHg9IjBweCIgeT0iMHB4Igp3aWR0aD0iMzIiIGhlaWdodD0iMzIiCnZpZXdCb3g9IjAgMCAxNzIgMTcyIgpzdHlsZT0iIGZpbGw6IzAwMDAwMDsiPjxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0ibm9uemVybyIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1saW5lY2FwPSJidXR0IiBzdHJva2UtbGluZWpvaW49Im1pdGVyIiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIHN0cm9rZS1kYXNoYXJyYXk9IiIgc3Ryb2tlLWRhc2hvZmZzZXQ9IjAiIGZvbnQtZmFtaWx5PSJub25lIiBmb250LXdlaWdodD0ibm9uZSIgZm9udC1zaXplPSJub25lIiB0ZXh0LWFuY2hvcj0ibm9uZSIgc3R5bGU9Im1peC1ibGVuZC1tb2RlOiBub3JtYWwiPjxwYXRoIGQ9Ik0wLDE3MnYtMTcyaDE3MnYxNzJ6IiBmaWxsPSJub25lIj48L3BhdGg+PGcgZmlsbD0iI2ZmZmZmZiI+PHBhdGggZD0iTTg2LDIxLjVjLTE5LjgxNzk3LDAgLTM2LjIyNDE5LDEzLjY0MzY2IC00MS4xNjI4NCwzMS45NjY1NWMtMTMuNzY5MTgsNy4xNzE4OSAtMjMuMzM3MTYsMjEuMzUzOCAtMjMuMzM3MTYsMzcuOTA4NDVjMCwyMy42ODQ2IDE5LjMxNTQsNDMgNDMsNDNoMTYuMTI1djE2LjEyNWgxMC43NXYtMzUuMzk5NDJsMjUuMzAwMjksLTI1LjMwMDI5bC03LjYwMDU4LC03LjYwMDU4bC0xNy42OTk3MSwxNy42OTk3MXYtNDYuMTQ5NDJoLTEwLjc1djM1LjM5OTQybC0xNy42OTk3MSwtMTcuNjk5NzFsLTcuNjAwNTgsNy42MDA1OGwyNS4zMDAyOSwyNS4zMDAyOXYxOS4yNzQ0MmgtMTYuMTI1Yy0xNy44NzQ5LDAgLTMyLjI1LC0xNC4zNzUxIC0zMi4yNSwtMzIuMjVjMCwtMTMuMTQ5NDMgNy44Mzk5OSwtMjQuMzcyMTIgMTkuMDY0NDUsLTI5LjQxNTUzbDIuNTMwMDMsLTEuMTMzNzlsMC41NDU5LC0yLjcwODQ5YzIuOTYwMjgsLTE0Ljc0NjE3IDE1LjkyNjczLC0yNS44NjcxOSAzMS42MDk2MiwtMjUuODY3MTljMTUuNjgyODksMCAyOC42NDkzNCwxMS4xMjEwMiAzMS42MDk2MiwyNS44NjcxOWwwLjU0NTksMi43MDg0OWwyLjUzMDAzLDEuMTMzNzljMTEuMjI0NDYsNS4wNDM0MSAxOS4wNjQ0NSwxNi4yNjYwOSAxOS4wNjQ0NSwyOS40MTU1M2MwLDE3Ljg3NDkgLTE0LjM3NTEsMzIuMjUgLTMyLjI1LDMyLjI1aC01LjM3NXYxMC43NWg1LjM3NWMyMy42ODQ2LDAgNDMsLTE5LjMxNTQgNDMsLTQzYzAsLTE2LjU1NDY1IC05LjU2Nzk4LC0zMC43MzY1NiAtMjMuMzM3MTYsLTM3LjkwODQ1Yy00LjkzODY1LC0xOC4zMjI5IC0yMS4zNDQ4NywtMzEuOTY2NTUgLTQxLjE2Mjg0LC0zMS45NjY1NXoiPjwvcGF0aD48L2c+PC9nPjwvc3ZnPg==");
 }
