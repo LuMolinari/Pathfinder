@@ -131,17 +131,11 @@
             <div class="overlay">
               <h2>Our Mission</h2>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-                ullam nam iusto sed nisi placeat culpa minus nihil tempore
-                quibusdam! Totam beatae maxime corrupti odio aspernatur
-                consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-                aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-                repellat quod, officiis officia voluptates nihil maiores, magni
-                ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus,
-                error vel. Cum facere vel eaque fuga, assumenda totam nisi
-                tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere
-                vitae. Tenetur aspernatur consequuntur autem quod blanditiis
-                fugiat, amet quae pariatur provident velit?
+                Our hope is that tourists will learn to appreciate the natural
+                wonders of our world and make it a reason to practice
+                sustainability in their lives. Just as national parks are
+                maintained and protected, we must make an effort to do the same
+                for Earth.
               </p>
             </div>
           </div>
