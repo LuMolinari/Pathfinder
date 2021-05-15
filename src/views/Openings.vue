@@ -38,13 +38,12 @@
                     </b-badge>
                 </div>
         </div>
-
-
         
-          <h2 v-if="isLoaded()">Loading...</h2>
-          <b-spinner variant="light" label="Spinning" v-if="isLoaded()"></b-spinner>
+        <h2 v-if="isLoaded()">Loading...</h2>
+        <b-spinner variant="light" label="Spinning" v-if="isLoaded()"></b-spinner>
 
         <h3 v-if="!isLoaded()">Availabilities</h3>
+        
         <vc-date-picker
         v-if="!isLoaded()"
         :key="loadedKey"
