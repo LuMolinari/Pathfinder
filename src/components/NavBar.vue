@@ -1,6 +1,7 @@
 <template>
   <b-navbar id="nav" toggleable="lg" type="dark" variant="dark"  >
-    <b-navbar-brand class="websiteName"> 
+     <a href="/">
+         <b-navbar-brand class="websiteName"> 
         <img
           src="../assets/mountains.png"
           alt="Pathfinder Logo"
@@ -9,7 +10,8 @@
         />
         Pathfinder
         </b-navbar-brand>
-
+     
+     </a>
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
     <b-collapse id="nav-collapse" is-nav>
