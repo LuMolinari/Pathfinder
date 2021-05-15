@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import * as GmapVue from 'gmap-vue'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import { BootstrapVue, IconsPlugin, BootstrapVueIcons} from 'bootstrap-vue'
 import VCalendar from 'v-calendar';
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
@@ -13,6 +13,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(BootstrapVue)
 // Optionally install the BootstrapVue icon components plugin
 Vue.use(IconsPlugin)
+Vue.use(BootstrapVueIcons)
 
 // Use v-calendar & v-date-picker components
 Vue.use(VCalendar, {
