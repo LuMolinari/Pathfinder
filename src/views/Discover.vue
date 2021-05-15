@@ -3,7 +3,7 @@
     <!-- <DiscoverHero /> -->
     <div class="route-view" id="discover">
       <!-- main section -->
-      <b-container fluid class="bg-dark px-3 py-2 w-100 rounded mt-5">
+      <b-container fluid class="main-container px-3 py-2 w-100 rounded mt-5">
         <!-- heading and subheading -->
         <b-row class="mb-3 text-left">
           <b-col>
@@ -419,6 +419,10 @@ export default {
   padding: 2% 7%;
   /* font-family: "Titillium Web", Arial, sans-serif; */
   color: white;
+}
+
+.main-container {
+  background-color: #212429;
 }
 
 #search-spinner {
