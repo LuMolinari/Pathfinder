@@ -1,52 +1,78 @@
 
 <template>
-    <div class="mainWrapper">
-        <h2>{{name}}</h2>
-        <h3>Availabilities</h3>
-            <vc-date-picker
-            :key="loadedKey"
-            v-model='availableDates'
-            :attributes='available'>
-            </vc-date-picker>
+    <div class="pageWrapper">
+        <div class=mainWrapper>
+            <div class = "title">
+                <h1>{{name}}</h1>
+            </div>
+            <div class="imageTile">
+                <b-carousel
+                    v-if="photosExist()"
+                    :interval="5000"
+                    controls
+                    no-animation
+                    indicators
+                    class="left"
+                    style="text-shadow: 1px 1px 2px #333">
+                    <b-carousel-slide class="carousel-inner"
+                        v-for="image in images"
+                        :key="image.url"
+                        :text="image.caption"
+                        :img-src="image.url"
+                        :caption="image.title"
+                    />
+                    
+                </b-carousel>
+                <div class="right" v-if="isAvailable()">
+                    <h3 v-if="!isLoaded()" >
+                        Campground Activities
+                    </h3>
+
+                    <b-badge
+                    v-for="item in items" 
+                    :key="item.message"
+                    pill
+                    variant="secondary"
+                    >
+                        {{ item.message }}
+                    </b-badge>
+                </div>
+        </div>
+
+
+        
+          <h2 v-if="isLoaded()">Loading...</h2>
+          <b-spinner variant="light" label="Spinning" v-if="isLoaded()"></b-spinner>
+
+        <h3 v-if="!isLoaded()">Availabilities</h3>
+        <vc-date-picker
+        v-if="!isLoaded()"
+        :key="loadedKey"
+        v-model='availableDates'
+        :attributes='available'>
+        </vc-date-picker>
+            
+        <div class="description" v-html="Description"></div>
+        <div class="directions" v-if="false">
+            <h2 >
+                Directions:
+            </h2>
+            {{Directions}}
+        </div>
+        
+        <div class="contactInfo">
+
             <h2 v-if="!isAvailable()">
                 The campground is currently unavailable for reservations. 
                 Please try again later.
             </h2>
-                <h2 v-if="isAvailable()">{{phone}}</h2>
-                <h2 v-if="isAvailable()">{{email}}</h2>
-            <ul v-if="isAvailable()">
-                <li v-for="item in items" :key="item.message">
-                 {{ item.message }}
-                 </li>
-            </ul>
-        <div class="description" v-html="Description"></div>
-        <div class="directions">
-            <h1>
-                Directions:
-            </h1>
-            {{Directions}}
-        </div>
-        <div class="imageTile">
-            <b-carousel
-                v-if="photosExist()"
-                :interval="5000"
-                controls
-                fade
-                indicators
-                background="#ababab"
-                style="text-shadow: 1px 1px 2px #333">
-                <b-carousel-slide class="carousel-inner"
-                    v-for="image in images"
-                    :key="image.url"
-                    :text="image.caption"
-                    :img-src="image.url"
-                    :caption="image.title"
-                >
-                </b-carousel-slide>
-            </b-carousel>
+            <h3 class="centered" v-if="!isLoaded()">Contact Info:</h3>
+                <h5 v-if="isAvailable()">{{phone}}</h5>
+                <h5 v-if="isAvailable()">{{email}}</h5>
+           
         </div>
     </div>
-
+    </div>
 
 </template>
 
@@ -57,7 +83,7 @@
     export default {
         data() {
             return {
-                name: "Loading...",
+                name: "",
                 loadedKey: 0,
                 availableDates: new Date(), // Jan 25th, 2021
                 phone: "",
@@ -65,6 +91,7 @@
                 Description: "",
                 Directions: "", 
                 Reservable: true,
+                Loaded: false,
                 items: [],
                 images: [],
                 available: [
@@ -92,12 +119,17 @@
                  },
                  isAvailable(){
                      return this.Reservable;
-                 }
-
+                 },
+                 isLoaded(){
+                     return !this.Loaded;
+                 },
+                 onContext(ctx) {
+                    this.context = ctx
+                }
             },
             mounted() {
                 var monthDif, monthVal, yearVal, y;
-                if(this.name=="Loading..."){
+                if(this.name==""){
                     fetch(
                         "https://ridb.recreation.gov/api/v1/facilities/" + this.$route.params.ID + 
                         "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5")
@@ -121,6 +153,7 @@
                             else{
                                 this
                             }
+                            this.Loaded = true;
                             this.Reservable = result.Reservable;
                                 this.forceRerender();
                         })
@@ -186,27 +219,152 @@
 <style scoped>
 .imageTile {
   color: black;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 30px;
+  display: grid;
+  justify-items: center;
+  column-gap: .1vw; 
+     align-items: stretch;
+
   width: 80%;
   margin: 30px auto;
-  background: whitesmoke;
   border-radius: 50px;
 }
 .carousel-inner {
-  margin: 20px;
-  width: 400px;
-  max-width: 400px;
+  width: 500px;
+  max-width: 700px;
+  min-width: 100px;
   height: 400px;
+  background-size: cover;
+  background-color: rgba(208,223,247,.3)
 }
-
 
 .mainWrapper {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 65%;
+  min-width: 450px;
   align-items: center;
+  background-color: rgba(70,71,70,.8);
 }
+
+.description{
+width:75%;
+font-size: calc(.5vw + 10px);
+text-align: left;
+}
+
+.description >>> h2{
+    text-align: center;
+    font-size: calc(1vw + 18px);
+
+}
+
+.title{
+    width: 100%;
+    padding-top: 1vh;
+    height: auto;
+    min-height: 150px;
+    background-size: 100% 100%;
+    background-image: url("https://www.rtw-trip.com/wp-content/uploads/2016/09/Nacht-Zelt.png");
+}
+
+.directions{
+width:75%;
+
+}
+
+.contactInfo{
+width:60%;
+text-align: left;
+}
+.pageWrapper{
+    display: flex;
+    justify-content:center;
+      align-items: center;
+    background-image: url("https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=949&q=80");
+}
+
+.centered{
+    text-align: center;
+}
+
+.contactInfo >>> h2{
+    font-size: calc(1vw + 18px);
+
+}
+
+.contactInfo >>> h3{
+    font-size: calc(1vw + 12px);
+}
+
+.contactInfo >>> h5{
+        font-size: calc(.5vw + 9px);
+
+}
+
+.list{
+    margin-left: 0;
+  padding-left: 0;
+  list-style-type: square;
+  text-align: left;
+}
+
+.right{
+grid-column: 2/3;
+grid-row: 1/3;
+color: white;
+
+}
+
+.left{
+grid-column: 1/2;
+grid-row: 1/3;
+  background-size: cover;
+}
+
+.carousel-item {
+  filter: brightness(90%);
+  height: 400px;
+  object-fit: contain !important;
+}
+.carousel-item img {
+  height: 100vh !important ;
+}
+
+.badge{
+font-size: calc(.5vw + 5px);
+  padding: 10px;
+  margin: .2vw;
+}
+
+/* Tablet Landscape Screen Sizes */
+@media only screen and (max-width: 1200px)  {
+.right{
+grid-column: 1/2;
+grid-row: 3/5;
+
+}
+
+.left{
+grid-column: 1/2;
+grid-row: 1/3;
+    margin-left: 0;
+  padding-left: 0;
+  background-size: cover;
+  margin-right: 10;
+}
+
+.carousel-inner {
+  width: 400px;
+  min-width: 100px;
+  height: 400px;
+  background-size: cover;
+
+}
+
+.title >>> h1{
+font-size: calc(4vw + 10px);
+}
+}
+
+
 </style>
