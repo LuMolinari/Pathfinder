@@ -38,7 +38,7 @@ export default {
         return {
             programmer:[
                 {name: "Armando Guardado",linkedinProfile: "https://www.linkedin.com/home",gitHubRepo: "https://github.com/MandoGuardado",school:"California State Univesrity- Northridge", youTubeProfile:"https://www.youtube.com/" },
-                {name:"Luca Molinar", linkedinProfile:"https://www.linkedin.com/home", gitHubRepo: "https://github.com/LuMolinari",school:"California State Univesrity- Northridge",youTubeProfile:"https://www.youtube.com/" },
+                {name:"Luca Molinari", linkedinProfile:"https://www.linkedin.com/home", gitHubRepo: "https://github.com/LuMolinari",school:"California State Univesrity- Northridge",youTubeProfile:"https://www.youtube.com/" },
                 {name: "Joshua Foster",linkedinProfile: "https://www.linkedin.com/home",gitHubRepo: "https://github.com/JoshuaFoster208",school:"California State Univesrity- Northridge",youTubeProfile:"https://www.youtube.com/" },
                 {name: "Edgar Mancia",linkedinProfile: "https://www.linkedin.com/home",gitHubRepo: "https://github.com/eddiemm",school:"California State Univesrity- Northridge",youTubeProfile:"https://www.youtube.com/" }
             ]       
