@@ -77,28 +77,22 @@
         </b-row>
       </b-container>
 
-      <h1
-        v-if="!searchButtonClickedOnce"
-        class="mt-3"
-        style="font-weight: bold"
-      >
-        Search by name or state
-      </h1>
-      <h1
-        v-else-if="parkResults.length < 1"
-        class="mt-3"
-        style="font-weight: bold"
-      >
-        {{ displayMessage }}
-        <div
-          v-if="displayMessage === 'Searching...'"
-          class="mt-5"
-          style="font-weight: bold"
-        >
-          <b-spinner id="search-spinner" label="Loading..."></b-spinner>
-        </div>
-      </h1>
-      <h1 v-else class="mt-3">{{ parkResults.length }} Results</h1>
+      <div class="prompt mt-2">
+        <h1 v-if="!searchButtonClickedOnce" style="font-weight: bold">
+          Search by name or state
+        </h1>
+        <h1 v-else-if="parkResults.length < 1" style="font-weight: bold">
+          {{ displayMessage }}
+          <div
+            v-if="displayMessage === 'Searching...'"
+            style="font-weight: bold"
+          >
+            <b-spinner id="search-spinner" label="Loading..."></b-spinner>
+          </div>
+        </h1>
+        <h1 v-else>{{ parkResults.length }} Results</h1>
+      </div>
+
       <div v-for="park in parkResults" :key="park.parkCode">
         <SearchResultCard :park="park" />
       </div>
@@ -110,13 +104,11 @@
 
 <script>
 import SearchResultCard from "../components/SearchResultCard";
-// import DiscoverHero from "../components/DiscoverHero";
 
 export default {
   name: "Discover",
   components: {
     SearchResultCard,
-    // DiscoverHero,
   },
 
   data: function () {
@@ -428,6 +420,11 @@ export default {
 #search-spinner {
   height: 3rem;
   width: 3rem;
+}
+
+.prompt {
+  padding: 10px 0;
+  background-color: rgb(0, 0, 0, 0.35);
 }
 
 /* Adjusting fonts for responsiveness */
