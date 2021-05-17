@@ -1,12 +1,13 @@
 <template>
+  <!-- link to ParkDetails route when clicked and pass in parkCode -->
   <router-link :to="{ name: 'ParkDetails', params: { code: park.parkCode } }">
+    <!-- bootstrap card -->
     <b-card no-body class="bg-dark mt-4 overflow-hidden main-card-view">
-      <!-- main row -->
-      <b-row class="" cols="2" no-gutters>
+      <!-- main row (single row, two columns)-->
+      <b-row cols="2" no-gutters>
         <!-- image -->
-        <b-col class="" cols="5" md="5">
-          <!-- src needs to be park image url -->
-          <!-- change min height from 131px to 178px -->
+        <b-col cols="5" md="5">
+          <!-- park image -->
           <b-card-img
             v-bind:src="park.imageUrl"
             alt="Image"
@@ -19,8 +20,10 @@
 
         <!-- card content -->
         <b-col class="text-left py-2 px-2" cols="7" md="7">
+          <!-- park name -->
           <b-card-title class="h5 mb-3 ml-1">{{ park.name }}</b-card-title>
 
+          <!-- nested rows below used to position icons and text correctly -->
           <!-- map and location row -->
           <b-row cols="2" class="ml-0 mr-n5 mb-1 align-content-center px-1">
             <!-- icon column -->
@@ -83,8 +86,11 @@
 </template>
 
 <script>
+/* to be imported else where */
 export default {
+  /* to better identify component in inspector */
   name: "SearchResultCard",
+  /* paramters passed into this component */
   props: ["park"],
 };
 </script>
@@ -94,7 +100,12 @@ export default {
 /* styling for any devices with max-width of 600px*/
 .main-card-view {
   max-height: 250px;
-  /* min-width: 320px; */
+}
+
+/* add filter to card on hover */
+.main-card-view:hover {
+  max-height: 250px;
+  filter: brightness(1.3);
 }
 .h5 {
   font-size: 1.4em;

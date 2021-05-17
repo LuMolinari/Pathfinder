@@ -1,22 +1,25 @@
 <template>
   <div>
-    <!-- <DiscoverHero /> -->
+    <!-- route rendering area -->
     <div class="route-view" id="discover">
-      <!-- main section -->
+      <!-- input form area -->
       <b-container fluid class="main-container px-3 py-2 w-100 rounded mt-5">
         <!-- heading and subheading -->
         <b-row class="mb-3 text-left">
           <b-col>
             <p class="h2">Discover</p>
+            <!-- lead increases font size and decreases weight to make text stand out slightly -->
             <p class="lead text-muted mb-n1 mt-n1">
               Your next outdoor adventure awaits
             </p>
           </b-col>
         </b-row>
 
-        <!-- search bar and 2 grouped buttons -->
-        <!-- search bar -->
+        <!-- input group -->
+        <!-- search bar and 2 buttons -->
         <b-row class="mb-2">
+          <!-- specify columns used out of 12 for sm and md - lg screens. -->
+          <!-- xs screens are targeted by default-->
           <b-col sm="12" md="8">
             <b-form-input
               size="md"
@@ -27,16 +30,20 @@
           </b-col>
 
           <!-- dropdown and search button -->
-          <b-col sm="12" md="4">
-            <!-- bug from above: in order to move grouped buttons together, had to add negative margins-->
+          <!-- explicitly specifying the amount of cols used for xs screens -->
+          <b-col class="col-12" sm="12" md="4">
+            <!-- add negative margins here to override component default margins-->
             <b-row class="mx-n5">
               <b-col>
                 <b-button-toolbar class="justify-content-center">
-                  <!-- changed to dropdown select instead of button dropdown -->
+                  <!-- dropdown selector -->
                   <b-form-select class="ml-3 mr-2 w-50" v-model="dropDownValue">
+                    <!-- options -->
                     <!-- first option MUST be disabled with empty value to render -->
                     <option disabled value="">Search By</option>
+
                     <!-- for each option, bind the options value to this element and render its text -->
+                    <!-- the key binds to the options id so that vue knows exactly how to update and rerender data -->
                     <option
                       v-for="option in options"
                       :key="option.id"
@@ -46,6 +53,8 @@
                     </option>
                   </b-form-select>
 
+                  <!-- search button -->
+                  <!-- @click is the same as v-on:click="doSomething" -->
                   <b-button
                     id="popover-target-1"
                     class="ml-2 mr-3"
@@ -54,6 +63,7 @@
                     @click="search()"
                     >Search</b-button
                   >
+                  <!-- add popover prompts if text field is empty or search type is not selected -->
                   <b-popover
                     v-if="dropDownValue === ''"
                     target="popover-target-1"
@@ -77,12 +87,16 @@
         </b-row>
       </b-container>
 
+      <!-- display message -->
       <div class="prompt mt-2">
+        <!-- if search button has not been clicked -->
         <h1 v-if="!searchButtonClickedOnce" style="font-weight: bold">
           Search by name or state
         </h1>
+        <!-- if there aren't any results -->
         <h1 v-else-if="parkResults.length < 1" style="font-weight: bold">
           {{ displayMessage }}
+          <!-- if searching, display a progress spinner -->
           <div
             v-if="displayMessage === 'Searching...'"
             style="font-weight: bold"
@@ -90,9 +104,11 @@
             <b-spinner id="search-spinner" label="Loading..."></b-spinner>
           </div>
         </h1>
+        <!-- else display the result count -->
         <h1 v-else>{{ parkResults.length }} Results</h1>
       </div>
 
+      <!-- for each park result, render a SearchResultCard -->
       <div v-for="park in parkResults" :key="park.parkCode">
         <SearchResultCard :park="park" />
       </div>
@@ -103,14 +119,20 @@
 
 
 <script>
+/* import custom component */
 import SearchResultCard from "../components/SearchResultCard";
 
+/* make this component "importable" */
 export default {
+  /* Vue component options */
+  /* name is more informative name during inspection in browsers */
   name: "Discover",
+  /* specifies components available to this vue component */
   components: {
     SearchResultCard,
   },
-
+  /* data object for this vue component */
+  /* this is a function which must return a data object */
   data: function () {
     return {
       npsAPIKey: "EoYJvbdhLZ0NUwj5io2JSXLWXXR7yTrYegUq02gC",
@@ -126,8 +148,7 @@ export default {
       displayMessage: "",
     };
   },
-  watch: {},
-  mounted() {},
+  /* methods for this vue component */
   methods: {
     /* park object constructor */
     Park(parkCode, name, city, state, activities, temp, imageUrl) {
@@ -139,8 +160,9 @@ export default {
       this.temp = temp;
       this.imageUrl = imageUrl;
     },
+    /* gets the current weather for the city */
     getNationalParkCurrentTemperature: async function (city) {
-      // TODO: pull data from openweather
+      /* fetch weather data */
       var response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${this.openweatherAPIKey}`
       );
@@ -149,11 +171,14 @@ export default {
         /* response promise will only be rejected if network error occured */
         throw new Error("HTTP request network error occurred");
       }
+      /* convert the response to json */
       var jsonData = await response.json();
+
       return jsonData;
     },
+    /* gets all the national parks in state */
     getNationalParksInState: async function (state) {
-      // fetch response from nps api: park data with the specified state code
+      /* fetch response from nps api: park data using specified state code */
       var response = await fetch(
         `https://developer.nps.gov/api/v1/parks?stateCode=${state}&api_key=${this.npsAPIKey}`
       );
@@ -164,11 +189,12 @@ export default {
       }
       /* convert the response into json */
       var jsonData = await response.json();
+
       return jsonData;
     },
+    /* get the national park by its name */
     getNationalParkByName: async function (name) {
-      /* fetch response from nps api: all parks data (play with url queries 
-      for more efficient way to reach park name and fullName properties) */
+      /* fetch response from nps api: park data by name */
       var response = await fetch(
         `https://developer.nps.gov/api/v1/parks?q=${name}&api_key=${this.npsAPIKey}`
       );
@@ -182,10 +208,11 @@ export default {
 
       return jsonData;
     },
+    /* store results from data fetch */
     storeNationalParkResults: function (data) {
-      // path to park objects
+      /* path to park object in json */
       let parks = data["data"];
-      // data: park
+      /* for each park in data */
       for (var i = 0; i < parks.length; i++) {
         /* check if park is designated as national park(s)
         values are case sensitive */
@@ -193,7 +220,7 @@ export default {
           parks[i]["designation"] == "National Park" ||
           parks[i]["designation"] == "National Parks"
         ) {
-          /* create new park object */
+          /* create new park object from national park data object*/
           var nationalParkInState = new this.Park(
             parks[i]["parkCode"],
             parks[i]["fullName"],
@@ -208,27 +235,22 @@ export default {
         }
       }
 
-      // if parkResults is empty, return, else get temps
+      /* if there are no park results, return, else get temperatures */
       if (this.parkResults.length > 0) {
         /* fetch and update the temp in each city */
         this.parkResults.forEach((park) => {
-          park.temp = this.getNationalParkCurrentTemperature(park.city)
+          this.getNationalParkCurrentTemperature(park.city)
             .then((data) => {
-              /* console.log(
-                `Current temp at ${park.city} is ${data["main"][
-                  "temp"
-                ].toPrecision(2)}`
-              ); */
-              if (park.city === "Death Valley") {
-                console.log("hello");
-              }
-              park.temp = data["main"]["temp"].toPrecision(2);
+              /* set temp to data from openweather and set to 3 digit precision */
+              park.temp = data["main"]["temp"].toPrecision(3);
             })
             .catch((error) => {
+              /* if weather not found, display placeholder -- */
               if (error.message === "HTTP request network error occurred") {
                 console.log(`${park.city} weather not found`);
                 park.temp = "--";
               }
+              /* log the error of the data retrieval */
               console.log(
                 "Error occured retreiving weather info for " +
                   park.city +
@@ -238,9 +260,11 @@ export default {
             });
         });
       } else {
-        this.displayMessage = "0 results found. Try another search.";
+        /* Results were not found */
+        this.displayMessage = "No results found. Try another search.";
       }
     },
+    /* function to convert state to state code */
     abbrState: function (input, to) {
       // function to convert state name to state code
       var states = [
@@ -309,17 +333,10 @@ export default {
           }
         }
       }
-      // this converts from state code to state but not needed for this project
-      /* else if (to == "name") {
-        input = input.toUpperCase();
-        for (i = 0; i < states.length; i++) {
-          if (states[i][1] == input) {
-            return states[i][0];
-          }
-        }
-      } */
     },
+    /* performs search */
     search: function () {
+      /* if dropdown option selected and search field is populated */
       if (this.dropDownValue != "" && this.searchText != "") {
         /* set flag */
         this.searchButtonClickedOnce = true;
@@ -328,6 +345,7 @@ export default {
 
         /* search based on the dropdown value */
         if (this.dropDownValue == "parkName") {
+          /* search by park name */
           console.log("Searching by park name");
 
           /* split the user input into word array */
@@ -351,6 +369,8 @@ export default {
           /* convert the array into a string */
           var lowerCasedInputString = lowerCaseWords.join(" ");
           console.log("Lower case input string: ", lowerCasedInputString);
+
+          /* update display message while searching */
           this.displayMessage = "Searching...";
 
           /* fetch and store the results */
@@ -360,17 +380,22 @@ export default {
               console.log("Error occured: ", error);
             });
         } else if (this.dropDownValue == "state") {
+          /* search by state */
           console.log("Searching by state");
+
           /* convert 'state' into state code if not already in state code format */
           const stateCode = this.abbrState(this.searchText, "abbr");
+
           /* exit the function if a valid state code wasnt found */
           if (stateCode === undefined) {
-            // TODO: alert state not found message
             this.displayMessage = "State is not found. Try another search.";
             return;
           }
+
+          /* update the display message */
           console.log("State code: ", stateCode);
           this.displayMessage = "Searching...";
+
           /* pass state code into search, 
             fetch and store data */
           this.getNationalParksInState(stateCode)
@@ -382,10 +407,6 @@ export default {
           /* do nothing, no selection */
           console.log("not searching");
         }
-
-        // if (this.parkResults.length === 0) {
-        //
-        // }
       }
     },
   },
@@ -405,23 +426,22 @@ export default {
   /* add a dim white to background */
   background: url("../assets/Canyonlands.jpg") no-repeat center center fixed;
   background-size: cover;
-
-  /* fixed to remove the scroll bar */
-  /* position: fixed; */
   padding: 2% 7%;
-  /* font-family: "Titillium Web", Arial, sans-serif; */
   color: white;
 }
 
+/* add a more specific background color to main container */
 .main-container {
   background-color: #212429;
 }
 
+/* change the size of the progress spinner */
 #search-spinner {
   height: 3rem;
   width: 3rem;
 }
 
+/* style the prompt background for increased legibility */
 .prompt {
   padding: 10px 0;
   background-color: rgb(0, 0, 0, 0.35);
