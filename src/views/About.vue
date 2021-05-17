@@ -109,7 +109,7 @@
           <div v-if="picked === 'meet'" class="slide-content meet-slide">
             <!-- dark overlay for the background of the slide -->
             <div class="overlay">
-                <app-programmer></app-programmer>
+              <app-programmer></app-programmer>
             </div>
           </div>
 
@@ -183,21 +183,6 @@
               </ul>
             </div>
           </div>
-
-          <!-- Changed this slide to resources for links to park resources links/info -->
-          <!-- <h2>National Park Service History</h2>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos ullam nam
-          iusto sed nisi placeat culpa minus nihil tempore quibusdam! Totam beatae
-          maxime corrupti odio aspernatur consectetur fugit mollitia adipisci?
-          Vitae id non voluptatum nam aut? Repellat, architecto illum. Corporis
-          ea, voluptatum cum repellat quod, officiis officia voluptates nihil
-          maiores, magni ratione molestias culpa magnam? Aperiam, sunt!
-          Voluptatibus, error vel. Cum facere vel eaque fuga, assumenda totam nisi
-          tenetur eos sapiente, rem aperiam. Nisi accusamus quis facere vitae.
-          Tenetur aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-          pariatur provident velit?
-        </p> -->
         </div>
       </div>
     </div>
@@ -209,8 +194,8 @@
 import Programmers from "../components/programmer.vue";
 
 export default {
-  components:{
-    'app-programmer':Programmers
+  components: {
+    "app-programmer": Programmers,
   },
   name: "about",
   data() {
