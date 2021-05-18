@@ -1,65 +1,26 @@
 <template>
   <div class="campgroundTile">
     <b-container>
-      <b-row cols="1" cols-sm="1" cols-md="2">
+      <b-row cols="1" cols-sm="1" cols-md="2" align-v="center">
         <b-col v-if="photosExist()">
-          <!-- <b-row>
-            <b-col v-for="image in images.slice(0,3)"
-        :key="image.url">
-        <b-img thumbnail :src="image.url"></b-img>
-        {{image.caption}}
-            </b-col>
-          </b-row> -->
-          <b-carousel
-      v-if="photosExist()"
-      id="carousel-fade"
-      :interval="5000"
-      controls
-      fade
-      indicators
-      background="#ababab"
-      style="text-shadow: 1px 1px 2px #333"
-    >
-      <b-carousel-slide
-        v-for="image in images"
-        :key="image.url"
-        :text="image.caption"
-        :img-src="image.url"
-      >
-      </b-carousel-slide>
-    </b-carousel>
+          <b-img
+              thumbnail
+              :src="images[0].url"
+              alt="park image"
+            ></b-img>
         </b-col>
-        <b-col  class="vHTML" v-html="facilityDescription">
-          
-        </b-col>
+        <b-col class="vHTML" v-html="facilityDescription"> </b-col>
       </b-row>
     </b-container>
 
-
-
-
-    <!-- <b-carousel
-      v-if="photosExist()"
-      id="carousel-fade"
-      :interval="5000"
-      controls
-      fade
-      indicators
-      background="#ababab"
-      style="text-shadow: 1px 1px 2px #333"
+    <b-button
+      ><router-link
+        class="link-to-availability"
+        :to="{ name: 'OpeningsDisplay', params: { ID: facilityID } }"
+        >Check Availability</router-link
+      ></b-button
     >
-      <b-carousel-slide
-        v-for="image in images"
-        :key="image.url"
-        :text="image.caption"
-        :img-src="image.url"
-      >
-      </b-carousel-slide>
-    </b-carousel>
-    <div class="vHTML" v-html="facilityDescription"></div> -->
-
-    <b-button><router-link class="link-to-availability" :to="{name:'OpeningsDisplay', params: { ID:facilityID}} ">Check Availability</router-link></b-button>
-  </div>       
+  </div>
 </template>
 
 <script>
@@ -73,26 +34,33 @@ export default {
       images: [],
     };
   },
-  methods:{
-    photosExist(){
+  methods: {
+    photosExist() {
       return this.images.length != 0;
-    }
+    },
   },
   mounted() {
     let self = this;
     //make API call to get facility data
-    let id = self.facilityID
-    console.log("Facility ID",  id);
-    
-    console.log('API Called on :>> ', "https://ridb.recreation.gov/api/v1/facilities/" +  id + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5");
+    let id = self.facilityID;
+    console.log("Facility ID", id);
+
+    console.log(
+      "API Called on :>> ",
+      "https://ridb.recreation.gov/api/v1/facilities/" +
+        id +
+        "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+    );
     fetch(
-      "https://ridb.recreation.gov/api/v1/facilities/" +  id + "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
+      "https://ridb.recreation.gov/api/v1/facilities/" +
+        id +
+        "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
     )
       .then((res) => res.json())
       .then((result) => {
         console.log("Individual campgrounds ", result);
-        this.facilityInfo =  result ;
-        let string =  this.facilityInfo.FacilityDescription;
+        this.facilityInfo = result;
+        let string = this.facilityInfo.FacilityDescription;
         //let string = ('<div class="b">' + result.FacilityDescription + '</div>');
         let start = 0;
         if (string.includes("<h2>Overview</h2>")) {
@@ -100,10 +68,13 @@ export default {
         }
         let end = string.indexOf("<h2>Recreation</h2>");
         string = string.slice(start, end);
-        string = ('<div class="b">' + string + '</div>');
+        string = '<div class="b">' + string + "</div>";
         this.facilityDescription = string;
         for (let i = 0; i < result.MEDIA.length; i++) {
-            this.images.push({ url: result.MEDIA[i].URL, caption: result.MEDIA[i].Description});
+          this.images.push({
+            url: result.MEDIA[i].URL,
+            caption: result.MEDIA[i].Description,
+          });
         }
       });
   },
@@ -138,12 +109,12 @@ export default {
 }
 .vHTML >>> .b {
   font-size: 1em;
-    text-align: left;
+  text-align: left;
 }
 .vHTML >>> .b p {
 }
-.link-to-availability{
-  color:whitesmoke;
+.link-to-availability {
+  color: whitesmoke;
   text-decoration: none;
 }
 </style>

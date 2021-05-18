@@ -173,8 +173,8 @@
         buttons
       ></b-form-radio-group>
     </b-form-group>
-    <!-- The campground Tile will make the necessary API calls -->
 
+    <!-- The campground Tile will make the necessary API calls -->
     <CampgroundTile
       v-for="camp in options"
       :key="camp.value"
