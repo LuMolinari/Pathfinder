@@ -1,68 +1,6 @@
 <template>
   <div>
-    <div class="route-view">
-      <!-- main section-->
       <div class="about">
-        <!-- <b-tabs  tabs justified class="slide-content-area">
-          <b-tab title="Meet The Team" active class="slide-content meet-slide overlay"> <h2>Meet the Team</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p></b-tab>
-          <b-tab title="Mission" active class="slide-content mission-slide overlay">   
-            <h2>Our Mission</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p></b-tab>
-          <b-tab title="Purpose" class="slide-content purpose-slide overlay"><h2>Purpose</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p></b-tab>
-          <b-tab title="resources"   class="slide-content resources-slide overlay"> <h2>resources</h2>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              ullam nam iusto sed nisi placeat culpa minus nihil tempore
-              quibusdam! Totam beatae maxime corrupti odio aspernatur
-              consectetur fugit mollitia adipisci? Vitae id non voluptatum nam
-              aut? Repellat, architecto illum. Corporis ea, voluptatum cum
-              repellat quod, officiis officia voluptates nihil maiores, magni
-              ratione molestias culpa magnam? Aperiam, sunt! Voluptatibus, error
-              vel. Cum facere vel eaque fuga, assumenda totam nisi tenetur eos
-              sapiente, rem aperiam. Nisi accusamus quis facere vitae. Tenetur
-              aspernatur consequuntur autem quod blanditiis fugiat, amet quae
-              pariatur provident velit?
-            </p></b-tab>
-      </b-tabs> -->
-
         <!-- radio button wrapper -->
         <div class="radio-buttons">
           <!-- radio button -->
@@ -103,8 +41,7 @@
           <label id="labelForresources" for="resourcesRadio"> Resources </label>
         </div>
 
-        <!-- slide content wrapper -->
-        <div class="slide-content-area">
+        
           <!-- each content div below depends on value of 'picked' -->
           <div v-if="picked === 'meet'" class="slide-content meet-slide">
             <!-- dark overlay for the background of the slide -->
@@ -183,9 +120,9 @@
               </ul>
             </div>
           </div>
-        </div>
+        
       </div>
-    </div>
+    
   </div>
   <!-- view area -->
 </template>
@@ -218,21 +155,13 @@ export default {
   box-sizing: border-box;
 }
 
-.route-view {
-  width: 100%;
-  height: 100%;
-  /* add a dim white to background */
-  /* background-color: #f0f0f0; */
-  /* fixed to remove the scroll bar */
-  position: relative;
-}
-
 /* main styles */
 .about {
   width: 100%;
   height: 100%;
   color: white;
   margin: 0px auto;
+
   /* width at which view changes from desktop to tablet or mobile */
   /* min-width: 600px; */
   /* prevents stretching content too far */
@@ -313,12 +242,14 @@ p {
 
 /* content */
 .slide-content {
+  color: white;
   height: 100%;
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   font-size: 16px;
+  min-height: 750px;
 }
 
 /* background images for each individual slide */
@@ -345,6 +276,8 @@ p {
   min-height: 600px;
   background-color: rgba(0, 0, 0, 0.55);
   padding: 0px 7%;
+  min-height: 750px;
+
 }
 
 /* needed to add this because the default cursor is a pointer but i couldnt figure out why */
