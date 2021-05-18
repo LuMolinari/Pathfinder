@@ -9,8 +9,8 @@
         <h1>{{ parkInfo.fullName }}</h1>
       </div>
     </div>
-    <!-- Bar with information about park -->
 
+    <!-- Bar with information about park -->
     <b-container class="info-bar">
       <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="4">
         <b-col
@@ -82,7 +82,6 @@
     </b-container>
 
     <!-- Any Current Park Alerts -->
-
     <b-alert
       v-if="alerts != null"
       class="alerts-wrapper"
@@ -98,28 +97,6 @@
         <hr />
       </div>
     </b-alert>
-
-    <!-- Testing out photos -->
-    <!-- <div class="container-bg">
-      <b-container fluid>
-        <b-row
-          v-for="image in parkInfo.images.slice(1, 4)"
-          :key="image.url"
-          cols="1"
-          cols-sm="1"
-          cols-md="2"
-          class="photo-row"
-        >
-          <b-col>
-            <b-img rounded :src="image.url" alt="park image" class="park-image"></b-img
-          ></b-col>
-          <b-col class="centered">
-            <h3>{{ image.title }}</h3>
-            <p>{{ image.caption }}</p>
-          </b-col>
-        </b-row>
-      </b-container>
-    </div> -->
 
     <div>
       <b-container fluid>

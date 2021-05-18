@@ -1,29 +1,36 @@
 <template>
   <div class="app-error">
-  <b-jumbotron header="404 ERROR" lead="CONGRATULATIONS!" text-variant="white" bg-variant="dark"  >
-
-    <b-jumbotron  text-variant="dark" bg-variant="danger">
-      <b-icon icon="exclamation-triangle-fill" animation="fade" scale="2" variant="warning" style="width: 100px; height: 90px;" ></b-icon>
-    </b-jumbotron>
-    <p>You are officially lost.....</p>
-    <b-button bg-variant="danger" href="/">Return home</b-button>
-  </b-jumbotron>
+    <b-container>
+      <b-row  cols="1" cols-sm="1" cols-md="2" >
+        <b-col  bg-variant="dark">
+          <img src="../assets/hiker.svg"  alt="Responsive image" class="hiker-img"/>
+        </b-col>
+        <b-col>
+          <b-jumbotron
+            header="Please stay on the trails"
+            lead="We can't find the page you're looking for"
+            text-variant="white"
+            bg-variant="dark"
+          >
+            <b-button bg-variant="danger" href="/">Return home</b-button>
+          </b-jumbotron>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-
-import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
-export default {
-
-}
+import "bootstrap-vue/dist/bootstrap-vue-icons.min.css";
+export default {};
 </script>
 
 <style scoped>
-
-.app-error{
-  margin-top: 35px;
+.hiker-img{
+  width:100%
 }
 
-
+.app-error {
+  margin-top: 35px;
+}
 </style>
