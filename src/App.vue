@@ -74,7 +74,14 @@ h2:hover {
 .img-fluid{
     max-width: 100%;
     height: -webkit-fill-available !important;
-    object-fit: contain !important;
+}
+
+.carousel-inner{
+  margin: 0 auto;
+}
+
+.centerd{
+  margin: 0 auto;
 }
 
 .row{
