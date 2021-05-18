@@ -122,40 +122,6 @@
       </b-container>
     </div>
 
-    <!-- <b-carousel
-      id="carousel-fade"
-      :interval="5000"
-      controls
-      fade
-      indicators
-      background="#ababab"
-      style="text-shadow: 1px 1px 2px #333"
-    >
-      <b-carousel-slide
-        v-for="image in parkInfo.images"
-        :key="image.url"
-        :caption="image.title"
-        :text="image.caption"
-        :img-src="image.url"
-        :style="'object-fit:contain;'"
-      >
-      </b-carousel-slide>
-    </b-carousel> -->
-    <!-- List of possible activities -->
-    <!-- <h2>Activities</h2>
-    <div class="activities-wrapper">
-      <b-badge
-        v-for="activity in parkInfo.activities.slice(0, 10)"
-        :key="activity.id"
-        pill
-        variant="secondary"
-        class="activity"
-        href="#"
-      >
-        {{ activity.name }}
-      </b-badge>
-    </div> -->
-
     <div v-if="campgroundsExist()">
     <!-- Displaying Campsites Name -->
     <b-form-group
@@ -410,12 +376,14 @@ export default {
   height: auto;
   width: 100%;
 }
+
 .centered {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 #carousel-fade {
   width: 75%;
   background: aqua;

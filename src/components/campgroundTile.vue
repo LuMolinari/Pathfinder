@@ -13,7 +13,7 @@
       </b-row>
     </b-container>
 
-    <b-button
+    <b-button class="availability-button"
       ><router-link
         class="link-to-availability"
         :to="{ name: 'OpeningsDisplay', params: { ID: facilityID } }"
@@ -99,6 +99,18 @@ export default {
   width: 75%;
   height: 400px;
 }
+
+.availability-button{
+  margin-top: 15px;
+}
+
+.col img{
+  min-height: 300px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
 .carousel-item {
   filter: brightness(90%);
   height: 400px;
