@@ -1,8 +1,8 @@
 <template>
   <div class="app-error">
     <b-container>
-      <b-row  cols="1" cols-sm="1" cols-md="2" >
-        <b-col  bg-variant="dark">
+      <b-row  cols="1" cols-sm="1" cols-md="2" align-v="end">
+        <b-col align-v="stretch">
           <img src="../assets/hiker.svg"  alt="Responsive image" class="hiker-img"/>
         </b-col>
         <b-col>
