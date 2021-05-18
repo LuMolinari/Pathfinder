@@ -81,4 +81,7 @@ h2:hover {
   justify-content: space-evenly;
 }
 
+.navbar-toggler{
+  margin: 0 auto;
+}
 </style>

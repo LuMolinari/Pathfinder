@@ -72,6 +72,8 @@ export default {
 <style scoped>
   .white{
     color: aliceblue;
+    margin: 20px auto;
+    font-size: 2.7rem;
   }
 
 </style>
