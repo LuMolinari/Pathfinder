@@ -218,25 +218,9 @@ export default {
         }
         //I can use latitude and longitude to call rec.gov API here
         // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
-        console.log(
-          "RIDB called with: ",
-          "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
-            this.center.lat +
-            "&longitude=" +
-            this.center.lng +
-            "&radius=10&activity=CAMPING,9&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
-        );
-        //I can use latitude and longitude to call rec.gov
-        console.log(
-          "Fetching all the camp data from: ",
-          "https://ridb.recreation.gov/api/v1/facilities?&offset=0&latitude=" +
-            this.center.lat +
-            "&longitude=" +
-            this.center.lng +
-            "&radius=10&activity=9,CAMPING&lastupdated=01-01-2018&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
-        );
+        
         fetch(
-          "https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
+          "https://desolate-earth-53850.herokuapp.com/https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
             this.center.lat +
             "&longitude=" +
             this.center.lng +

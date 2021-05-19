@@ -49,12 +49,12 @@ export default {
 
     console.log(
       "API Called on :>> ",
-      "https://ridb.recreation.gov/api/v1/facilities/" +
+      "https://desolate-earth-53850.herokuapp.com/https://ridb.recreation.gov/api/v1/facilities/" +
         id +
         "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
     );
     fetch(
-      "https://ridb.recreation.gov/api/v1/facilities/" +
+      "https://desolate-earth-53850.herokuapp.com/https://ridb.recreation.gov/api/v1/facilities/" +
         id +
         "?full=true&apikey=13f17cb4-1da1-402a-ac14-dc6f430a8bd5"
     )
