@@ -1,128 +1,119 @@
 <template>
   <div>
-      <div class="about">
-        <!-- radio button wrapper -->
-        <div class="radio-buttons">
-          <!-- radio button -->
-          <input
-            v-model="picked"
-            value="meet"
-            type="radio"
-            id="meetRadio"
-            checked
-          />
-          <label id="labelForMeetTheTeam" for="meetRadio">Meet The Team</label>
+    <div class="about">
+      <!-- radio button wrapper -->
+      <div class="radio-buttons">
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="meet"
+          type="radio"
+          id="meetRadio"
+          checked
+        />
+        <label id="labelForMeetTheTeam" for="meetRadio">Meet The Team</label>
 
-          <!-- radio button -->
-          <input
-            v-model="picked"
-            value="mission"
-            type="radio"
-            id="missionRadio"
-          />
-          <label id="labelForMission" for="missionRadio">Mission</label>
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="mission"
+          type="radio"
+          id="missionRadio"
+        />
+        <label id="labelForMission" for="missionRadio">Mission</label>
 
-          <!-- radio button -->
-          <input
-            v-model="picked"
-            value="purpose"
-            type="radio"
-            id="purposeRadio"
-          />
-          <label id="labelForPurpose" for="purposeRadio">Purpose</label>
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="purpose"
+          type="radio"
+          id="purposeRadio"
+        />
+        <label id="labelForPurpose" for="purposeRadio">Purpose</label>
 
-          <!-- radio button -->
-          <input
-            v-model="picked"
-            value="resources"
-            type="radio"
-            id="resourcesRadio"
-          />
-          <label id="labelForresources" for="resourcesRadio"> Resources </label>
-        </div>
-
-        
-          <!-- each content div below depends on value of 'picked' -->
-          <div v-if="picked === 'meet'" class="slide-content meet-slide">
-            <!-- dark overlay for the background of the slide -->
-            <div class="overlay">
-              <app-programmer></app-programmer>
-            </div>
-          </div>
-
-          <!-- content div -->
-          <div v-if="picked === 'mission'" class="slide-content mission-slide">
-            <div class="overlay">
-              <h2>Our Mission</h2>
-              <p>
-                Our hope is that tourists will learn to appreciate the natural
-                wonders of our world and make it a reason to practice
-                sustainability in their lives. Just as national parks are
-                maintained and protected, we must make an effort to do the same
-                for Earth.
-              </p>
-            </div>
-          </div>
-
-          <!-- content div -->
-          <div v-if="picked === 'purpose'" class="slide-content purpose-slide">
-            <div class="overlay">
-              <h2>Purpose</h2>
-              <p>
-                The purpose of this website is to assist you in planning for a
-                trip to a national park. Pathfinder alllows you to search for
-                national parks and displays relevant information regarding the
-                park such as important alerts, activities available and current
-                weather. Want to know if camping is available for a certain
-                date? Check out the camp openings in the park details page for
-                the park you are interested in. For any information you can't
-                find here, feel free to check out the resources tab for other
-                useful links!
-              </p>
-            </div>
-          </div>
-
-          <!-- content div -->
-          <div
-            v-if="picked === 'resources'"
-            class="slide-content resources-slide"
-          >
-            <div class="overlay">
-              <h2>Resources</h2>
-              <p>
-                Below are a few links you may find helpful regarding your next
-                trip to any national park.
-              </p>
-              <ul>
-                <li>
-                  <a href="https://www.nps.gov/" target="_blank"
-                    >National Park Service - Official site from the US
-                    government</a
-                  >
-                </li>
-                <li>
-                  <a href="https://www.recreation.gov/" target="_blank"
-                    >Recreation - Camping, rental, passes and more.</a
-                  >
-                </li>
-                <li>
-                  <a href="https://www.nationalparks.org/" target="_blank"
-                    >National Park Foundation - Donate to those that help
-                    protect our parks.</a
-                  >
-                </li>
-                <li>
-                  <a href="https://www.npca.org/" target="_blank"
-                    >National Park Conservation Association - National park news
-                    and resources.</a
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-        
+        <!-- radio button -->
+        <input
+          v-model="picked"
+          value="resources"
+          type="radio"
+          id="resourcesRadio"
+        />
+        <label id="labelForresources" for="resourcesRadio"> Resources </label>
       </div>
-    
+
+      <!-- each content div below depends on value of 'picked' -->
+      <div v-if="picked === 'meet'" class="slide-content meet-slide">
+        <!-- dark overlay for the background of the slide -->
+        <div class="overlay">
+          <app-programmer></app-programmer>
+        </div>
+      </div>
+
+      <!-- content div -->
+      <div v-if="picked === 'mission'" class="slide-content mission-slide">
+        <div class="overlay">
+          <h2>Our Mission</h2>
+          <p>
+            Our hope is that tourists will learn to appreciate the natural
+            wonders of our world and make it a reason to practice sustainability
+            in their lives. Just as national parks are maintained and protected,
+            we must make an effort to do the same for Earth.
+          </p>
+        </div>
+      </div>
+
+      <!-- content div -->
+      <div v-if="picked === 'purpose'" class="slide-content purpose-slide">
+        <div class="overlay">
+          <h2>Purpose</h2>
+          <p>
+            The purpose of this website is to assist you in planning for a trip
+            to a national park. Pathfinder alllows you to search for national
+            parks and displays relevant information regarding the park such as
+            important alerts, activities available and current weather. Want to
+            know if camping is available for a certain date? Check out the camp
+            openings in the park details page for the park you are interested
+            in. For any information you can't find here, feel free to check out
+            the resources tab for other useful links!
+          </p>
+        </div>
+      </div>
+
+      <!-- content div -->
+      <div v-if="picked === 'resources'" class="slide-content resources-slide">
+        <div class="overlay">
+          <h2>Resources</h2>
+          <p>
+            Below are a few links you may find helpful regarding your next trip
+            to any national park.
+          </p>
+          <ul>
+            <li>
+              <a href="https://www.nps.gov/" target="_blank"
+                >National Park Service - Official site from the US government</a
+              >
+            </li>
+            <li>
+              <a href="https://www.recreation.gov/" target="_blank"
+                >Recreation - Camping, rental, passes and more.</a
+              >
+            </li>
+            <li>
+              <a href="https://www.nationalparks.org/" target="_blank"
+                >National Park Foundation - Donate to those that help protect
+                our parks.</a
+              >
+            </li>
+            <li>
+              <a href="https://www.npca.org/" target="_blank"
+                >National Park Conservation Association - National park news and
+                resources.</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- view area -->
 </template>
@@ -277,7 +268,6 @@ p {
   background-color: rgba(0, 0, 0, 0.55);
   padding: 0px 7%;
   min-height: 750px;
-
 }
 
 /* needed to add this because the default cursor is a pointer but i couldnt figure out why */
@@ -287,11 +277,11 @@ h2:hover {
 
 .resources-slide p {
   margin: 0px 0;
-  text-align: left;
+  text-align: center;
 }
 
 .resources-slide ul {
-  margin: 0px 15%;
+  margin: 0px 20%;
   font-size: 1.2em;
   text-align: left;
   list-style: none;
