@@ -4,10 +4,25 @@ import router from './router'
 import * as GmapVue from 'gmap-vue'
 import { BootstrapVue, IconsPlugin, BootstrapVueIcons} from 'bootstrap-vue'
 import VCalendar from 'v-calendar';
+import firebase from 'firebase'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDYByEn684AW9-ikuAMWVJu-IwT9EeooWU",
+  authDomain: "pathfinder-17a7e.firebaseapp.com",
+  projectId: "pathfinder-17a7e",
+  storageBucket: "pathfinder-17a7e.appspot.com",
+  messagingSenderId: "545674674712",
+  appId: "1:545674674712:web:599d42b0d4b548767f796d",
+  measurementId: "G-VC3C92EF31"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+
 
 // Make BootstrapVue available throughout your project
 Vue.use(BootstrapVue)
