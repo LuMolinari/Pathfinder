@@ -27,6 +27,11 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Merriweather&family=Pacifico&display=swap");
 
 /* global styles to prevent default browser styling */
+html {
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: auto;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -36,8 +41,8 @@ export default {
 html {
   margin: 0 !important;
   background:  #0f0f0f;
-
-}
+  
+  }
 
 #app {
   font-family: "Merriweather", serif;
@@ -46,7 +51,7 @@ html {
   text-align: center;  
   background:  #0f0f0f;
   color: aliceblue;
-
+  
 }
 
 .websiteName {
@@ -74,7 +79,14 @@ h2:hover {
 .img-fluid{
     max-width: 100%;
     height: -webkit-fill-available !important;
-    object-fit: contain !important;
+}
+
+.carousel-inner{
+  margin: 0 auto;
+}
+
+.centerd{
+  margin: 0 auto;
 }
 
 .row{

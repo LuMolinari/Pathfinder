@@ -206,6 +206,7 @@ export default {
       .then((data) => {
         this.parkInfo = data.data[0];
         console.log("NPS API: ", data);
+  
         //saving data used for centering map
         this.center.lat = parseFloat(data.data[0].latitude);
         this.center.lng = parseFloat(data.data[0].longitude);
@@ -270,7 +271,7 @@ export default {
             }
           });
       })
-      .catch((error) => console.log("Error calling NPS.gov", error));
+      .catch(() => this.$router.push({ name: 'NotFound'}));
     fetch(
       "https://developer.nps.gov/api/v1/alerts?parkCode=" +
         this.$route.params.code +
