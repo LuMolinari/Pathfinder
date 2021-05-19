@@ -119,12 +119,12 @@ export default {
 .carousel-item img {
   height: 100vh !important ;
 }
+
 .vHTML >>> .b {
   font-size: 1em;
   text-align: left;
 }
-.vHTML >>> .b p {
-}
+
 .link-to-availability {
   color: whitesmoke;
   text-decoration: none;
