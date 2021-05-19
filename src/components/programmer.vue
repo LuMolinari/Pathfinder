@@ -3,7 +3,7 @@
         <b-row align-h="center" >
             <h2 class="team-title" >Meet the Team</h2> </b-row>
         <b-row>
-          <b-col lg="6" md="6" sm="12" v-for="student in programmer" :key="student">
+          <b-col lg="6" md="6" sm="12" v-for="student in programmer" :key="student.name">
               <div>
                 <b-card align="left" border-variant="secondary" v-bind:header="student.name" class="app-card" bg-variant="dark" text-variant="white" sub-title='University:'>
                       <b-card-text>{{student.school}}    </b-card-text>

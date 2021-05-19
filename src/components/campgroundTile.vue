@@ -3,23 +3,22 @@
     <b-container>
       <b-row cols="1" cols-sm="1" cols-md="2" align-v="center">
         <b-col v-if="photosExist()">
-          <b-img
-              thumbnail
-              :src="images[0].url"
-              alt="park image"
-            ></b-img>
+          <b-img thumbnail :src="images[0].url" alt="park image"></b-img>
         </b-col>
         <b-col class="vHTML" v-html="facilityDescription"> </b-col>
       </b-row>
     </b-container>
 
-    <b-button class="availability-button"
-      ><router-link
-        class="link-to-availability"
-        :to="{ name: 'OpeningsDisplay', params: { ID: facilityID } }"
-        >Check Availability</router-link
-      ></b-button
-    >
+      <b-button class="availability-button" v-if="reservable()">
+        <router-link
+          class="link-to-availability"
+          :to="{ name: 'OpeningsDisplay', params: { ID: facilityID } }"
+          >Check Availability</router-link
+        >
+      </b-button>
+      <b-button v-else disabled class="availability-button" variant="outline-secondary">
+          Check Availability
+      </b-button>
   </div>
 </template>
 
@@ -38,6 +37,9 @@ export default {
     photosExist() {
       return this.images.length != 0;
     },
+    reservable() {
+      return this.facilityInfo.Reservable;
+    }
   },
   mounted() {
     let self = this;
@@ -100,11 +102,11 @@ export default {
   height: 400px;
 }
 
-.availability-button{
+.availability-button {
   margin-top: 15px;
 }
 
-.col img{
+.col img {
   min-height: 300px;
   height: 100%;
   width: 100%;
