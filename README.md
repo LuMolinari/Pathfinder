@@ -1,5 +1,5 @@
 # Pathfinder
-![](misc/img/banner.png)
+![](misc/img/logobanner.png)
 
 ## [Link to Website](https://pathfinder-17a7e.web.app/)
 ### Introduction
