@@ -1,6 +1,7 @@
 <template>
   <div v-if="parkInfo != null" class="wrapper">
-    <!-- Large Park Image and Name -->
+
+    <!-- Park Header Image and Name -->
     <div
       class="hero-img"
       v-bind:style="{ backgroundImage: 'url(' + parkInfo.images[0].url + ')' }"
@@ -11,6 +12,7 @@
     </div>
 
     <!-- Bar with information about park -->
+    <!-- Bootstrap components -->
     <b-container class="info-bar">
       <b-row cols="1" cols-sm="1" cols-md="2" cols-lg="4">
         <b-col
@@ -28,6 +30,7 @@
           </p>
           <p v-else>No Phone Number Found</p></b-col
         >
+
         <b-col
           ><h2>Email</h2>
           <p v-if="parkInfo.contacts.emailAddresses[0] != null">
@@ -35,6 +38,7 @@
           </p>
           <p v-else>No Email Found</p>
         </b-col>
+
         <b-col class="official-site-button">
           <!-- <h2>Learn More</h2> -->
           <b-button>
@@ -46,6 +50,7 @@
       </b-row>
     </b-container>
 
+    <!-- Park Overview -->
     <b-container class="overview">
       <b-row cols="1" cols-sm="1" cols-md="2">
         <b-col
@@ -59,6 +64,7 @@
       </b-row>
     </b-container>
 
+    <!-- Park Activities -->
     <b-container class="overview">
       <b-row cols="1" cols-sm="1" cols-md="2">
         <b-col
@@ -68,6 +74,8 @@
           </h2></b-col
         >
         <b-col>
+          <!-- Bootstrap badges -->
+          <!-- For loop to loop through activites -->
           <b-badge
             v-for="activity in parkInfo.activities.slice(0, 7)"
             :key="activity.id"
@@ -82,6 +90,7 @@
     </b-container>
 
     <!-- Any Current Park Alerts -->
+    <!-- Bootstrap alert components -->
     <b-alert
       v-if="alerts != null"
       class="alerts-wrapper"
@@ -90,6 +99,7 @@
       fade
       dismissible
     >
+      <!-- Looping through alerts -->
       <h2 style="text-align: center">Park Alerts</h2>
       <div v-for="alert in alerts" :key="alert.id">
         <h3>{{ alert.title }}</h3>
@@ -98,9 +108,11 @@
       </div>
     </b-alert>
 
+    <!-- Photo gallery -->
     <div>
       <b-container fluid>
         <b-row>
+          <!-- looping through images -->
           <b-col
             class="container-bg"
             v-for="image in parkInfo.images.slice(1, 4)"
@@ -109,7 +121,7 @@
             md="6"
             sm="12"
           >
-            <div ></div>
+            <!-- Responsive bootstrap images -->
             <b-img
               thumbnail
               :src="image.url"
@@ -122,12 +134,16 @@
       </b-container>
     </div>
 
+    <!-- Check if any campgrouinds exist -->
     <div v-if="campgroundsExist()">
-    <!-- Displaying Campsites Name -->
+
+    <!-- Bootstrap form group for radio buttons -->
     <b-form-group
       label="Check Available campsites"
       v-slot="{ ariaDescribedby }"
     >
+      <!-- The form group sets the 'selected' variable -->
+      <!-- we bind several bootstrap directives -->
       <b-form-radio-group
         id="btn-radios-2"
         v-model="selected"
@@ -140,7 +156,10 @@
       ></b-form-radio-group>
     </b-form-group>
 
-    <!-- The campground Tile will make the necessary API calls -->
+    
+    <!-- All the campgrounds in the array  are rendered on the page-->
+    <!-- the v-show dynamically hides them depending on the 'selected' variable -->
+    <!-- We are setting info to be used by the campgroundTile -->
     <CampgroundTile
       v-for="camp in options"
       :key="camp.value"
@@ -148,8 +167,9 @@
       :contractType="camp.type"
       v-show="camp.value == selected"
     />
+
   </div>
-    <!-- Google maps comnponent -->
+    <!-- Google maps component -->
     <GmapMap
       :center="center"
       :zoom="12"
@@ -168,17 +188,17 @@
     </GmapMap>
   </div>
 </template>
-
+  
 <script>
 import CampgroundTile from "../components/campgroundTile.vue";
 export default {
   name: "ParkInfo",
+  //variables and array being used by the page
   data() {
     return {
       parkInfo: null,
       campInfo: null,
       alerts: null,
-      // If you decide to add any map markers
       markers: [],
       center: { lat: 4.5, lng: 99 },
       selected: "test",
@@ -186,14 +206,17 @@ export default {
       items: [],
     };
   },
+  //specifying used components
   components: {
     CampgroundTile,
   },
+  //methods used by the vue
   methods:{
     campgroundsExist(){
       return this.options.length != 0;
     }
   },
+
   mounted() {
     //fetch general park info from  nps api
     fetch(
@@ -210,15 +233,17 @@ export default {
         //saving data used for centering map
         this.center.lat = parseFloat(data.data[0].latitude);
         this.center.lng = parseFloat(data.data[0].longitude);
+        
+        //adding images to array to display
         for (let i = 0; i < this.parkInfo.images.length; i++) {
           this.items.push({
             src: this.parkInfo.images[i].url,
             caption: this.parkInfo.images[i].title,
           });
         }
-        //I can use latitude and longitude to call rec.gov API here
-        // https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=37.29839254&longitude=-113.0265138&radius=10&activity=CAMPING,9&lastupdated=10-01-2018
-        
+
+        //using the latitude and the longitude to call RIDB
+        // for park information
         fetch(
           "https://desolate-earth-53850.herokuapp.com/https://ridb.recreation.gov/api/v1/facilities?offset=0&latitude=" +
             this.center.lat +
@@ -230,6 +255,8 @@ export default {
           .then((result) => {
             console.log("RIDB CAMPS:", result.RECDATA);
             let selected = false
+
+            //add campgrounds to campground arrays
             for (let i = 0; i < result.RECDATA.length; i++) {
               console.log(
                 "Checking Recdata",
@@ -256,6 +283,8 @@ export default {
           });
       })
       .catch(() => this.$router.push({ name: 'NotFound'}));
+
+     //using the park code to get alerts 
     fetch(
       "https://developer.nps.gov/api/v1/alerts?parkCode=" +
         this.$route.params.code +
@@ -263,6 +292,7 @@ export default {
     )
       .then((res) => res.json())
       .then((data) => {
+        //add alerts to alerts array
         console.log("Alerts API: ", data);
         if (data.total != "0") {
           this.alerts = data.data;
